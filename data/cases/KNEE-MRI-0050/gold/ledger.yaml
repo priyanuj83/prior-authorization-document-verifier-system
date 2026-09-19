@@ -1,0 +1,190 @@
+# Generated ledger for KNEE-MRI-0050. Hidden from the verifier.
+
+case_id: KNEE-MRI-0050
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: bd6049cf-d394-4818-8b37-a4498547844d
+  name: Ramona Valdivia
+  sex: F
+  birthdate: '1987-12-02'
+  city: Taunton
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-08-03'
+  request_date: '2014-10-24'
+  anchor_condition: Rupture of patellar tendon
+scope:
+  episode_window:
+    start: '2014-08-03'
+    end: '2014-10-24'
+  therapy_lookback_window:
+    start: '2013-10-24'
+    end: '2014-10-24'
+  patient_chart_totals:
+    conditions_lifetime: 15
+    encounters_lifetime: 67
+    observations_lifetime: 83
+    careplans_lifetime: 7
+  excluded_from_packet:
+  - date: '2001-06-29'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-01-04'
+    description: Chronic pain
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-11-26'
+    description: Chronic intractable migraine without aura
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2003-08-28'
+    description: Impacted molars
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2005-04-29'
+    description: Drug overdose
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-09'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-09'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-09'
+    description: Fetus with unknown complication
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-09-22'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-04-06'
+    description: Antepartum eclampsia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-03-10'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2016-02-10'
+      description: Body mass index 30+ - obesity (finding)
+    - date: '2016-05-09'
+      description: Acute bronchitis (disorder)
+    - date: '2019-06-21'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-08-03'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 1ab07484-b358-47cd-a33f-86d9188fae5d
+  encounter_class: emergency
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2014-08-03-ed-visit.md
+- id: E002
+  date: '2014-08-03'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Rupture of patellar tendon
+  code: '30832001'
+  rendered_in:
+  - input/notes/2014-08-03-ed-visit.md
+  - input/notes/2014-08-15-ortho-consult.md
+- id: E003
+  date: '2014-08-03'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: c7758d40-67e0-42b4-89c5-f518dc663cd5
+  description: Physical therapy procedure
+  reason: Rupture of patellar tendon
+  date_range:
+    start: '2014-08-03'
+    stop: '2014-10-09'
+  duration_days: 67
+  rendered_in:
+  - input/notes/2014-10-09-pt-discharge.md
+- id: A004
+  date: '2014-08-03'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2014-08-03-ed-visit.md
+  - input/notes/2014-08-15-ortho-consult.md
+- id: A005
+  date: '2014-08-15'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2014-08-15-ortho-consult.md
+- id: A006
+  date: '2014-08-03'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2014-08-03-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2014-08-03'
+    end: '2014-10-09'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2014-10-09-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.

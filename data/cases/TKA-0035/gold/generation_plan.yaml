@@ -1,0 +1,51 @@
+# Generation plan for TKA-0035. Hidden from the verifier.
+
+case_id: TKA-0035
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 113
+patient:
+  synthea_patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  name: Dulce Keebler
+  sex: F
+  birthdate: '1946-05-11'
+  age_at_request: 73
+request:
+  requested_service: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  request_date: '2019-11-02'
+plan_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-11-02'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+variant: omit_pt_notes
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: MISSING
+  realization: SILENT
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

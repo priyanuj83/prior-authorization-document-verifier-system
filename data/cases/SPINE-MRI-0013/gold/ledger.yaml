@@ -1,0 +1,114 @@
+# Generated ledger for SPINE-MRI-0013. Hidden from the verifier.
+
+case_id: SPINE-MRI-0013
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  name: Dulce Keebler
+  sex: F
+  birthdate: '1946-05-11'
+  city: Malden
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2012-03-17'
+  request_date: '2012-03-20'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2012-03-17'
+    end: '2012-03-20'
+  therapy_lookback_window:
+    start: '2011-03-21'
+    end: '2012-03-20'
+  patient_chart_totals:
+    conditions_lifetime: 8
+    encounters_lifetime: 122
+    observations_lifetime: 282
+    careplans_lifetime: 4
+  excluded_from_packet:
+  - date: '1964-07-04'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1984-05-01'
+    description: Osteoarthritis of knee
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1989-02-18'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1989-11-25'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2014-04-12'
+      description: Hyperlipidemia
+    - date: '2016-04-23'
+      description: Osteoporosis (disorder)
+    - date: '2018-04-23'
+      description: Malignant neoplasm of breast (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2012-03-17'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 18e020f0-850c-4839-a9a2-df1bdff9b2cc
+  encounter_class: emergency
+  payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  rendered_in:
+  - input/notes/2012-03-17-ed-visit.md
+- id: E002
+  date: '2012-03-17'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2012-03-17-ed-visit.md
+- id: E003
+  date: '1984-05-01'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2012-03-17-ed-visit.md
+- id: A004
+  date: '2012-03-17'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2012-03-17-ed-visit.md
+- id: A005
+  date: '2012-03-17'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2012-03-17-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

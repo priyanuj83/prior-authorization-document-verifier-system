@@ -1,0 +1,91 @@
+# Generated ledger for SPINE-MRI-0017. Hidden from the verifier.
+
+case_id: SPINE-MRI-0017
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 1e040769-9101-4228-9b0b-26263faf7297
+  name: Armand Schmeler
+  sex: M
+  birthdate: '2002-11-26'
+  city: New Bedford
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2018-11-30'
+  request_date: '2018-12-03'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2018-11-30'
+    end: '2018-12-03'
+  therapy_lookback_window:
+    start: '2017-12-03'
+    end: '2018-12-03'
+  patient_chart_totals:
+    conditions_lifetime: 3
+    encounters_lifetime: 13
+    observations_lifetime: 152
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '2013-10-18'
+    description: Sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-03-22'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-11-30'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 48cb433b-458a-47c7-8502-091821751213
+  encounter_class: emergency
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2018-11-30-ed-visit.md
+- id: E002
+  date: '2018-11-30'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2018-11-30-ed-visit.md
+- id: A003
+  date: '2018-11-30'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2018-11-30-ed-visit.md
+- id: A004
+  date: '2018-11-30'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-11-30-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

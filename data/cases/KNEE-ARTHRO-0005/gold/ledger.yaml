@@ -1,0 +1,181 @@
+# Generated ledger for KNEE-ARTHRO-0005. Hidden from the verifier.
+
+case_id: KNEE-ARTHRO-0005
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  name: Sharilyn Romaguera
+  sex: F
+  birthdate: '1946-06-24'
+  city: New Bedford
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-01-31'
+  request_date: '2014-04-16'
+  anchor_condition: Tear of meniscus of knee
+scope:
+  episode_window:
+    start: '2014-01-31'
+    end: '2014-04-16'
+  therapy_lookback_window:
+    start: '2013-04-16'
+    end: '2014-04-16'
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 26
+    observations_lifetime: 247
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1980-09-08'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1983-02-19'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2006-08-21'
+    description: Osteoporosis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-12-11'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-09-29'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2016-06-19'
+      description: Polyp of colon
+    - date: '2016-12-16'
+      description: Fracture subluxation of wrist
+    - date: '2016-12-16'
+      description: Pathological fracture due to osteoporosis (disorder)
+    - date: '2017-09-23'
+      description: Viral sinusitis (disorder)
+    - date: '2017-10-01'
+      description: Streptococcal sore throat (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-01-31'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 2b618ac2-2b4f-4a8d-ac15-22d61d52ff34
+  encounter_class: emergency
+  payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+- id: E002
+  date: '2014-01-31'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Tear of meniscus of knee
+  code: '239720000'
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+- id: E003
+  date: '1986-06-14'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+- id: E004
+  date: '2014-01-31'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 6b9579e6-973d-4e41-896c-ecf8fa44c703
+  description: Physical therapy procedure
+  reason: Tear of meniscus of knee
+  date_range:
+    start: '2014-01-31'
+    stop: '2014-04-01'
+  duration_days: 60
+  rendered_in: []
+- id: A005
+  date: '2014-01-31'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+- id: A006
+  date: '2014-02-12'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching and locking
+  is_mechanical_symptom: true
+  is_true_locking: true
+  rendered_in:
+  - input/notes/2014-02-12-ortho-consult.md
+- id: A007
+  date: '2014-01-31'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+- id: A008
+  date: '2014-04-09'
+  type: imaging
+  provenance: authored
+  modality: mri
+  description: Authored MRI — no MRI exists in synthea_data
+  rendered_in:
+  - input/notes/2014-04-09-mri-report.md
+- id: A009
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2014-01-31'
+    end: '2014-04-01'
+  attributes:
+    modality: in_person
+    duration_days: 60
+    body_region: knee
+    sessions_attended: 17
+    response: no_improvement
+    documentation_enclosed: false
+  rendered_in: []
+criterion_truth:
+  C1_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Pain and mechanical symptoms documented in the clinical notes.
+  C2_oa_severity:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: Kellgren-Lawrence grade 4 (allowance 0-2).
+  C3_radiologic_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: MRI report enclosed confirming meniscal tear.
+  C4_conservative_therapy:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: course length 60 days vs threshold 42; modality in_person; body region knee; not enclosed.

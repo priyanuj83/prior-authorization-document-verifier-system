@@ -1,0 +1,333 @@
+# =============================================================================
+# EVIDENCE LEDGER: KNEE-ARTHRO-0002
+# =============================================================================
+# Canonical truth for this case. The verifier never sees this file.
+#
+# NOTE THE TWO-COLUMN TRUTH TABLE AT THE BOTTOM. This case is the reason it exists:
+# clinical truth and documentation state diverge, and the gold labels follow the
+# documentation state. See generation_plan.yaml for the rationale.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0002
+ledger_version: 1.0.0
+
+patient:
+  synthea_patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  name: Gianna370 Kling921
+  sex: F
+  birthdate: 1991-08-02
+  city: Boston
+  state: Massachusetts
+
+episode:
+  laterality: right
+  index_date: 2015-09-16
+  request_date: 2015-10-28
+
+# -----------------------------------------------------------------------------
+# PACKET SCOPE
+# -----------------------------------------------------------------------------
+# An evidence packet for one episode, not the patient's complete chart.
+# -----------------------------------------------------------------------------
+
+scope:
+  episode_window:
+    start: 2015-09-16
+    end: 2015-10-28
+  therapy_lookback_window:
+    start: 2014-10-28
+    end: 2015-10-28
+    applies_to: [C4_conservative_therapy]
+
+  patient_chart_totals:
+    conditions_lifetime: 5
+    encounters_lifetime: 27
+    observations_lifetime: 143
+    careplans_lifetime: 1
+
+  excluded_from_packet:
+    - date: 2015-07-23
+      description: Acute bacterial sinusitis (disorder)
+      in_therapy_lookback: true
+      reason: clinically unrelated to the knee episode
+      distractor_candidate: true
+    - date: 2015-08-20
+      description: Chronic sinusitis (disorder)
+      in_therapy_lookback: true
+      reason: clinically unrelated to the knee episode
+      distractor_candidate: true
+    - date: 2013-08-11
+      description: Viral sinusitis (disorder)
+      in_therapy_lookback: false
+      reason: outside lookback and clinically unrelated
+    - date: 2010-06-11
+      description: Normal pregnancy
+      in_therapy_lookback: false
+      reason: outside lookback and clinically unrelated
+
+  distractor_content:
+    present: false
+    best_available_material: >
+      This patient has TWO genuine sinusitis episodes falling inside the therapy
+      lookback window, in July and August 2015, immediately preceding the knee injury.
+      Rendering those as real clinic notes would add authentic in-window noise without
+      inventing anything, and would force the verifier to distinguish the relevant
+      documents from the irrelevant ones.
+    why_it_matters_here_especially: >
+      C4 is labelled MISSING because no therapy documentation is enclosed. In a packet
+      containing only four documents, noticing that absence is comparatively easy. In a
+      packet containing ten documents, two of which are sinusitis visits, it is much
+      harder and much more realistic. Adding distractors would raise the difficulty of
+      this case's central judgement without changing its label.
+
+events:
+
+  - id: E001
+    date: 2015-09-16
+    type: encounter
+    provenance: synthea
+    source:
+      file: synthea_data/encounters.csv
+      encounter_id: cf93bb8c-b095-4f24-898a-51760af1cbc7
+    encounter_class: emergency
+    code: "50849002"
+    description: Emergency room admission (procedure)
+    payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+    rendered_in: [input/notes/2015-09-16-ed-visit.md]
+
+  - id: E002
+    date: 2015-09-16
+    type: condition_onset
+    provenance: synthea
+    source:
+      file: synthea_data/conditions.csv
+      line: 1403
+    code: "239720000"
+    description: Tear of meniscus of knee
+    stop: 2015-10-16
+    rendered_in: [input/notes/2015-09-16-ed-visit.md, input/notes/2015-10-02-ortho-consult.md]
+
+  - id: E003
+    date: 2015-09-16
+    type: procedure
+    provenance: synthea
+    source:
+      file: synthea_data/procedures.csv
+      line: 5767
+      raw_timestamp: 2015-09-16T16:05:34Z
+    code: "74016001"
+    description: Knee X-ray
+    rendered_in: [input/notes/2015-09-16-ed-visit.md]
+
+  - id: E004
+    date: 2015-09-16
+    type: careplan_start
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 567
+      careplan_id: 4eb3e678-668b-4545-a338-4ead8e52fe3a
+    code: "91251008"
+    description: Physical therapy procedure
+    reason_code: "239720000"
+    reason_description: Tear of meniscus of knee
+    rendered_in: [input/notes/2015-09-16-ed-visit.md]
+    rendering_note: >
+      Rendered ONLY as a referral being placed. The fact that a careplan exists is
+      not the same as documentation that a course was completed.
+
+  - id: E005
+    date: 2015-10-16
+    type: careplan_stop
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 567
+      careplan_id: 4eb3e678-668b-4545-a338-4ead8e52fe3a
+    description: Physical therapy careplan ended
+    derived:
+      duration_days: 30
+      computation: 2015-10-16 minus 2015-09-16
+      meets_42_day_threshold: false
+    rendered_in: []
+    rendering_note: >
+      DELIBERATELY NOT RENDERED IN ANY NOTE. This is the single most important
+      generation decision in the case. The 30-day duration is clinically true and
+      would fail the criterion outright, but it is invisible to the verifier because
+      no therapy documentation was enclosed with the submission.
+      This is why the label is MISSING and not CONTRADICTED.
+
+  # ---------------------------------------------------------------------------
+  # AUTHORED EVENTS
+  # ---------------------------------------------------------------------------
+
+  - id: A001
+    date: 2015-09-16
+    type: symptom
+    provenance: authored
+    description: >
+      Twisting injury of the right knee while playing netball, with immediate medial
+      pain and swelling over the following hours.
+    rendered_in: [input/notes/2015-09-16-ed-visit.md]
+
+  - id: A002
+    date: 2015-10-02
+    type: symptom
+    provenance: authored
+    description: >
+      Recurrent catching of the right knee, described as the joint snagging on
+      movement, several times per week.
+    satisfies_criterion: C1_symptoms
+    is_mechanical_symptom: true
+    rendered_in: [input/notes/2015-10-02-ortho-consult.md]
+
+  - id: A003
+    date: 2015-10-02
+    type: symptom
+    provenance: authored
+    description: >
+      A single episode in which the knee "felt stuck for a moment" before releasing
+      spontaneously without manual intervention.
+    is_true_locking: false
+    waiver_relevance: W1_locked_knee
+    rendering_note: >
+      TRAP COMPONENT. Deliberately ambiguous and deliberately transient and
+      self-resolving. This is NOT true locking and must not be read as satisfying the
+      locked-knee condition of the waiver.
+    rendered_in: [input/notes/2015-10-02-ortho-consult.md]
+
+  - id: A004
+    date: 2015-09-16
+    type: imaging_grading
+    provenance: authored
+    modality: xray
+    body_site: right knee
+    findings:
+      kellgren_lawrence_grade: 0
+      joint_space: preserved
+      acute_fracture: false
+      meniscus_assessable: false
+    satisfies_criterion: C2_oa_severity
+    rationale: >
+      Grade 0 derived per grounding heuristic: age 24, no osteoarthritis diagnosis.
+    rendering_note: >
+      The report explicitly states the menisci are not assessable on plain films. This
+      is authored as a guard so that a verifier cannot reasonably treat the X-ray as
+      satisfying C3.
+    rendered_in: [input/notes/2015-09-16-ed-visit.md]
+
+  - id: A005
+    date_range:
+      start: 2015-09-16
+      end: 2015-10-16
+    type: therapy_detail
+    provenance: authored
+    description: Attributes of the therapy episode recorded in E004 and E005.
+    attributes:
+      modality: home_based
+      setting: unsupervised home programme
+      sessions_attended_in_clinic: 1
+      body_region: right knee
+      response: unclear
+      documentation_obtained: false
+    clinical_truth_note: >
+      Clinically this fails the criterion twice over: 30 days is under the 42-day
+      threshold, and a home programme is not the in-person formal therapy the policy
+      requires.
+    rendering_note: >
+      Only a fragment is rendered. The orthopaedic note mentions she has been doing
+      exercises at home. No duration, no session count and no supervision status
+      reaches the record.
+    rendered_in: [input/notes/2015-10-02-ortho-consult.md]
+
+  - id: A006
+    date: 2015-10-28
+    type: clinical_assessment
+    provenance: authored
+    description: Surgical plan for right knee arthroscopy with partial meniscectomy.
+    rendered_in: [input/notes/2015-10-28-ortho-followup.md]
+
+  - id: A007
+    date: null
+    type: absent_evidence
+    provenance: authored
+    description: No MRI of the right knee was performed or requested at any point.
+    affects_criterion: C3_radiologic_confirmation
+    rendering_note: >
+      Recorded explicitly as an ABSENCE so the ledger is complete. Absence of
+      evidence is itself a fact the ledger must own, otherwise a reviewer auditing
+      this case cannot tell whether the MRI was forgotten by the generator or
+      deliberately withheld.
+
+# -----------------------------------------------------------------------------
+# TWO-COLUMN CRITERION TRUTH TABLE
+# -----------------------------------------------------------------------------
+# clinical_truth      - what is actually so, per the full ledger
+# documentation_state - what the ENCLOSED RECORD establishes
+#
+# labels.yaml follows documentation_state.
+# -----------------------------------------------------------------------------
+
+criterion_truth:
+
+  C1_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    basis: [A002]
+    label_follows: SUPPORTED
+
+  C2_oa_severity:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    basis: [A004]
+    label_follows: SUPPORTED
+
+  C3_radiologic_confirmation:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    basis: [A007, A004]
+    label_follows: MISSING
+    detail: >
+      No MRI exists, so the criterion is genuinely unmet. But the record does not
+      affirmatively demonstrate an intact meniscus either; it simply lacks the
+      required study. Silence, not contradiction.
+
+  C4_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    basis: [E004, E005, A005]
+    label_follows: MISSING
+    detail: >
+      THE CENTRAL CASE OF THE DIVERGENCE. Clinically the course was 30 days and
+      home-based, failing on both duration and modality. Documentarily, no duration or
+      modality reaches the enclosed record at all, so the reviewer cannot establish
+      either way. The correct verdict on the submission is MISSING.
+      Had the therapy discharge summary been enclosed stating 30 days, the same
+      clinical facts would yield CONTRADICTED. That contrast is worth generating as a
+      variant case later.
+
+  W1_locked_knee:
+    clinical_truth: NOT_APPLICABLE
+    documentation_state: NOT_ESTABLISHED
+    basis: [A003, A007]
+    label_follows: NOT_FIRED
+    detail: >
+      Requires true locking AND a displaced bucket-handle tear. A003 is a transient
+      self-resolving episode, not true locking. A007 records that no MRI exists, so
+      tear morphology is entirely unknown. Neither condition is established, let alone
+      both.
+
+  exclusions:
+    X1_diagnostic_only:
+      state: ARGUABLY_TRIGGERED
+      detail: >
+        The exclusion bars arthroscopy without radiologically proven pathology, and
+        pathology is not radiologically proven here. Treated as subsumed by the C3
+        MISSING verdict rather than scored as an independent exclusion, because
+        pending on C3 is the correct real-world action and denying outright on X1
+        would be unreasonable when an MRI could still be obtained.
+        Flagged here because it is a genuine ambiguity a reviewer of this corpus
+        should be aware of.
+    X2_meniscal_root_tear:
+      state: NOT_TRIGGERED
+      detail: Cannot be assessed without an MRI, but nothing suggests a root tear.

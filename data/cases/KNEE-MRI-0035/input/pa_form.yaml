@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0035
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-05-22'
+generator: template-v0.3
+member:
+  name: Stanford Stanton
+  member_id: SYN-11A0D503
+  dob: '1993-06-14'
+  sex: M
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: A. Okonkwo, MD
+  specialty: Orthopaedic Surgery
+  practice: Commonwealth Bone and Joint
+  npi: SYN-0000004
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2013-06-12'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of anterior cruciate ligament
+    snomed: '444470001'
+  onset_date: '2013-03-01'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the left knee.
+enclosures:
+- input/notes/2013-03-01-ed-visit.md
+- input/notes/2013-03-13-ortho-consult.md
+- input/notes/2013-05-22-ortho-followup.md
+records_scope:
+  episode_start: '2013-03-01'
+  episode_end: '2013-05-22'
+  is_complete_chart: false

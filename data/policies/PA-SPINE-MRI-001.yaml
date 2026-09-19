@@ -1,0 +1,223 @@
+# =============================================================================
+# PA-SPINE-MRI-001
+# MRI or CT of the spine
+# =============================================================================
+# Logical shape: DISJUNCTIVE (any_of). A single qualifying branch is sufficient.
+# One branch (B1) is itself conjunctive, so this policy exercises nested logic.
+#
+# TIER 2: the current Synthea extract contains NO low back pain, NO lumbar
+# radiculopathy and NO MRI modality. See data/README.md -> "Tier 2 policies"
+# for the two ways to close that gap before generating cases against this file.
+# =============================================================================
+
+policy_id: PA-SPINE-MRI-001
+version: 1.0.0
+title: Magnetic resonance imaging or computed tomography of the spine
+specialty: radiology
+logic: any_of
+tier: 2
+
+provenance:
+  derived_from: Aetna Clinical Policy Bulletin 0236 (MRI and CT of the Spine)
+  url: https://www.aetna.com/cpb/medical/data/200_299/0236.html
+  cross_reference:
+    - name: Carelon Clinical Appropriateness Guidelines, Imaging of the Spine
+      url: https://guidelines.carelonmedicalbenefitsmanagement.com/current-radiology-guidelines/
+      usage: >
+        Consulted as a design reference to sanity-check criterion decomposition only.
+        Carelon asserts proprietary status and restricts reproduction, so no Carelon
+        text or close paraphrase appears in this corpus.
+  relationship: >
+    Clinically adapted and paraphrased into this schema. Criterion text below is
+    original prose written for this corpus, not reproduced from the source.
+  retrieved: 2026-08-30
+
+requested_service:
+  description: MRI or CT of the cervical, thoracic, or lumbar spine
+  synthea_proxy: null
+  note: >
+    imaging_studies.csv contains only CT, DX, US and CR modalities. There is no
+    spine MRI anywhere in the extract.
+
+# -----------------------------------------------------------------------------
+# DEFINITIONS shared across branches
+# -----------------------------------------------------------------------------
+definitions:
+
+  conservative_therapy:
+    text: >
+      Moderate activity modification, analgesics, non-steroidal anti-inflammatory
+      drugs, and muscle relaxants.
+    note: >
+      This policy's definition of conservative therapy does NOT require formal
+      physical therapy, unlike PA-KNEE-ARTHRO-001 C4. Keeping both definitions in
+      the corpus tests whether a verifier applies the policy-specific definition
+      rather than a memorised one.
+
+  radiculopathy:
+    text: >
+      Pain accompanied by objective findings of motor or reflex change in the
+      distribution of a specific nerve root.
+    note: >
+      Subjective radiating pain alone does not meet this definition. Objective
+      motor or reflex findings are independently required.
+
+# -----------------------------------------------------------------------------
+# BRANCHES - any one satisfied branch qualifies the request
+# -----------------------------------------------------------------------------
+branches:
+
+  - id: B1_radiculopathy_after_6wk
+    logic: all_of
+    text: >
+      Persistent back or neck pain with radiculopathy that has not improved after
+      six weeks of conservative therapy.
+    criteria:
+      - id: B1_C1_persistent_pain
+        text: Back or neck pain persisting in the current episode.
+        type: clinical_finding
+      - id: B1_C2_radiculopathy
+        text: >
+          Radiculopathy as defined above, comprising pain PLUS objective motor or
+          reflex findings in a specific nerve root distribution.
+        type: clinical_finding
+        uses_definition: radiculopathy
+        failure_modes:
+          missing: radiating pain documented, no motor or reflex examination recorded
+          contradicted: neurological examination documented as normal
+      - id: B1_C3_conservative_trial
+        text: >
+          No improvement after at least six weeks of conservative therapy.
+        type: therapy_trial
+        threshold:
+          duration_days: 42
+          comparator: ">="
+        uses_definition: conservative_therapy
+        failure_modes:
+          missing: therapy documented without duration
+          contradicted: documented duration shorter than 42 days, or improvement documented
+
+  - id: B2_spondylolisthesis_after_4wk
+    logic: all_of
+    text: >
+      Spondylolisthesis or degenerative disease of the spine that has not responded
+      to four weeks of conservative therapy.
+    criteria:
+      - id: B2_C1_diagnosis
+        text: Spondylolisthesis or degenerative spinal disease.
+        type: clinical_finding
+      - id: B2_C2_conservative_trial
+        text: No response after at least four weeks of conservative therapy.
+        type: therapy_trial
+        threshold:
+          duration_days: 28
+          comparator: ">="
+        uses_definition: conservative_therapy
+    notes: >
+      DELIBERATE TRAP. This branch's threshold is four weeks, not six. A model that
+      has memorised "six weeks" as the universal spine-imaging threshold will
+      mislabel qualifying requests here.
+
+  - id: B3_red_flag_progressive_deficit
+    logic: any_of
+    text: Rapidly progressing neurological deficit or major motor weakness.
+    criteria:
+      - id: B3_C1
+        text: Rapidly progressing neurological deficit.
+        type: clinical_finding
+      - id: B3_C2
+        text: Major motor weakness.
+        type: clinical_finding
+    bypasses_conservative_therapy: true
+
+  - id: B4_cord_compression_suspicion
+    text: Clinical suspicion of spinal cord or cauda equina compression syndrome.
+    type: clinical_finding
+    bypasses_conservative_therapy: true
+
+  - id: B5_stenosis
+    text: Clinical evidence of spinal stenosis.
+    type: clinical_finding
+
+  - id: B6_severe_pain
+    text: Severe back pain, for example pain requiring hospitalisation.
+    type: clinical_finding
+
+  - id: B7_progressive_despite_management
+    text: Progressively severe symptoms despite conservative management.
+    type: clinical_finding
+
+  - id: B8_trauma_fracture
+    text: >
+      Suspected spinal fracture or dislocation secondary to trauma, where plain
+      films are not conclusive.
+    type: clinical_finding
+    notes: >
+      The inconclusive-plain-film condition is part of the criterion. A request
+      with no prior radiograph does not satisfy this branch.
+
+  - id: B9_suspected_cord_injury
+    text: Suspected spinal cord injury secondary to trauma.
+    type: clinical_finding
+
+  - id: B10_infection
+    text: >
+      Suspected infectious process such as osteomyelitis or epidural abscess of the
+      spine or adjacent soft tissue.
+    type: clinical_finding
+
+  - id: B11_malignancy
+    text: >
+      Primary spinal bone tumour, or suspected vertebral, paraspinal or intraspinal
+      metastasis.
+    type: clinical_finding
+
+  - id: B12_myelopathy
+    text: >
+      Known or suspected myelopathy for initial diagnosis when brain MRI is negative
+      or symptoms mimic other spinal or brainstem lesions.
+    type: clinical_finding
+
+  - id: B13_post_surgical
+    text: Evaluation of recurrent symptoms following spinal surgery.
+    type: clinical_finding
+
+  - id: B14_congenital
+    text: Congenital anomaly or deformity of the spine.
+    type: clinical_finding
+
+  - id: B15_pre_injection
+    text: >
+      Evaluation prior to epidural injection, to exclude tumour or infection and to
+      identify the optimal anatomical level.
+    type: clinical_finding
+
+# -----------------------------------------------------------------------------
+# NON-COVERAGE
+# -----------------------------------------------------------------------------
+exclusions:
+
+  - id: X1_nonspecific_lbp
+    text: >
+      Imaging for non-specific low back pain, in the absence of radiculopathy,
+      neurological deficit, trauma, or suspicion of a systemic disorder, is not
+      covered unless the pain is severe or is progressing despite conservative
+      management.
+    notes: >
+      This exclusion is the mirror image of B1 and B7. It is the single most useful
+      negative case in the whole policy, because a request that fails B1 on the
+      six-week criterion usually lands here.
+
+# -----------------------------------------------------------------------------
+# DECISION
+# -----------------------------------------------------------------------------
+# Framework-neutral. See PA-KNEE-ARTHRO-001 for the full projection table.
+criteria_logic:
+  all_met_if: at least one branch is fully satisfied and no exclusion applies
+  fails_if: no branch is satisfied, or an exclusion applies
+  indeterminate_if: >
+    no branch is fully satisfied but at least one branch is MISSING only on
+    documentation rather than CONTRADICTED on substance
+  projections:
+    provider_side: {all_met: READY_FOR_SUBMISSION, indeterminate: NOT_READY, fails: REVIEW_NEEDED}
+    payer_side: {all_met: APPROVE, indeterminate: PEND, fails: DENY}

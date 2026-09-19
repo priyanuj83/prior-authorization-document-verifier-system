@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0006
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2019-12-20'
+generator: template-v0.3
+member:
+  name: Ben Schaden
+  member_id: SYN-36CFC9C6
+  dob: '1943-12-26'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: Total knee arthroplasty, right
+  service_key: total_knee_arthroplasty
+  laterality: right
+  setting: outpatient
+  proposed_date: '2020-01-10'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1982-12-16'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the right knee.
+- id: AT3
+  text: Conservative measures have been tried for the right knee.
+enclosures:
+- input/notes/1982-12-16-ed-visit.md
+- input/notes/1982-12-28-ortho-consult.md
+- input/notes/2019-12-20-ortho-followup.md
+records_scope:
+  episode_start: '1982-12-16'
+  episode_end: '2019-12-20'
+  is_complete_chart: false

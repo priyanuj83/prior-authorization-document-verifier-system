@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: SHOULDER-RCR-0026
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-07-11'
+generator: template-v0.3
+member:
+  name: Lana Grady
+  member_id: SYN-B574B7CC
+  dob: '1950-07-30'
+  sex: F
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  laterality: left
+  setting: outpatient
+  proposed_date: '2013-08-01'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of tendon of the rotator cuff of shoulder
+    snomed: '307731004'
+  onset_date: '2011-09-25'
+attestations:
+- id: AT1
+  text: The patient has persistent left shoulder pain with mechanical catching.
+- id: AT2
+  text: Cuff tear is suspected on clinical examination of the left shoulder.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left shoulder,
+    attending twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2011-09-25-ed-visit.md
+- input/notes/2011-10-07-ortho-consult.md
+- input/notes/2011-11-24-pt-discharge.md
+- input/notes/2013-07-11-ortho-followup.md
+records_scope:
+  episode_start: '2011-09-25'
+  episode_end: '2013-07-11'
+  is_complete_chart: false

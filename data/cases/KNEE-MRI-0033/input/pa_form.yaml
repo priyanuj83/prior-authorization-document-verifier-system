@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0033
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-06-05'
+generator: template-v0.3
+member:
+  name: Hubert Nader
+  member_id: SYN-F588DF9C
+  dob: '1983-06-21'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: MRI of the right knee, without contrast
+  service_key: knee_mri
+  laterality: right
+  setting: outpatient
+  proposed_date: '2013-06-26'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of medial collateral ligament of knee
+    snomed: '444448004'
+  onset_date: '2013-03-15'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: Advanced imaging of the right knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the right knee.
+enclosures:
+- input/notes/2013-03-15-ed-visit.md
+- input/notes/2013-03-27-ortho-consult.md
+- input/notes/2013-06-05-ortho-followup.md
+records_scope:
+  episode_start: '2013-03-15'
+  episode_end: '2013-06-05'
+  is_complete_chart: false

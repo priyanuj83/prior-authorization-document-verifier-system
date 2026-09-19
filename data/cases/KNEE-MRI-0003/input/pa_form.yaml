@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0003
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2014-04-16'
+generator: template-v0.3
+member:
+  name: Sharilyn Romaguera
+  member_id: SYN-1AB6D5C8
+  dob: '1946-06-24'
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: MRI of the right knee, without contrast
+  service_key: knee_mri
+  laterality: right
+  setting: outpatient
+  proposed_date: '2014-05-07'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Tear of meniscus of knee
+    snomed: '239720000'
+  onset_date: '2014-01-31'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: Advanced imaging of the right knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the right knee.
+enclosures:
+- input/notes/2014-01-31-ed-visit.md
+- input/notes/2014-02-12-ortho-consult.md
+- input/notes/2014-04-16-ortho-followup.md
+records_scope:
+  episode_start: '2014-01-31'
+  episode_end: '2014-04-16'
+  is_complete_chart: false

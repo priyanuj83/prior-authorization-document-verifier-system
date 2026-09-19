@@ -1,0 +1,117 @@
+# Generated ledger for SPINE-MRI-0006. Hidden from the verifier.
+
+case_id: SPINE-MRI-0006
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 058590f8-c0f3-40c1-ac80-246437499d5d
+  name: Rubye Upton
+  sex: F
+  birthdate: '1981-02-05'
+  city: Chicopee
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2017-10-24'
+  request_date: '2017-10-27'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2017-10-24'
+    end: '2017-10-27'
+  therapy_lookback_window:
+    start: '2016-10-27'
+    end: '2017-10-27'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 44
+    observations_lifetime: 110
+    careplans_lifetime: 7
+  excluded_from_packet:
+  - date: '1999-07-15'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2006-04-13'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-04-24'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-07-11'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-12-26'
+    description: Preeclampsia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-01-19'
+    description: Normal pregnancy
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  - date: '2017-01-27'
+    description: Escherichia coli urinary tract infection
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  - date: '2017-08-03'
+    description: Antepartum eclampsia
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2020-02-13'
+      description: Normal pregnancy
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2017-10-24'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 19956e9a-7ea3-414b-b64c-a99c844ccd62
+  encounter_class: emergency
+  payer_id: 7c4411ce-02f1-39b5-b9ec-dfbea9ad3c1a
+  rendered_in:
+  - input/notes/2017-10-24-ed-visit.md
+- id: E002
+  date: '2017-10-24'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2017-10-24-ed-visit.md
+- id: A003
+  date: '2017-10-24'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/2017-10-24-ed-visit.md
+- id: A004
+  date: '2017-10-24'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2017-10-24-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

@@ -1,0 +1,153 @@
+# Generated ledger for KNEE-MRI-0059. Hidden from the verifier.
+
+case_id: KNEE-MRI-0059
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 08180c75-dd87-418f-95ff-06fb2f434713
+  name: Eugena Schmeler
+  sex: F
+  birthdate: '1953-05-27'
+  city: Braintree
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '1987-05-19'
+  request_date: '2012-02-10'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '1987-05-19'
+    end: '2012-02-10'
+  therapy_lookback_window:
+    start: '2011-02-10'
+    end: '2012-02-10'
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 25
+    observations_lifetime: 224
+    careplans_lifetime: 2
+  excluded_from_packet:
+  - date: '1974-10-13'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1976-06-23'
+    description: Stroke
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1979-05-22'
+    description: Appendicitis
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1979-05-22'
+    description: History of appendectomy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1981-08-05'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1983-11-09'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2013-03-05'
+      description: Viral sinusitis (disorder)
+    - date: '2013-12-29'
+      description: Viral sinusitis (disorder)
+    - date: '2016-01-03'
+      description: Viral sinusitis (disorder)
+    - date: '2016-05-01'
+      description: Acute viral pharyngitis (disorder)
+    - date: '2017-08-16'
+      description: Hyperlipidemia
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1987-05-19'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 0c0d8ca0-33ba-4b0c-8ed0-51c284d11fc6
+  encounter_class: ambulatory
+  payer_id: b1c428d6-4f07-31e0-90f0-68ffa6ff8c76
+  rendered_in:
+  - input/notes/1987-05-19-ed-visit.md
+- id: E002
+  date: '1987-05-19'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/1987-05-19-ed-visit.md
+  - input/notes/1987-05-31-ortho-consult.md
+- id: E003
+  date: '1987-05-19'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/1987-05-19-ed-visit.md
+  - input/notes/1987-05-31-ortho-consult.md
+- id: A004
+  date: '1987-05-19'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/1987-05-19-ed-visit.md
+  - input/notes/1987-05-31-ortho-consult.md
+- id: A005
+  date: '1987-05-31'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/1987-05-31-ortho-consult.md
+- id: A006
+  date: '1987-05-19'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/1987-05-19-ed-visit.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.

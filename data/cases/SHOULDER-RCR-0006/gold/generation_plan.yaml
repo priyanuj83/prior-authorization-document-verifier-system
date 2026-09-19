@@ -1,0 +1,48 @@
+# Generation plan for SHOULDER-RCR-0006. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0006
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 134
+patient:
+  synthea_patient_id: 16ff017b-226f-4df9-9ea0-74a68b064dc2
+  name: Cortez Brown
+  sex: M
+  birthdate: '1977-12-01'
+  age_at_request: 34
+request:
+  requested_service: Rotator cuff repair, right shoulder
+  service_key: rotator_cuff_repair
+  request_date: '2012-02-10'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: rotator_cuff_repair
+    request_date: '2012-02-10'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: omit_imaging
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_symptoms_and_exam
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_imaging_confirmation
+  intended_label: MISSING
+  realization: SILENT
+- id: C3_conservative_therapy
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

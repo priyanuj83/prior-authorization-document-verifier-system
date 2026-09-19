@@ -1,0 +1,147 @@
+# Generated ledger for TKA-0037. Hidden from the verifier.
+
+case_id: TKA-0037
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 14289f20-085c-4fc8-bdd8-e2074166d91f
+  name: Caterina Schulist
+  sex: F
+  birthdate: '1968-03-29'
+  city: Fitchburg
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2012-03-18'
+  request_date: '2019-11-30'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2012-03-18'
+    end: '2019-11-30'
+  therapy_lookback_window:
+    start: '2018-11-30'
+    end: '2019-11-30'
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 51
+    observations_lifetime: 289
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1986-05-23'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1992-06-12'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1992-06-12'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1994-04-15'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1994-09-09'
+    description: Tubal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-07-09'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-09-20'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-12-30'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-01-06'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-07-20'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2020-01-17'
+      description: Laceration of thigh
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2012-03-18'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 44721394-deb9-4f3e-afcd-7a1b79aff506
+  encounter_class: ambulatory
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2012-03-18-ed-visit.md
+- id: E002
+  date: '2012-03-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2012-03-18-ed-visit.md
+  - input/notes/2012-03-30-ortho-consult.md
+- id: E003
+  date: '2012-03-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2012-03-18-ed-visit.md
+  - input/notes/2012-03-30-ortho-consult.md
+- id: A004
+  date: '2012-03-18'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2012-03-18-ed-visit.md
+  - input/notes/2012-03-30-ortho-consult.md
+- id: A005
+  date: '2012-03-18'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2012-03-18-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

@@ -1,0 +1,141 @@
+# Generated ledger for TKA-0024. Hidden from the verifier.
+
+case_id: TKA-0024
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  name: Aleisha Douglas
+  sex: F
+  birthdate: '1976-08-07'
+  city: Lowell
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2018-07-28'
+  request_date: '2019-05-30'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2018-07-28'
+    end: '2019-05-30'
+  therapy_lookback_window:
+    start: '2018-05-30'
+    end: '2019-05-30'
+  patient_chart_totals:
+    conditions_lifetime: 6
+    encounters_lifetime: 45
+    observations_lifetime: 155
+    careplans_lifetime: 4
+  excluded_from_packet:
+  - date: '1994-10-01'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1997-03-20'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1998-12-12'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-01-20'
+    description: Whiplash injury to neck
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-10-25'
+    description: Injury of tendon of the rotator cuff of shoulder
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-07-28'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: d38436e2-42df-4c97-a6b4-883e3537e921
+  encounter_class: ambulatory
+  payer_id: 7c4411ce-02f1-39b5-b9ec-dfbea9ad3c1a
+  rendered_in:
+  - input/notes/2018-07-28-ed-visit.md
+- id: E002
+  date: '2018-07-28'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2018-07-28-ed-visit.md
+  - input/notes/2018-08-09-ortho-consult.md
+- id: E003
+  date: '2018-07-28'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2018-07-28-ed-visit.md
+  - input/notes/2018-08-09-ortho-consult.md
+- id: A004
+  date: '2018-07-28'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2018-07-28-ed-visit.md
+  - input/notes/2018-08-09-ortho-consult.md
+- id: A005
+  date: '2018-07-28'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2018-07-28-ed-visit.md
+- id: A006
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2019-04-23'
+    end: '2019-05-23'
+  attributes:
+    modality: in_person
+    duration_days: 30
+    body_region: knee
+    sessions_attended: 9
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2019-05-23-pt-discharge.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 30 days vs threshold 90; modality in_person; body region knee; enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

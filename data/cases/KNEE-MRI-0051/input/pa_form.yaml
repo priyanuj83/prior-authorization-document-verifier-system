@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0051
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-07-11'
+generator: template-v0.3
+member:
+  name: Nick Doyle
+  member_id: SYN-C914F76E
+  dob: '1970-01-18'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2013-08-01'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Rupture of patellar tendon
+    snomed: '30832001'
+  onset_date: '1981-06-19'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the left knee.
+enclosures:
+- input/notes/1981-06-19-ed-visit.md
+- input/notes/1981-07-01-ortho-consult.md
+- input/notes/2013-07-11-ortho-followup.md
+records_scope:
+  episode_start: '1981-06-19'
+  episode_end: '2013-07-11'
+  is_complete_chart: false

@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0016
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-07-11'
+generator: template-v0.3
+member:
+  name: Karma Wolff
+  member_id: SYN-13B9A676
+  dob: '1914-09-05'
+  sex: F
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2013-08-01'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of medial collateral ligament of knee
+    snomed: '444448004'
+  onset_date: '1976-07-30'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1976-07-30-ed-visit.md
+- input/notes/1976-08-11-ortho-consult.md
+- input/notes/1976-10-05-pt-discharge.md
+- input/notes/2013-07-11-ortho-followup.md
+records_scope:
+  episode_start: '1976-07-30'
+  episode_end: '2013-07-11'
+  is_complete_chart: false

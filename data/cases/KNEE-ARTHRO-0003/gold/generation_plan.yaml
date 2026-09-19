@@ -1,0 +1,171 @@
+# =============================================================================
+# GENERATION PLAN: KNEE-ARTHRO-0003
+# =============================================================================
+# Intended labels are INPUTS to generation, never outputs.
+#
+# THIS CASE HAS THREE INDEPENDENT JOBS:
+#
+#   1. THREE OF FOUR CRITERIA PASS. Only C2 fails, and it fails hard. A verifier
+#      that approves on majority satisfaction, or that weights criteria by how much
+#      supporting text it found, will approve this and be wrong. Denial here rests
+#      on a single criterion, which is how real denials work.
+#
+#   2. IT ROUTES THROUGH MEDICARE-FFS-01, where requires_prior_auth is FALSE but
+#      requires_coverage_review is TRUE. A verifier that collapses those two fields
+#      will return NO_AUTH_REQUIRED and skip verification entirely, missing the only
+#      case in the corpus where the patient substantively fails the policy.
+#
+#   3. IT IS A CROSS-POLICY INVERSION. The same radiology report that CONTRADICTS
+#      PA-KNEE-ARTHRO-001 C2 SUPPORTS PA-TKA-001 C1, because arthroscopy requires
+#      mild osteoarthritis and arthroplasty requires advanced osteoarthritis. Reuse
+#      this ledger against PA-TKA-001 to get a free inverted label pair. This is
+#      what stops a verifier learning that "severe osteoarthritis" is generically
+#      disqualifying.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0003
+corpus_version: 0.1.0
+generator: hand-authored reference case
+seed: null
+
+patient:
+  synthea_patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  name: Sharilyn202 Romaguera67
+  sex: F
+  birthdate: 1946-06-24
+  age_at_request: 67
+
+request:
+  requested_service: Arthroscopic partial meniscectomy, left knee
+  service_key: knee_arthroscopy
+  request_date: 2014-04-22
+  submitting_provider: New Bedford Orthopaedic Group (synthetic)
+
+plan_resolution:
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  payer_name: Medicare
+  plan_id: MEDICARE-FFS-01
+  requires_prior_auth: false
+  requires_coverage_review: true
+  gate_expected: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  trap_note: >
+    requires_prior_auth is FALSE. A verifier keying only on that field returns
+    NO_AUTH_REQUIRED and never evaluates a criterion. The correct behaviour is to
+    verify against the policy anyway, because requires_coverage_review is TRUE. See
+    pa_requirements/MEDICARE-FFS-01.yaml for the outcome matrix.
+
+# -----------------------------------------------------------------------------
+# INTENDED LABELS
+# -----------------------------------------------------------------------------
+intended_documentation_status: REVIEW_NEEDED
+intended_remediable: false
+intended_payer_view: DENY             # derived, not scored
+
+criteria:
+
+  - id: C1_symptoms
+    intended_label: SUPPORTED
+    realization: narrative_plain
+    directive: >
+      Document knee pain and clear mechanical catching. Keep it unambiguous. The case
+      must fail on C2 alone, so every other criterion should be comfortably satisfied.
+
+  - id: C2_oa_severity
+    intended_label: CONTRADICTED
+    realization: radiology_grade_exceeds_threshold
+    directive: >
+      The plain film report states severe tricompartmental degenerative change,
+      Kellgren-Lawrence grade 4, with bone-on-bone contact medially. The MRI
+      corroborates it independently with full-thickness cartilage loss.
+    grounding: >
+      Not invented arbitrarily. This patient carries an Osteoarthritis of knee
+      diagnosis (SNOMED 239873007) with onset 1986-06-14, so 28 years of documented
+      disease at the time of the episode, plus a Musculoskeletal care careplan open
+      since 1986 for the same reason. She is 67. Grade 4 follows directly from the
+      grounding heuristic in grounding/PA-KNEE-ARTHRO-001.yaml.
+    why_contradicted_not_missing: >
+      The record affirmatively demonstrates the criterion is NOT met. A grade is stated
+      explicitly and it exceeds the allowed maximum. This is not silence, it is
+      positive evidence against.
+    forbidden_vocabulary: [criterion, policy, not medically necessary]
+
+  - id: C3_radiologic_confirmation
+    intended_label: SUPPORTED
+    realization: authored_mri_report
+    directive: >
+      Author an MRI confirming a degenerative tear of the posterior horn of the medial
+      meniscus. The tear is real and confirmed. Do not let this criterion fail.
+    note: >
+      Deliberately SUPPORTED. If C3 also failed, the case would not isolate the
+      osteoarthritis judgement, and a verifier could fail the case for the wrong reason.
+
+  - id: C4_conservative_therapy
+    intended_label: SUPPORTED
+    realization: multi_hop_across_two_notes
+    directive: >
+      60 days of supervised in-person therapy, dates split across the ED note and the
+      therapy discharge summary exactly as in KNEE-ARTHRO-0001. Establish in-person
+      modality through setting rather than by using the phrase.
+    note: >
+      Also deliberately SUPPORTED, and deliberately the HARDEST criterion in the case
+      to verify. A verifier that expends its effort on C4 and then treats the
+      osteoarthritis grade as background detail will approve. Difficulty is
+      concentrated on a criterion that passes, so that attention is drawn away from
+      the one that fails.
+    forbidden_vocabulary:
+      - conservative therapy
+      - conservative management
+      - six weeks
+      - 6 weeks
+      - in-person
+
+waivers:
+  - id: W1_locked_knee
+    intended_state: NOT_FIRED
+    directive: >
+      No true locking and no bucket-handle tear. Note that even if this waiver DID
+      fire it would only waive C4, which already passes. It cannot rescue C2.
+      Worth including precisely because it is a dead end: a verifier that reaches for
+      a waiver to resolve a denial should find that waivers do not work that way.
+
+attestations:
+  - id: AT2
+    intended_verdict: CONTRADICTED
+    realization: form_understates_severity
+    directive: >
+      The form attests to "mild degenerative change of the affected knee". The
+      enclosed radiology report says grade 4 with bone-on-bone contact. This is a
+      direct numeric and descriptive conflict between the form and its own enclosure.
+    why_it_matters: >
+      This is the cleanest contradiction in the corpus. No clinical judgement is
+      required to see it, only a comparison between two documents in the same
+      envelope. If a verifier cannot catch this, it cannot catch anything harder.
+
+# -----------------------------------------------------------------------------
+# DIFFICULTY
+# -----------------------------------------------------------------------------
+difficulty:
+  overall: high
+  drivers:
+    - denial rests on one criterion while three others pass
+    - the policy resolution step can be failed before verification even begins
+    - verification effort is concentrated on a criterion that passes
+    - the form directly understates a value stated in its own enclosure
+  purpose: >
+    Tests whether the verifier evaluates criteria conjunctively rather than
+    additively, and whether it resolves the policy correctly. Also the corpus's only
+    non-remediable case, so it is the sole measure of whether the system can tell a
+    provider "no amount of paperwork fixes this" rather than sending them on a
+    document hunt that cannot succeed.
+
+reuse:
+  - policy: PA-TKA-001
+    expected_outcome: >
+      C1_advanced_oa becomes SUPPORTED on the same radiology report. Generate as a
+      separate case reusing this ledger to obtain the inverted pair.
+  - policy: PA-KNEE-MRI-001
+    expected_outcome: >
+      Exclusion X1_advanced_oa_only is triggered, so the April MRI would itself have
+      been deniable. Useful for a chained-request case where the upstream imaging
+      authorisation should have been refused.

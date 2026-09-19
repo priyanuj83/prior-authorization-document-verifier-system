@@ -1,0 +1,157 @@
+# Generated ledger for TKA-0009. Hidden from the verifier.
+
+case_id: TKA-0009
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 64b55489-6953-48af-9e74-07e56130c0e6
+  name: Dick Trantow
+  sex: M
+  birthdate: '1925-04-22'
+  city: Dennis
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '1974-04-10'
+  request_date: '2018-12-26'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '1974-04-10'
+    end: '2018-12-26'
+  therapy_lookback_window:
+    start: '2017-12-26'
+    end: '2018-12-26'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 21
+    observations_lifetime: 248
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1969-05-07'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1973-05-16'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1973-06-27'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-09-08'
+    description: Neoplasm of prostate
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-09-08'
+    description: Carcinoma in situ of prostate (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-10-24'
+    description: Alzheimer's disease (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-10'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-03-12'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-11-27'
+    description: Atrial Fibrillation
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1974-04-10'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 59a48f9c-8c59-4eb3-a5b5-3033761521c2
+  encounter_class: ambulatory
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/1974-04-10-ed-visit.md
+- id: E002
+  date: '1974-04-10'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/1974-04-10-ed-visit.md
+  - input/notes/1974-04-22-ortho-consult.md
+- id: E003
+  date: '1974-04-10'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/1974-04-10-ed-visit.md
+  - input/notes/1974-04-22-ortho-consult.md
+- id: A004
+  date: '1974-04-10'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/1974-04-10-ed-visit.md
+  - input/notes/1974-04-22-ortho-consult.md
+- id: A005
+  date: '1974-04-10'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/1974-04-10-ed-visit.md
+- id: A006
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2018-09-03'
+    end: '2018-12-12'
+  attributes:
+    modality: in_person
+    duration_days: 100
+    body_region: knee
+    sessions_attended: 20
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2018-12-12-pt-discharge.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Authored therapy course of 100 days (provenance authored; Synthea has no 90-day PT courses).
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

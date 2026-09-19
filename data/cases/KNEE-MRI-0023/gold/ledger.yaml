@@ -1,0 +1,158 @@
+# Generated ledger for KNEE-MRI-0023. Hidden from the verifier.
+
+case_id: KNEE-MRI-0023
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: a0af88b5-1568-4545-a71a-3073c2c2ac72
+  name: Francisco Delrío
+  sex: M
+  birthdate: '1971-09-04'
+  city: Weymouth
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2015-12-22'
+  request_date: '2016-03-13'
+  anchor_condition: Injury of medial collateral ligament of knee
+scope:
+  episode_window:
+    start: '2015-12-22'
+    end: '2016-03-13'
+  therapy_lookback_window:
+    start: '2015-03-14'
+    end: '2016-03-13'
+  patient_chart_totals:
+    conditions_lifetime: 7
+    encounters_lifetime: 14
+    observations_lifetime: 146
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '2012-07-12'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-12-23'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-09-14'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2015-09-19'
+    description: Anemia (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2016-10-08'
+      description: Viral sinusitis (disorder)
+    - date: '2018-04-15'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2015-12-22'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: c2ea7439-675b-441b-bafe-b2842c2ab0c0
+  encounter_class: emergency
+  payer_id: 047f6ec3-6215-35eb-9608-f9dda363a44c
+  rendered_in:
+  - input/notes/2015-12-22-ed-visit.md
+- id: E002
+  date: '2015-12-22'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of medial collateral ligament of knee
+  code: '444448004'
+  rendered_in:
+  - input/notes/2015-12-22-ed-visit.md
+  - input/notes/2016-01-03-ortho-consult.md
+- id: E003
+  date: '2015-12-22'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 78362b53-ad0e-4f4b-b36a-c6c9a93f9428
+  description: Physical therapy procedure
+  reason: Injury of medial collateral ligament of knee
+  date_range:
+    start: '2015-12-22'
+    stop: '2016-02-27'
+  duration_days: 67
+  rendered_in: []
+- id: A004
+  date: '2015-12-22'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2015-12-22-ed-visit.md
+  - input/notes/2016-01-03-ortho-consult.md
+- id: A005
+  date: '2016-01-03'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching and locking
+  is_mechanical_symptom: true
+  is_true_locking: true
+  rendered_in:
+  - input/notes/2016-01-03-ortho-consult.md
+- id: A006
+  date: '2015-12-22'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2015-12-22-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2015-12-22'
+    end: '2016-02-27'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: false
+  rendered_in: []
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Effusion or inability to bear weight documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Mechanical symptoms or provocative exam recorded.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; not enclosed.

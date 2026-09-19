@@ -1,0 +1,163 @@
+# Generated ledger for SHOULDER-RCR-0001. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0001
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 0b48619e-1602-488c-a23b-3d4937153dff
+  name: Mario Kautzer
+  sex: F
+  birthdate: '1986-06-02'
+  city: Brockton
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2011-04-06'
+  request_date: '2011-06-20'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2011-04-06'
+    end: '2011-06-20'
+  therapy_lookback_window:
+    start: '2010-06-20'
+    end: '2011-06-20'
+  patient_chart_totals:
+    conditions_lifetime: 13
+    encounters_lifetime: 57
+    observations_lifetime: 72
+    careplans_lifetime: 6
+  excluded_from_packet:
+  - date: '1999-05-31'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2006-02-11'
+    description: Chronic intractable migraine without aura
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2009-11-30'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-14'
+    description: Antepartum eclampsia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-11-08'
+    description: Normal pregnancy
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2011-10-24'
+      description: Normal pregnancy
+    - date: '2011-10-24'
+      description: Miscarriage in first trimester
+    - date: '2011-10-24'
+      description: Blighted ovum
+    - date: '2012-03-12'
+      description: Normal pregnancy
+    - date: '2012-12-03'
+      description: Normal pregnancy
+    - date: '2015-10-30'
+      description: Acute bronchitis (disorder)
+    - date: '2017-01-09'
+      description: Normal pregnancy
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2011-04-06'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: cba59820-1f36-4dda-9f3e-5f6673d6c3f1
+  encounter_class: ambulatory
+  payer_id: 7c4411ce-02f1-39b5-b9ec-dfbea9ad3c1a
+  rendered_in:
+  - input/notes/2011-04-06-ed-visit.md
+- id: E002
+  date: '2011-04-06'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2011-04-06-ed-visit.md
+  - input/notes/2011-04-18-ortho-consult.md
+- id: E003
+  date: '2011-04-06'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 3b1f3755-ac55-418b-ac93-b0b28935a8fe
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2011-04-06'
+    stop: '2011-06-05'
+  duration_days: 60
+  rendered_in:
+  - input/notes/2011-06-05-pt-discharge.md
+- id: A004
+  date: '2011-04-06'
+  type: symptom
+  provenance: authored
+  description: Pain of the left shoulder
+  rendered_in:
+  - input/notes/2011-04-06-ed-visit.md
+  - input/notes/2011-04-18-ortho-consult.md
+- id: A005
+  date: '2011-04-06'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2011-04-06-ed-visit.md
+- id: A006
+  date: '2011-06-13'
+  type: imaging
+  provenance: authored
+  modality: mri
+  description: Authored MRI — no MRI exists in synthea_data
+  rendered_in:
+  - input/notes/2011-06-13-mri-report.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2011-04-06'
+    end: '2011-06-05'
+  attributes:
+    modality: in_person
+    duration_days: 60
+    body_region: shoulder
+    sessions_attended: 17
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2011-06-05-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: MRI/US confirming a cuff tear.
+  C3_conservative_therapy:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 60 days vs threshold 42; modality in_person; body region shoulder; enclosed.

@@ -1,0 +1,1184 @@
+# Recipe list for src/data_generation.generate
+# Output: data/cases/<case_id>/
+
+corpus_version: 0.3.0
+frozen_case_ids:
+- KNEE-ARTHRO-0001
+- KNEE-ARTHRO-0002
+- KNEE-ARTHRO-0003
+notes: Generated cases only. Frozen IDs are never overwritten. Output is always data/cases/<case_id>/.
+cases:
+- case_id: KNEE-ARTHRO-0004
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 1
+- case_id: KNEE-ARTHRO-0005
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 2
+- case_id: KNEE-ARTHRO-0006
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: distractor_unrelated
+  anchor_condition: Tear of meniscus of knee
+  seed: 3
+- case_id: KNEE-ARTHRO-0007
+  patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 4
+- case_id: KNEE-ARTHRO-0008
+  patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: home_pt_enclosed
+  anchor_condition: Tear of meniscus of knee
+  seed: 5
+- case_id: KNEE-ARTHRO-0009
+  patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_imaging
+  anchor_condition: Tear of meniscus of knee
+  seed: 6
+- case_id: KNEE-ARTHRO-0010
+  patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 7
+- case_id: KNEE-ARTHRO-0011
+  patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: short_pt_enclosed
+  anchor_condition: Tear of meniscus of knee
+  seed: 8
+- case_id: KNEE-ARTHRO-0012
+  patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: overclaim_attestation
+  anchor_condition: Tear of meniscus of knee
+  seed: 9
+- case_id: KNEE-ARTHRO-0013
+  patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 10
+- case_id: KNEE-ARTHRO-0014
+  patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: short_pt_enclosed
+  anchor_condition: Tear of meniscus of knee
+  seed: 11
+- case_id: KNEE-ARTHRO-0015
+  patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: overclaim_attestation
+  anchor_condition: Tear of meniscus of knee
+  seed: 12
+- case_id: KNEE-ARTHRO-0016
+  patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 13
+- case_id: KNEE-ARTHRO-0017
+  patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 14
+- case_id: KNEE-ARTHRO-0018
+  patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_imaging
+  anchor_condition: Tear of meniscus of knee
+  seed: 15
+- case_id: KNEE-ARTHRO-0019
+  patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 16
+- case_id: KNEE-ARTHRO-0020
+  patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_pt_notes
+  anchor_condition: Tear of meniscus of knee
+  seed: 17
+- case_id: KNEE-ARTHRO-0021
+  patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  policy_id: PA-KNEE-ARTHRO-001
+  variant: omit_imaging
+  anchor_condition: Tear of meniscus of knee
+  seed: 18
+- case_id: KNEE-MRI-0001
+  patient_id: 4e83ed9f-f2ed-4add-8434-2fc116de704b
+  policy_id: PA-KNEE-MRI-001
+  variant: pre_effective_date
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 19
+  plan_id: HUMANA-COMMERCIAL-01
+- case_id: KNEE-MRI-0002
+  patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  policy_id: PA-KNEE-MRI-001
+  variant: pre_effective_date
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 20
+  plan_id: HUMANA-COMMERCIAL-01
+- case_id: KNEE-MRI-0003
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 21
+- case_id: KNEE-MRI-0004
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 22
+- case_id: KNEE-MRI-0005
+  patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 23
+- case_id: KNEE-MRI-0006
+  patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 24
+- case_id: KNEE-MRI-0007
+  patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 25
+- case_id: KNEE-MRI-0008
+  patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 26
+- case_id: KNEE-MRI-0009
+  patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 27
+- case_id: KNEE-MRI-0010
+  patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 28
+- case_id: KNEE-MRI-0011
+  patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 29
+- case_id: KNEE-MRI-0012
+  patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 30
+- case_id: KNEE-MRI-0013
+  patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Tear of meniscus of knee
+  seed: 31
+- case_id: KNEE-MRI-0014
+  patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Tear of meniscus of knee
+  seed: 32
+- case_id: KNEE-MRI-0015
+  patient_id: 13b9a676-7cfd-4b7c-bdb6-43ec52b7c919
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 33
+- case_id: KNEE-MRI-0016
+  patient_id: 13b9a676-7cfd-4b7c-bdb6-43ec52b7c919
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 34
+- case_id: KNEE-MRI-0017
+  patient_id: 508d609e-4740-4458-a1b0-3d2fcb0ba804
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 35
+- case_id: KNEE-MRI-0018
+  patient_id: 508d609e-4740-4458-a1b0-3d2fcb0ba804
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 36
+- case_id: KNEE-MRI-0019
+  patient_id: 8a9b659b-4fff-4cef-b189-adbc7914caca
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 37
+- case_id: KNEE-MRI-0020
+  patient_id: 8a9b659b-4fff-4cef-b189-adbc7914caca
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 38
+- case_id: KNEE-MRI-0021
+  patient_id: 8dd20f15-2beb-4568-83d4-2109123f5ffd
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 39
+- case_id: KNEE-MRI-0022
+  patient_id: 8dd20f15-2beb-4568-83d4-2109123f5ffd
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 40
+- case_id: KNEE-MRI-0023
+  patient_id: a0af88b5-1568-4545-a71a-3073c2c2ac72
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 41
+- case_id: KNEE-MRI-0024
+  patient_id: a0af88b5-1568-4545-a71a-3073c2c2ac72
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 42
+- case_id: KNEE-MRI-0025
+  patient_id: ccbd3a61-50ff-4f6f-8d64-8105c3fc54cf
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 43
+- case_id: KNEE-MRI-0026
+  patient_id: ccbd3a61-50ff-4f6f-8d64-8105c3fc54cf
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 44
+- case_id: KNEE-MRI-0027
+  patient_id: dcda9f18-59eb-402e-985b-f13c15c2131c
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 45
+- case_id: KNEE-MRI-0028
+  patient_id: dcda9f18-59eb-402e-985b-f13c15c2131c
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 46
+- case_id: KNEE-MRI-0029
+  patient_id: dea008f8-c3da-4b74-9b12-db1de6e07730
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 47
+- case_id: KNEE-MRI-0030
+  patient_id: dea008f8-c3da-4b74-9b12-db1de6e07730
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 48
+- case_id: KNEE-MRI-0031
+  patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 49
+- case_id: KNEE-MRI-0032
+  patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 50
+- case_id: KNEE-MRI-0033
+  patient_id: f588df9c-15b0-47b8-8867-00d45327b705
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 51
+- case_id: KNEE-MRI-0034
+  patient_id: f588df9c-15b0-47b8-8867-00d45327b705
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of medial collateral ligament of knee
+  seed: 52
+- case_id: KNEE-MRI-0035
+  patient_id: 11a0d503-fad9-4633-86b2-00398d650077
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 53
+- case_id: KNEE-MRI-0036
+  patient_id: 11a0d503-fad9-4633-86b2-00398d650077
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 54
+- case_id: KNEE-MRI-0037
+  patient_id: 4e83ed9f-f2ed-4add-8434-2fc116de704b
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 55
+- case_id: KNEE-MRI-0038
+  patient_id: 4e83ed9f-f2ed-4add-8434-2fc116de704b
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 56
+- case_id: KNEE-MRI-0039
+  patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 57
+- case_id: KNEE-MRI-0040
+  patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 58
+- case_id: KNEE-MRI-0041
+  patient_id: a52b02ff-bff3-4a5f-8fe4-f06a1712f0e6
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 59
+- case_id: KNEE-MRI-0042
+  patient_id: a52b02ff-bff3-4a5f-8fe4-f06a1712f0e6
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Injury of anterior cruciate ligament
+  seed: 60
+- case_id: KNEE-MRI-0043
+  patient_id: 144edc8e-936e-42d7-8e7d-f3578cf80cc2
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 61
+- case_id: KNEE-MRI-0044
+  patient_id: 144edc8e-936e-42d7-8e7d-f3578cf80cc2
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 62
+- case_id: KNEE-MRI-0045
+  patient_id: 33c2184c-bda1-4d31-b0cb-4f18c46822da
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 63
+- case_id: KNEE-MRI-0046
+  patient_id: 33c2184c-bda1-4d31-b0cb-4f18c46822da
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 64
+- case_id: KNEE-MRI-0047
+  patient_id: b4d1167c-9adf-40e0-8295-4c3f25fdb3b4
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 65
+- case_id: KNEE-MRI-0048
+  patient_id: b4d1167c-9adf-40e0-8295-4c3f25fdb3b4
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 66
+- case_id: KNEE-MRI-0049
+  patient_id: bd6049cf-d394-4818-8b37-a4498547844d
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 67
+- case_id: KNEE-MRI-0050
+  patient_id: bd6049cf-d394-4818-8b37-a4498547844d
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 68
+- case_id: KNEE-MRI-0051
+  patient_id: c914f76e-2d8c-4da3-9b2a-e98794496245
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 69
+- case_id: KNEE-MRI-0052
+  patient_id: c914f76e-2d8c-4da3-9b2a-e98794496245
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 70
+- case_id: KNEE-MRI-0053
+  patient_id: cad44a83-848c-4019-a175-291a150b9d05
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 71
+- case_id: KNEE-MRI-0054
+  patient_id: cad44a83-848c-4019-a175-291a150b9d05
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 72
+- case_id: KNEE-MRI-0055
+  patient_id: cb1be644-93a5-4208-8776-f5feece6967a
+  policy_id: PA-KNEE-MRI-001
+  variant: full_packet
+  anchor_condition: Rupture of patellar tendon
+  seed: 73
+- case_id: KNEE-MRI-0056
+  patient_id: cb1be644-93a5-4208-8776-f5feece6967a
+  policy_id: PA-KNEE-MRI-001
+  variant: omit_exam
+  anchor_condition: Rupture of patellar tendon
+  seed: 74
+- case_id: KNEE-MRI-0057
+  patient_id: 04a29a39-c12f-480b-9521-f2d20559089f
+  policy_id: PA-KNEE-MRI-001
+  variant: severe_oa
+  anchor_condition: Osteoarthritis of knee
+  seed: 75
+  flags:
+  - omit_exam
+- case_id: KNEE-MRI-0058
+  patient_id: 076688b0-f0d5-4c45-8bc6-b206684fa9ac
+  policy_id: PA-KNEE-MRI-001
+  variant: severe_oa
+  anchor_condition: Osteoarthritis of knee
+  seed: 76
+  flags:
+  - omit_exam
+- case_id: KNEE-MRI-0059
+  patient_id: 08180c75-dd87-418f-95ff-06fb2f434713
+  policy_id: PA-KNEE-MRI-001
+  variant: severe_oa
+  anchor_condition: Osteoarthritis of knee
+  seed: 77
+  flags:
+  - omit_exam
+- case_id: KNEE-MRI-0060
+  patient_id: 0ba90366-87ad-4f9d-9bcd-c11e63eb6f27
+  policy_id: PA-KNEE-MRI-001
+  variant: severe_oa
+  anchor_condition: Osteoarthritis of knee
+  seed: 78
+  flags:
+  - omit_exam
+- case_id: TKA-0001
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-TKA-001
+  variant: full_packet
+  anchor_condition: Osteoarthritis of knee
+  seed: 79
+- case_id: TKA-0002
+  patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 80
+- case_id: TKA-0003
+  patient_id: 2a5c04ff-26e1-4406-831f-be13b540cbc7
+  policy_id: PA-TKA-001
+  variant: full_packet
+  anchor_condition: Osteoarthritis of knee
+  seed: 81
+- case_id: TKA-0004
+  patient_id: 2a5c04ff-26e1-4406-831f-be13b540cbc7
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 82
+- case_id: TKA-0005
+  patient_id: 36cfc9c6-c720-41a3-ba03-bc9d11840564
+  policy_id: PA-TKA-001
+  variant: full_packet
+  anchor_condition: Osteoarthritis of knee
+  seed: 83
+- case_id: TKA-0006
+  patient_id: 36cfc9c6-c720-41a3-ba03-bc9d11840564
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 84
+- case_id: TKA-0007
+  patient_id: 51f196eb-b11e-493e-ad95-254285af055e
+  policy_id: PA-TKA-001
+  variant: full_packet
+  anchor_condition: Osteoarthritis of knee
+  seed: 85
+- case_id: TKA-0008
+  patient_id: 51f196eb-b11e-493e-ad95-254285af055e
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 86
+- case_id: TKA-0009
+  patient_id: 64b55489-6953-48af-9e74-07e56130c0e6
+  policy_id: PA-TKA-001
+  variant: full_packet
+  anchor_condition: Osteoarthritis of knee
+  seed: 87
+- case_id: TKA-0010
+  patient_id: 64b55489-6953-48af-9e74-07e56130c0e6
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 88
+- case_id: TKA-0011
+  patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 89
+- case_id: TKA-0012
+  patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 90
+- case_id: TKA-0013
+  patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 91
+- case_id: TKA-0014
+  patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 92
+- case_id: TKA-0015
+  patient_id: 7a8e4ef0-adf4-4e6d-8d28-5d36886547f4
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 93
+- case_id: TKA-0016
+  patient_id: 7a8e4ef0-adf4-4e6d-8d28-5d36886547f4
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 94
+- case_id: TKA-0017
+  patient_id: 81813194-e1ed-41c2-8f7a-122a60b06550
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 95
+- case_id: TKA-0018
+  patient_id: 81813194-e1ed-41c2-8f7a-122a60b06550
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 96
+- case_id: TKA-0019
+  patient_id: 844d1c39-6ca2-48df-a3de-f9a12633f69c
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 97
+- case_id: TKA-0020
+  patient_id: 844d1c39-6ca2-48df-a3de-f9a12633f69c
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 98
+- case_id: TKA-0021
+  patient_id: 875d9a6a-1c7e-44a9-96a0-b4ba92e40841
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 99
+- case_id: TKA-0022
+  patient_id: 875d9a6a-1c7e-44a9-96a0-b4ba92e40841
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 100
+- case_id: TKA-0023
+  patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 101
+- case_id: TKA-0024
+  patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 102
+- case_id: TKA-0025
+  patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 103
+- case_id: TKA-0026
+  patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 104
+- case_id: TKA-0027
+  patient_id: 04a29a39-c12f-480b-9521-f2d20559089f
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 105
+- case_id: TKA-0028
+  patient_id: 04a29a39-c12f-480b-9521-f2d20559089f
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 106
+- case_id: TKA-0029
+  patient_id: 076688b0-f0d5-4c45-8bc6-b206684fa9ac
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 107
+- case_id: TKA-0030
+  patient_id: 076688b0-f0d5-4c45-8bc6-b206684fa9ac
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 108
+- case_id: TKA-0031
+  patient_id: 08180c75-dd87-418f-95ff-06fb2f434713
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 109
+- case_id: TKA-0032
+  patient_id: 08180c75-dd87-418f-95ff-06fb2f434713
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 110
+- case_id: TKA-0033
+  patient_id: 0ba90366-87ad-4f9d-9bcd-c11e63eb6f27
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 111
+- case_id: TKA-0034
+  patient_id: 0ba90366-87ad-4f9d-9bcd-c11e63eb6f27
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 112
+- case_id: TKA-0035
+  patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 113
+- case_id: TKA-0036
+  patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 114
+- case_id: TKA-0037
+  patient_id: 14289f20-085c-4fc8-bdd8-e2074166d91f
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 115
+- case_id: TKA-0038
+  patient_id: 14289f20-085c-4fc8-bdd8-e2074166d91f
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 116
+- case_id: TKA-0039
+  patient_id: 1c2aa038-9366-4c7d-9a3e-52cb753a670f
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 117
+- case_id: TKA-0040
+  patient_id: 1c2aa038-9366-4c7d-9a3e-52cb753a670f
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 118
+- case_id: TKA-0041
+  patient_id: 1c591f0d-95b1-4289-94a9-9713ab3834e7
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 119
+- case_id: TKA-0042
+  patient_id: 1c591f0d-95b1-4289-94a9-9713ab3834e7
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 120
+- case_id: TKA-0043
+  patient_id: 21ce6dc0-8668-4221-a5bc-6d6a1afe4c52
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 121
+- case_id: TKA-0044
+  patient_id: 21ce6dc0-8668-4221-a5bc-6d6a1afe4c52
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 122
+- case_id: TKA-0045
+  patient_id: 2be232c2-45cd-4621-b16a-9bd0ff62181a
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 123
+- case_id: TKA-0046
+  patient_id: 2be232c2-45cd-4621-b16a-9bd0ff62181a
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 124
+- case_id: TKA-0047
+  patient_id: 2e00e359-abc8-49aa-b98c-c0cc554acf34
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 125
+- case_id: TKA-0048
+  patient_id: 2e00e359-abc8-49aa-b98c-c0cc554acf34
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 126
+- case_id: TKA-0049
+  patient_id: 32fbdecd-7987-4efb-9b6e-4c8e460cbd66
+  policy_id: PA-TKA-001
+  variant: omit_pt_notes
+  anchor_condition: Osteoarthritis of knee
+  seed: 127
+- case_id: TKA-0050
+  patient_id: 32fbdecd-7987-4efb-9b6e-4c8e460cbd66
+  policy_id: PA-TKA-001
+  variant: short_pt_enclosed
+  anchor_condition: Osteoarthritis of knee
+  seed: 128
+- case_id: SHOULDER-RCR-0001
+  patient_id: 0b48619e-1602-488c-a23b-3d4937153dff
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 129
+- case_id: SHOULDER-RCR-0002
+  patient_id: 0b48619e-1602-488c-a23b-3d4937153dff
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 130
+- case_id: SHOULDER-RCR-0003
+  patient_id: 0b48619e-1602-488c-a23b-3d4937153dff
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 131
+- case_id: SHOULDER-RCR-0004
+  patient_id: 16ff017b-226f-4df9-9ea0-74a68b064dc2
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 132
+- case_id: SHOULDER-RCR-0005
+  patient_id: 16ff017b-226f-4df9-9ea0-74a68b064dc2
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 133
+- case_id: SHOULDER-RCR-0006
+  patient_id: 16ff017b-226f-4df9-9ea0-74a68b064dc2
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 134
+- case_id: SHOULDER-RCR-0007
+  patient_id: 5f1c9186-80b0-405f-9f74-c4e26beb1d01
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 135
+- case_id: SHOULDER-RCR-0008
+  patient_id: 5f1c9186-80b0-405f-9f74-c4e26beb1d01
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 136
+- case_id: SHOULDER-RCR-0009
+  patient_id: 5f1c9186-80b0-405f-9f74-c4e26beb1d01
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 137
+- case_id: SHOULDER-RCR-0010
+  patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 138
+- case_id: SHOULDER-RCR-0011
+  patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 139
+- case_id: SHOULDER-RCR-0012
+  patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 140
+- case_id: SHOULDER-RCR-0013
+  patient_id: 6e9ca2a6-00eb-47ca-9e31-f249a33c90ad
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 141
+- case_id: SHOULDER-RCR-0014
+  patient_id: 6e9ca2a6-00eb-47ca-9e31-f249a33c90ad
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 142
+- case_id: SHOULDER-RCR-0015
+  patient_id: 6e9ca2a6-00eb-47ca-9e31-f249a33c90ad
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 143
+- case_id: SHOULDER-RCR-0016
+  patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 144
+- case_id: SHOULDER-RCR-0017
+  patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 145
+- case_id: SHOULDER-RCR-0018
+  patient_id: 8e075015-6b2e-4cfc-bc67-a44d62c961af
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 146
+- case_id: SHOULDER-RCR-0019
+  patient_id: 926fc2c9-0e8c-4dd4-a00a-6d37a01dd304
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 147
+- case_id: SHOULDER-RCR-0020
+  patient_id: 926fc2c9-0e8c-4dd4-a00a-6d37a01dd304
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 148
+- case_id: SHOULDER-RCR-0021
+  patient_id: 926fc2c9-0e8c-4dd4-a00a-6d37a01dd304
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 149
+- case_id: SHOULDER-RCR-0022
+  patient_id: 96e4e7cd-b134-4d6a-9f30-89cf6104f923
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 150
+- case_id: SHOULDER-RCR-0023
+  patient_id: 96e4e7cd-b134-4d6a-9f30-89cf6104f923
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 151
+- case_id: SHOULDER-RCR-0024
+  patient_id: 96e4e7cd-b134-4d6a-9f30-89cf6104f923
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 152
+- case_id: SHOULDER-RCR-0025
+  patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 153
+- case_id: SHOULDER-RCR-0026
+  patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 154
+- case_id: SHOULDER-RCR-0027
+  patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 155
+- case_id: SHOULDER-RCR-0028
+  patient_id: c6fc7fe8-483a-4df7-ba2b-260ea4de9aa4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 156
+- case_id: SHOULDER-RCR-0029
+  patient_id: c6fc7fe8-483a-4df7-ba2b-260ea4de9aa4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 157
+- case_id: SHOULDER-RCR-0030
+  patient_id: c6fc7fe8-483a-4df7-ba2b-260ea4de9aa4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 158
+- case_id: SHOULDER-RCR-0031
+  patient_id: dadd331c-6143-41d1-bffb-d34b321ed157
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_pt_notes
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 159
+- case_id: SHOULDER-RCR-0032
+  patient_id: dadd331c-6143-41d1-bffb-d34b321ed157
+  policy_id: PA-SHOULDER-RCR-001
+  variant: short_pt_enclosed
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 160
+- case_id: SHOULDER-RCR-0033
+  patient_id: dadd331c-6143-41d1-bffb-d34b321ed157
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 161
+- case_id: SHOULDER-RCR-0034
+  patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: full_packet
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 162
+- case_id: SHOULDER-RCR-0035
+  patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: omit_imaging
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 163
+- case_id: SHOULDER-RCR-0036
+  patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  policy_id: PA-SHOULDER-RCR-001
+  variant: distractor_unrelated
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+  seed: 164
+- case_id: SPINE-MRI-0001
+  patient_id: 0288abb6-633c-40c3-ba0c-66c7d957727e
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 165
+- case_id: SPINE-MRI-0002
+  patient_id: 0288abb6-633c-40c3-ba0c-66c7d957727e
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 166
+- case_id: SPINE-MRI-0003
+  patient_id: 04db6603-0017-4cc6-a46d-6df577b0a10d
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 167
+- case_id: SPINE-MRI-0004
+  patient_id: 04db6603-0017-4cc6-a46d-6df577b0a10d
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 168
+- case_id: SPINE-MRI-0005
+  patient_id: 058590f8-c0f3-40c1-ac80-246437499d5d
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 169
+- case_id: SPINE-MRI-0006
+  patient_id: 058590f8-c0f3-40c1-ac80-246437499d5d
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 170
+- case_id: SPINE-MRI-0007
+  patient_id: 10ab86b6-a248-4dcf-bebb-3ba143c0ea29
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 171
+- case_id: SPINE-MRI-0008
+  patient_id: 10ab86b6-a248-4dcf-bebb-3ba143c0ea29
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 172
+- case_id: SPINE-MRI-0009
+  patient_id: 11978d7a-93c0-4e8d-b4c6-320e6c07c5fc
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 173
+- case_id: SPINE-MRI-0010
+  patient_id: 11978d7a-93c0-4e8d-b4c6-320e6c07c5fc
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 174
+- case_id: SPINE-MRI-0011
+  patient_id: 128d5c93-dfce-49a1-8d08-e9b24abcb4db
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 175
+- case_id: SPINE-MRI-0012
+  patient_id: 128d5c93-dfce-49a1-8d08-e9b24abcb4db
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 176
+- case_id: SPINE-MRI-0013
+  patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 177
+- case_id: SPINE-MRI-0014
+  patient_id: 13db4bb8-d1dc-4158-a820-d2d1b7084fc4
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 178
+- case_id: SPINE-MRI-0015
+  patient_id: 1bacaab1-708b-42fe-8f12-fbe97a725440
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 179
+- case_id: SPINE-MRI-0016
+  patient_id: 1bacaab1-708b-42fe-8f12-fbe97a725440
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 180
+- case_id: SPINE-MRI-0017
+  patient_id: 1e040769-9101-4228-9b0b-26263faf7297
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 181
+- case_id: SPINE-MRI-0018
+  patient_id: 1e040769-9101-4228-9b0b-26263faf7297
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 182
+- case_id: SPINE-MRI-0019
+  patient_id: 2f76733b-933c-4cc5-aea2-53799158c8cc
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 183
+- case_id: SPINE-MRI-0020
+  patient_id: 2f76733b-933c-4cc5-aea2-53799158c8cc
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 184
+- case_id: SPINE-MRI-0021
+  patient_id: 2fbb6d14-280c-422d-abce-ee1b27b9f90f
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 185
+- case_id: SPINE-MRI-0022
+  patient_id: 2fbb6d14-280c-422d-abce-ee1b27b9f90f
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 186
+- case_id: SPINE-MRI-0023
+  patient_id: 383da7a1-916b-41ce-8223-43afa899c86e
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 187
+- case_id: SPINE-MRI-0024
+  patient_id: 383da7a1-916b-41ce-8223-43afa899c86e
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 188
+- case_id: SPINE-MRI-0025
+  patient_id: 42d200ef-0872-4318-8326-08cd7056b2db
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 189
+- case_id: SPINE-MRI-0026
+  patient_id: 42d200ef-0872-4318-8326-08cd7056b2db
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 190
+- case_id: SPINE-MRI-0027
+  patient_id: 44c8b4c8-4457-4ba0-94b6-285ef327a249
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 191
+- case_id: SPINE-MRI-0028
+  patient_id: 44c8b4c8-4457-4ba0-94b6-285ef327a249
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 192
+- case_id: SPINE-MRI-0029
+  patient_id: 55de6142-7bb1-47f0-95c3-29fda996ef6b
+  policy_id: PA-SPINE-MRI-001
+  variant: full_packet
+  anchor_condition: Whiplash injury to neck
+  seed: 193
+- case_id: SPINE-MRI-0030
+  patient_id: 55de6142-7bb1-47f0-95c3-29fda996ef6b
+  policy_id: PA-SPINE-MRI-001
+  variant: omit_imaging
+  anchor_condition: Whiplash injury to neck
+  seed: 194

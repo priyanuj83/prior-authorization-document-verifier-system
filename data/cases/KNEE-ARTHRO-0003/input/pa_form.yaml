@@ -1,0 +1,112 @@
+# =============================================================================
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-ARTHRO-0003
+# =============================================================================
+# This file plus input/notes/ is the CASE-SPECIFIC input to the verifier.
+#
+# It is NOT the complete input. The verifier also requires the applicable POLICY,
+# resolved from member.plan_id + requested_service.service_key + submitted_date via
+# pa_requirements/ and then policies/. See data/README.md section 3.
+#
+# NOTE FOR THIS CASE SPECIFICALLY: the resolver step is itself a trap here. Under
+# MEDICARE-FFS-01, requires_prior_auth is FALSE but requires_coverage_review is TRUE.
+# A resolver keying only on the first field will stop and report that no
+# authorisation is needed, skipping verification entirely.
+#
+# Everything under gold/ is hidden from the verifier.
+#
+# ATTESTATION AT2 DIRECTLY CONTRADICTS AN ENCLOSED DOCUMENT. The form says "mild
+# degenerative change"; the enclosed radiology report says Kellgren-Lawrence grade 4
+# with bone-on-bone contact. No clinical judgement is needed to see the conflict,
+# only a comparison between two documents in the same envelope.
+#
+# Path convention: all paths are relative to the CASE ROOT.
+# =============================================================================
+
+form_type: prior_authorisation_request
+submitted_date: 2014-04-22
+
+member:
+  name: Sharilyn Romaguera
+  member_id: SYN-1AB6D5C8
+  dob: 1946-06-24
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+
+requesting_provider:
+  name: H. Castellanos, MD
+  specialty: Orthopaedic Surgery
+  practice: New Bedford Orthopaedic Group
+  npi: SYN-0000003
+
+requested_service:
+  description: Arthroscopic partial medial meniscectomy, left knee
+  service_key: knee_arthroscopy
+  laterality: left
+  setting: outpatient day case
+  proposed_date: 2014-05-13
+  urgency: routine
+
+diagnosis:
+  primary:
+    description: Tear of meniscus of knee, left
+    snomed: "239720000"
+  secondary:
+    - description: Osteoarthritis of knee, left
+      snomed: "239873007"
+      onset_date: 1986-06-14
+  onset_date: 2014-01-31
+
+# -----------------------------------------------------------------------------
+# PROVIDER ATTESTATIONS
+# -----------------------------------------------------------------------------
+
+attestations:
+
+  - id: AT1
+    text: >
+      The patient has persistent left knee pain with recurrent mechanical catching
+      that is distinct from her baseline arthritic symptoms.
+
+  - id: AT2
+    text: >
+      Imaging demonstrates mild degenerative change of the affected knee, which does
+      not preclude arthroscopic intervention.
+
+  - id: AT3
+    text: >
+      MRI of the left knee confirms a tear of the posterior horn of the medial
+      meniscus.
+
+  - id: AT4
+    text: >
+      The patient completed a supervised outpatient physiotherapy course for the left
+      knee, attending twice weekly over fifteen sessions, without any improvement in
+      her mechanical symptoms. The therapy discharge summary is enclosed.
+
+  - id: AT5
+    text: >
+      The requested procedure is intended to address the patient's mechanical
+      symptoms specifically and is being undertaken at her request following
+      discussion of alternatives.
+
+# -----------------------------------------------------------------------------
+# ENCLOSED DOCUMENTATION
+# -----------------------------------------------------------------------------
+
+enclosures:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-10-ortho-consult.md
+  - input/notes/2014-04-01-pt-discharge.md
+  - input/notes/2014-04-10-mri-report.md
+  - input/notes/2014-04-22-ortho-followup.md
+
+records_scope:
+  episode_start: 2014-01-31
+  episode_end: 2014-04-22
+  records_cover: >
+    Left knee episode from index injury to date of request, plus the long-standing
+    osteoarthritis history relevant to the affected joint.
+  is_complete_chart: false
+
+prior_authorisations_referenced: []

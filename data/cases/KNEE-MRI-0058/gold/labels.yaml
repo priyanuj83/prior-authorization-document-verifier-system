@@ -1,0 +1,99 @@
+# Generated labels for KNEE-MRI-0058. Derived from the ledger, not the notes.
+
+case_id: KNEE-MRI-0058
+policy_id: PA-KNEE-MRI-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: knee_mri
+    request_date: '2010-02-10'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-KNEE-MRI-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+criteria:
+- id: B2_C1_acute_injury
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Acute traumatic knee injury described in the emergency note.
+- id: B2_C2_objective_finding
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No effusion, locking, or weight-bearing failure documented.
+- id: B1_C1_persistent_symptoms
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Persistent knee pain through the episode.
+- id: B1_C2_suspected_derangement
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No derangement findings documented.
+- id: B1_C3_conservative_trial
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/1996-04-14-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+waivers: []
+exclusions:
+- id: X1_advanced_oa_only
+  state: TRIGGERED
+  reasoning: Kellgren-Lawrence grade 4.
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: NOT_SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: REVIEW_NEEDED
+    remediable: false
+    reasoning: 'REVIEW_NEEDED from criterion labels: B2_C1_acute_injury=SUPPORTED, B2_C2_objective_finding=MISSING,
+      B1_C1_persistent_symptoms=SUPPORTED, B1_C2_suspected_derangement=MISSING, B1_C3_conservative_trial=MISSING.'
+    remediation: []
+    escalation:
+    - action: Clinical review before submission.
+      detail: The enclosed record affirmatively conflicts with at least one requirement, or an exclusion
+        applies.
+    provider_message: Requires clinical review before submission. The record affirmatively conflicts
+      with a requirement.
+  payer_view:
+    decision: DENY
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 2
+    MISSING: 3
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: severe_oa
+  generator: template-v0.3

@@ -1,0 +1,50 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: SHOULDER-RCR-0008
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2018-07-13'
+generator: template-v0.3
+member:
+  name: Sheba Ziemann
+  member_id: SYN-5F1C9186
+  dob: '1990-07-01'
+  sex: F
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: Rotator cuff repair, right shoulder
+  service_key: rotator_cuff_repair
+  laterality: right
+  setting: outpatient
+  proposed_date: '2018-08-03'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of tendon of the rotator cuff of shoulder
+    snomed: '307731004'
+  onset_date: '2018-05-29'
+attestations:
+- id: AT1
+  text: The patient has persistent right shoulder pain with mechanical catching.
+- id: AT2
+  text: MRI confirms a rotator cuff tear of the right shoulder.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the right shoulder,
+    attending twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2018-05-29-ed-visit.md
+- input/notes/2018-06-10-ortho-consult.md
+- input/notes/2018-06-28-pt-discharge.md
+- input/notes/2018-07-06-mri-report.md
+- input/notes/2018-07-13-ortho-followup.md
+records_scope:
+  episode_start: '2018-05-29'
+  episode_end: '2018-07-13'
+  is_complete_chart: false

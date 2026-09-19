@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0027
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2014-12-01'
+generator: template-v0.3
+member:
+  name: Colby Gleichner
+  member_id: SYN-DCDA9F18
+  dob: '2012-12-19'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: R. Danvers, MD
+  specialty: Orthopaedic Surgery
+  practice: Orthopaedic Associates of Middlesex
+  npi: SYN-0000001
+requested_service:
+  description: MRI of the right knee, without contrast
+  service_key: knee_mri
+  laterality: right
+  setting: outpatient
+  proposed_date: '2014-12-22'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of medial collateral ligament of knee
+    snomed: '444448004'
+  onset_date: '2014-10-10'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: Advanced imaging of the right knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the right knee.
+enclosures:
+- input/notes/2014-10-10-ed-visit.md
+- input/notes/2014-10-22-ortho-consult.md
+- input/notes/2014-12-01-ortho-followup.md
+records_scope:
+  episode_start: '2014-10-10'
+  episode_end: '2014-12-01'
+  is_complete_chart: false

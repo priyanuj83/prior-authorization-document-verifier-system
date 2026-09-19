@@ -1,0 +1,87 @@
+# Generated ledger for SPINE-MRI-0011. Hidden from the verifier.
+
+case_id: SPINE-MRI-0011
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 128d5c93-dfce-49a1-8d08-e9b24abcb4db
+  name: Tifany Wilderman
+  sex: F
+  birthdate: '2015-09-03'
+  city: Plymouth
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2017-08-23'
+  request_date: '2017-08-26'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2017-08-23'
+    end: '2017-08-26'
+  therapy_lookback_window:
+    start: '2016-08-26'
+    end: '2017-08-26'
+  patient_chart_totals:
+    conditions_lifetime: 3
+    encounters_lifetime: 19
+    observations_lifetime: 191
+    careplans_lifetime: 3
+  excluded_from_packet: []
+  excluded_because_post_request:
+    events:
+    - date: '2018-05-22'
+      description: Acute bronchitis (disorder)
+    - date: '2019-05-24'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2017-08-23'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 8ec857a1-ceb1-48a3-b473-195e3f4c7286
+  encounter_class: emergency
+  payer_id: 6e2f1a2d-27bd-3701-8d08-dae202c58632
+  rendered_in:
+  - input/notes/2017-08-23-ed-visit.md
+- id: E002
+  date: '2017-08-23'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2017-08-23-ed-visit.md
+- id: A003
+  date: '2017-08-23'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2017-08-23-ed-visit.md
+- id: A004
+  date: '2017-08-23'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2017-08-23-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

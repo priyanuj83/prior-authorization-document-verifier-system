@@ -1,0 +1,45 @@
+# Generation plan for SPINE-MRI-0024. Hidden from the verifier.
+
+case_id: SPINE-MRI-0024
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 188
+patient:
+  synthea_patient_id: 383da7a1-916b-41ce-8223-43afa899c86e
+  name: Al Metz
+  sex: M
+  birthdate: '2006-10-05'
+  age_at_request: 6
+request:
+  requested_service: MRI of the cervical spine without contrast
+  service_key: spine_mri_ct
+  request_date: '2013-07-11'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: spine_mri_ct
+    request_date: '2013-07-11'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SPINE-MRI-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: omit_imaging
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: B8_trauma_fracture
+  intended_label: MISSING
+  realization: SILENT
+- id: B9_suspected_cord_injury
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

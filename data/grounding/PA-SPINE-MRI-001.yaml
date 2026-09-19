@@ -1,0 +1,145 @@
+# =============================================================================
+# GROUNDING: PA-SPINE-MRI-001
+# =============================================================================
+# VERDICT: NOT GENERATABLE from the current extract. This file exists to record
+# exactly why, and to specify the two paths to fixing it, so the decision is not
+# rediscovered later.
+# =============================================================================
+
+policy_id: PA-SPINE-MRI-001
+grounding_version: 1.0.0
+source_extract: synthea_data/
+extract_profiled: 2026-08-30
+status: BLOCKED
+tier: 2
+
+# -----------------------------------------------------------------------------
+# WHY IT IS BLOCKED
+# -----------------------------------------------------------------------------
+blocking_findings:
+
+  - finding: No lumbar or cervical pain syndrome exists in the extract.
+    evidence: >
+      Searching conditions.csv (8,376 rows) for back, spine, lumbar, radiculopathy,
+      sciatica and disc returns exactly two rows, both vertebral fractures:
+      "Fracture of vertebral column without spinal cord injury" and
+      "Fracture of the vertebral column with spinal cord injury".
+    consequence: >
+      Branch B1 (radiculopathy after six weeks), branch B2 (spondylolisthesis after
+      four weeks) and exclusion X1 (non-specific low back pain) have no cohort.
+
+  - finding: No MRI modality exists anywhere in the extract.
+    evidence: >
+      imaging_studies.csv modalities are Computed Tomography (328), Digital
+      Radiography (278), Ultrasound (173), Computed Radiography (76). Body sites are
+      thoracic, arm, wrist, ankle, clavicle, knee, chest, pelvis. No spine site.
+      MRI appears only in procedures.csv as brain-volume measurement (15) and breast
+      MRI (4).
+    consequence: The requested service has no analogue, and neither do prior studies.
+
+  - finding: Synthea has no low back pain module.
+    evidence: >
+      The core module list includes Osteoarthritis, Osteoporosis, Injuries, Total
+      Joint Replacement, Rheumatoid Arthritis, Fibromyalgia and Gout, but no back or
+      spine module. This is the root cause of the first finding, and it means
+      regenerating with default modules will not help.
+    reference: https://synthetichealth.github.io/module-builder/
+
+  - finding: Objective motor and reflex findings are not modelled.
+    evidence: >
+      No observation in observations.csv encodes a neurological examination. The
+      radiculopathy definition in this policy requires objective motor or reflex
+      change, which cannot be grounded.
+    consequence: B1_C2_radiculopathy would be entirely authored.
+
+# -----------------------------------------------------------------------------
+# HOW TO UNBLOCK
+# -----------------------------------------------------------------------------
+remediation_options:
+
+  - id: OPT_A_author_only
+    label: Let the note generator author spine episodes outright
+    effort: low
+    quality: acceptable
+    method: >
+      Treat the spine cases as fully synthetic. The evidence ledger carries all facts;
+      no structured backbone exists.
+    tradeoff: >
+      Loses the property that makes PA-KNEE-ARTHRO-001 valuable, namely that the
+      conservative-therapy duration comes from data rather than from the generator.
+      Every duration would be a number the generator chose, so any threshold effect
+      the verifier learns is an artifact of the generator's sampling distribution.
+    recommendation: acceptable for smoke tests, not for an evaluation split
+
+  - id: OPT_B_custom_synthea_module
+    label: Author a custom Synthea module for low back pain
+    effort: about one day
+    quality: good
+    recommended: true
+    method: >
+      Build a top-level module in the Synthea Module Builder and place it in
+      src/main/resources/modules, then regenerate the population.
+    module_sketch:
+      - ConditionOnset: Low back pain
+      - Encounter: primary care visit, ambulatory
+      - MedicationOrder: NSAID, for example naproxen
+      - MedicationOrder: muscle relaxant
+      - CarePlanStart: Physical therapy procedure (SNOMED 91251008)
+      - Delay: randomised, distributed to straddle 42 days
+      - CarePlanEnd
+      - Encounter: follow-up
+      - Conditional branch: resolution, or progression to lumbar radiculopathy
+      - ConditionOnset: Lumbar radiculopathy, on the progression branch
+    why_this_works: >
+      Reproduces the exact structural property that makes the knee scenario work: a
+      real careplan duration distribution straddling the policy threshold, so labels
+      derive from data rather than from generator choice.
+    references:
+      module_builder: https://synthetichealth.github.io/module-builder/
+      gmf_docs: https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework
+      customizing: https://mitre.github.io/fhir-for-research/modules/synthea-customizing
+
+# -----------------------------------------------------------------------------
+# WHAT IS STILL USEFUL ABOUT THIS POLICY TODAY
+# -----------------------------------------------------------------------------
+still_useful_without_data:
+  - >
+    It is the only DISJUNCTIVE policy in the corpus. Use it to unit-test that the
+    verifier's logic engine handles any_of and nested any_of/all_of correctly, using
+    hand-written fixtures rather than generated cases.
+  - >
+    Its four-week threshold in branch B2, contrasted with six weeks in branch B1,
+    is the cleanest available test of whether a model reads thresholds from the
+    policy in force or recites a memorised number.
+  - >
+    Exclusion X1 encodes the mirror image of branch B1, which is the structure that
+    makes spine imaging denials work in practice.
+
+# -----------------------------------------------------------------------------
+# PARTIAL GROUNDING AVAILABLE TODAY
+# -----------------------------------------------------------------------------
+partially_available:
+
+  conservative_therapy_definition:
+    note: >
+      This policy defines conservative therapy as activity modification, analgesics,
+      NSAIDs and muscle relaxants, and does NOT require physical therapy. The
+      medication components ARE present in the extract.
+    grounded_medications:
+      - description: Naproxen sodium 220 MG Oral Tablet
+        rows: 276
+      - description: Ibuprofen 200 MG Oral Tablet
+        rows: 188
+      - description: Acetaminophen 325 MG Oral Tablet
+        rows: 644
+    consequence: >
+      If you take remediation option B, the NSAID and analgesic arm of the
+      conservative-therapy criterion can be grounded immediately from medications.csv
+      without any new module work.
+
+  trauma_branches:
+    note: >
+      Branches B8 and B9 concern suspected spinal fracture and cord injury. The two
+      existing vertebral fracture rows could seed a very small B8/B9 series.
+    patients: 2
+    recommendation: too few for a case series, adequate for a single fixture

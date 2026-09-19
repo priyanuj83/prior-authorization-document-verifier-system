@@ -1,0 +1,137 @@
+# Generated ledger for TKA-0019. Hidden from the verifier.
+
+case_id: TKA-0019
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 844d1c39-6ca2-48df-a3de-f9a12633f69c
+  name: Corinna Boehm
+  sex: F
+  birthdate: '1963-07-20'
+  city: Westport
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-07-07'
+  request_date: '2019-08-24'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2014-07-07'
+    end: '2019-08-24'
+  therapy_lookback_window:
+    start: '2018-08-24'
+    end: '2019-08-24'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 49
+    observations_lifetime: 386
+    careplans_lifetime: 7
+  excluded_from_packet:
+  - date: '1984-07-14'
+    description: Malignant neoplasm of breast (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2003-07-26'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-04-08'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-04-26'
+    description: Whiplash injury to neck
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-06-07'
+    description: Fracture subluxation of wrist
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-07-06'
+    description: Bleeding from anus
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-07-06'
+    description: Protracted diarrhea
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-07-14'
+    description: Malignant tumor of colon
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-07-07'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 47fa345d-38e3-4c79-ae33-688ce8365b69
+  encounter_class: ambulatory
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2014-07-07-ed-visit.md
+- id: E002
+  date: '2014-07-07'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2014-07-07-ed-visit.md
+  - input/notes/2014-07-19-ortho-consult.md
+- id: E003
+  date: '2014-07-07'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2014-07-07-ed-visit.md
+  - input/notes/2014-07-19-ortho-consult.md
+- id: A004
+  date: '2014-07-07'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2014-07-07-ed-visit.md
+  - input/notes/2014-07-19-ortho-consult.md
+- id: A005
+  date: '2014-07-07'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2014-07-07-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

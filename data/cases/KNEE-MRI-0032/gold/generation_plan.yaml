@@ -1,0 +1,54 @@
+# Generation plan for KNEE-MRI-0032. Hidden from the verifier.
+
+case_id: KNEE-MRI-0032
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 50
+patient:
+  synthea_patient_id: eafd1fd3-3778-423a-ba79-4584bd310eb4
+  name: Buford Lynch
+  sex: M
+  birthdate: '2003-07-05'
+  age_at_request: 12
+request:
+  requested_service: MRI of the right knee, without contrast
+  service_key: knee_mri
+  request_date: '2016-02-19'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: knee_mri
+    request_date: '2016-02-19'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-MRI-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: omit_exam
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: B2_C1_acute_injury
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B2_C2_objective_finding
+  intended_label: MISSING
+  realization: SILENT
+- id: B1_C1_persistent_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C2_suspected_derangement
+  intended_label: MISSING
+  realization: SILENT
+- id: B1_C3_conservative_trial
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

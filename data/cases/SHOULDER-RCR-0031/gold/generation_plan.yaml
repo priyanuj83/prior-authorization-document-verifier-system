@@ -1,0 +1,48 @@
+# Generation plan for SHOULDER-RCR-0031. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0031
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 159
+patient:
+  synthea_patient_id: dadd331c-6143-41d1-bffb-d34b321ed157
+  name: Shirley Borer
+  sex: M
+  birthdate: '1976-09-10'
+  age_at_request: 39
+request:
+  requested_service: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  request_date: '2016-07-18'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: rotator_cuff_repair
+    request_date: '2016-07-18'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: omit_pt_notes
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: C1_symptoms_and_exam
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_imaging_confirmation
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_therapy
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

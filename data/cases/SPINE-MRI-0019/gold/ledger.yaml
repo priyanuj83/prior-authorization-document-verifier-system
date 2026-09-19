@@ -1,0 +1,129 @@
+# Generated ledger for SPINE-MRI-0019. Hidden from the verifier.
+
+case_id: SPINE-MRI-0019
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 2f76733b-933c-4cc5-aea2-53799158c8cc
+  name: Temeka Gerlach
+  sex: F
+  birthdate: '1933-04-16'
+  city: Waltham
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2010-09-11'
+  request_date: '2010-09-14'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2010-09-11'
+    end: '2010-09-14'
+  therapy_lookback_window:
+    start: '2009-09-14'
+    end: '2010-09-14'
+  patient_chart_totals:
+    conditions_lifetime: 14
+    encounters_lifetime: 128
+    observations_lifetime: 474
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1948-05-23'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1951-06-10'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1952-06-15'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1967-10-15'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-03-08'
+    description: Impacted molars
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-05-12'
+    description: Chronic intractable migraine without aura
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-06-18'
+    description: Chronic pain
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2000-07-23'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2004-10-14'
+    description: Drug overdose
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-03-28'
+    description: Malignant neoplasm of breast (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2011-09-25'
+      description: Atrial Fibrillation
+    - date: '2011-11-03'
+      description: Second degree burn
+    - date: '2018-07-26'
+      description: Acute viral pharyngitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2010-09-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 960e57c8-df74-419b-a12a-1dbd95c00c6b
+  encounter_class: emergency
+  payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  rendered_in:
+  - input/notes/2010-09-11-ed-visit.md
+- id: E002
+  date: '2010-09-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2010-09-11-ed-visit.md
+- id: A003
+  date: '2010-09-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2010-09-11-ed-visit.md
+- id: A004
+  date: '2010-09-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2010-09-11-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

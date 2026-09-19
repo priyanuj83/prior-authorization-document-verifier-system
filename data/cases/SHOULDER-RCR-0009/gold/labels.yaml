@@ -1,0 +1,87 @@
+# Generated labels for SHOULDER-RCR-0009. Derived from the ledger, not the notes.
+
+case_id: SHOULDER-RCR-0009
+policy_id: PA-SHOULDER-RCR-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: rotator_cuff_repair
+    request_date: '2018-07-13'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+criteria:
+- id: C1_symptoms_and_exam
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Shoulder pain with restricted motion on examination.
+- id: C2_imaging_confirmation
+  label: MISSING
+  clinical_truth: MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No MRI or ultrasound report enclosed.
+- id: C3_conservative_therapy
+  label: CONTRADICTED
+  clinical_truth: NOT_MET
+  documentation_state: AFFIRMATIVELY_UNMET
+  evidence:
+    ledger:
+    - A005
+    - E004
+    notes:
+    - file: input/notes/2018-06-28-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/2018-05-29-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: course length 30 days vs threshold 42; modality in_person; body region shoulder; enclosed.
+waivers:
+- id: W1_acute_traumatic_full_thickness
+  state: NOT_FIRED
+  reasoning: Waiver not used; therapy criterion is evaluated on its own.
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: REVIEW_NEEDED
+    remediable: false
+    reasoning: 'REVIEW_NEEDED from criterion labels: C1_symptoms_and_exam=SUPPORTED, C2_imaging_confirmation=MISSING,
+      C3_conservative_therapy=CONTRADICTED.'
+    remediation: []
+    escalation:
+    - action: Clinical review before submission.
+      detail: The enclosed record affirmatively conflicts with at least one requirement, or an exclusion
+        applies.
+    provider_message: Requires clinical review before submission. The record affirmatively conflicts
+      with a requirement.
+  payer_view:
+    decision: DENY
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 1
+    MISSING: 1
+    CONTRADICTED: 1
+evaluation_notes:
+  variant: omit_imaging
+  generator: template-v0.3

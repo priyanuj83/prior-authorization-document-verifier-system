@@ -1,0 +1,109 @@
+# Generated ledger for SPINE-MRI-0021. Hidden from the verifier.
+
+case_id: SPINE-MRI-0021
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 2fbb6d14-280c-422d-abce-ee1b27b9f90f
+  name: Mack Wisoky
+  sex: M
+  birthdate: '1951-04-08'
+  city: Scituate
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2016-11-11'
+  request_date: '2016-11-14'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2016-11-11'
+    end: '2016-11-14'
+  therapy_lookback_window:
+    start: '2015-11-15'
+    end: '2016-11-14'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 21
+    observations_lifetime: 161
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '1952-06-08'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1968-12-08'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1969-08-04'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1974-09-28'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1993-04-18'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2017-12-12'
+      description: Otitis media
+    - date: '2018-12-05'
+      description: Viral sinusitis (disorder)
+    - date: '2020-04-10'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2016-11-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 931b73de-22ff-4fe9-9167-4f33953ba45d
+  encounter_class: emergency
+  payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  rendered_in:
+  - input/notes/2016-11-11-ed-visit.md
+- id: E002
+  date: '2016-11-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2016-11-11-ed-visit.md
+- id: A003
+  date: '2016-11-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/2016-11-11-ed-visit.md
+- id: A004
+  date: '2016-11-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2016-11-11-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

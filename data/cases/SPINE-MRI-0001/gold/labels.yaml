@@ -1,0 +1,65 @@
+# Generated labels for SPINE-MRI-0001. Derived from the ledger, not the notes.
+
+case_id: SPINE-MRI-0001
+policy_id: PA-SPINE-MRI-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: spine_mri_ct
+    request_date: '2019-05-14'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-SPINE-MRI-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+criteria:
+- id: B8_trauma_fracture
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Trauma mechanism plus inconclusive cervical films.
+- id: B9_suspected_cord_injury
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No cord-injury suspicion documented.
+waivers: []
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: NOT_SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: READY_FOR_SUBMISSION
+    remediable: null
+    reasoning: 'READY_FOR_SUBMISSION from criterion labels: B8_trauma_fracture=SUPPORTED, B9_suspected_cord_injury=MISSING.'
+    remediation: []
+    escalation: []
+    provider_message: Documentation appears to support the required criteria for this request.
+  payer_view:
+    decision: APPROVE
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 1
+    MISSING: 1
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: full_packet
+  generator: template-v0.3

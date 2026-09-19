@@ -1,0 +1,88 @@
+# =============================================================================
+# PRIOR AUTHORISATION REQUIREMENTS
+# Plan: HUMANA-COMMERCIAL-01  (fictional plan layered on Synthea's "Humana" payer)
+# =============================================================================
+
+plan_id: HUMANA-COMMERCIAL-01
+plan_name: Humana Commercial HMO (synthetic)
+payer_name_in_synthea: Humana
+synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+plan_type: commercial_hmo
+effective_from: 2010-01-01
+effective_to: null
+
+disclaimer: >
+  Fictional plan constructed for this research corpus. The authorisation
+  requirements below are illustrative and are not a transcription of any real
+  plan's requirement list.
+
+requirements:
+
+  - service: Arthroscopic knee surgery / partial meniscectomy / meniscal repair
+    service_key: knee_arthroscopy
+    requires_prior_auth: true
+    governing_policy: PA-KNEE-ARTHRO-001
+    effective_from: 2013-06-01
+    review_type: prospective
+    note: >
+      Deliberately later effective date than AETNA-COMMERCIAL-01, which uses
+      2012-01-01. Seed patient 34382e29 has an episode in January 2014, so the
+      requirement IS in force for case KNEE-ARTHRO-0001. Shifting a case earlier
+      than 2013-06-01 flips it to NO_AUTH_REQUIRED without changing a single clinical
+      fact, which is a clean test of date handling.
+
+  - service: MRI of the knee
+    service_key: knee_mri
+    requires_prior_auth: true
+    governing_policy: PA-KNEE-MRI-001
+    effective_from: 2013-06-01
+    review_type: prospective
+    delegated_to: null
+
+  - service: Total knee arthroplasty
+    service_key: total_knee_arthroplasty
+    requires_prior_auth: true
+    governing_policy: PA-TKA-001
+    effective_from: 2010-01-01
+    review_type: prospective
+
+  - service: Rotator cuff repair
+    service_key: rotator_cuff_repair
+    requires_prior_auth: true
+    governing_policy: PA-SHOULDER-RCR-001
+    effective_from: 2013-06-01
+    review_type: prospective
+
+  - service: MRI or CT of the spine
+    service_key: spine_mri_ct
+    requires_prior_auth: true
+    governing_policy: PA-SPINE-MRI-001
+    effective_from: 2013-06-01
+    review_type: prospective
+
+  # ---------------------------------------------------------------------------
+  # NO_AUTH_REQUIRED services
+  # ---------------------------------------------------------------------------
+
+  - service: Knee X-ray
+    service_key: knee_xray
+    synthea_snomed: "74016001"
+    requires_prior_auth: false
+    governing_policy: null
+
+  - service: Physical therapy, initial evaluation and first 10 visits
+    service_key: physical_therapy_initial
+    synthea_snomed: "91251008"
+    requires_prior_auth: false
+    governing_policy: null
+    visit_limit_before_auth: 10
+    note: >
+      Ten visits here versus six under AETNA-COMMERCIAL-01. Same clinical facts,
+      different plan, different answer. This is the point of separating plan
+      requirements from clinical policy.
+
+  - service: Emergency room admission
+    service_key: emergency_admission
+    synthea_snomed: "50849002"
+    requires_prior_auth: false
+    governing_policy: null

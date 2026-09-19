@@ -1,0 +1,101 @@
+# =============================================================================
+# PRIOR AUTHORISATION REQUIREMENTS
+# Plan: AETNA-COMMERCIAL-01  (fictional plan layered on Synthea's "Aetna" payer)
+# =============================================================================
+# Answers "does this need authorisation?", NOT "is it clinically justified?".
+# See ./README.md for why these are separate objects.
+# =============================================================================
+
+plan_id: AETNA-COMMERCIAL-01
+plan_name: Aetna Commercial PPO (synthetic)
+payer_name_in_synthea: Aetna
+synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+plan_type: commercial_ppo
+effective_from: 2010-01-01
+effective_to: null
+
+disclaimer: >
+  Fictional plan constructed for this research corpus. The authorisation
+  requirements below are illustrative and are not a transcription of any real
+  plan's requirement list.
+
+requirements:
+
+  - service: Arthroscopic knee surgery / partial meniscectomy / meniscal repair
+    service_key: knee_arthroscopy
+    requires_prior_auth: true
+    governing_policy: PA-KNEE-ARTHRO-001
+    effective_from: 2012-01-01
+    review_type: prospective
+    delegated_to: null
+
+  - service: MRI of the knee
+    service_key: knee_mri
+    requires_prior_auth: true
+    governing_policy: PA-KNEE-MRI-001
+    effective_from: 2012-01-01
+    review_type: prospective
+    delegated_to: radiology_benefits_manager
+    note: >
+      Advanced imaging is commonly delegated to a radiology benefits manager whose
+      criteria may differ from the health plan's own medical policy. Modelled here
+      because it is a genuine source of real-world disagreement over the same records.
+
+  - service: Total knee arthroplasty
+    service_key: total_knee_arthroplasty
+    requires_prior_auth: true
+    governing_policy: PA-TKA-001
+    effective_from: 2010-01-01
+    review_type: prospective
+
+  - service: Rotator cuff repair
+    service_key: rotator_cuff_repair
+    requires_prior_auth: true
+    governing_policy: PA-SHOULDER-RCR-001
+    effective_from: 2012-01-01
+    review_type: prospective
+
+  - service: MRI or CT of the spine
+    service_key: spine_mri_ct
+    requires_prior_auth: true
+    governing_policy: PA-SPINE-MRI-001
+    effective_from: 2012-01-01
+    review_type: prospective
+    delegated_to: radiology_benefits_manager
+
+  # ---------------------------------------------------------------------------
+  # Services that do NOT require authorisation.
+  # These generate the NO_AUTH_REQUIRED gate result.
+  # ---------------------------------------------------------------------------
+
+  - service: Knee X-ray
+    service_key: knee_xray
+    synthea_snomed: "74016001"
+    requires_prior_auth: false
+    governing_policy: null
+    note: >
+      Plain radiography is not authorised prospectively. A submitted request for a
+      knee X-ray must resolve to NO_AUTH_REQUIRED without any criterion being
+      evaluated. All three seed patients have a knee X-ray on file, so this negative
+      case is free to generate.
+
+  - service: Physical therapy, initial evaluation and first 6 visits
+    service_key: physical_therapy_initial
+    synthea_snomed: "91251008"
+    requires_prior_auth: false
+    governing_policy: null
+    visit_limit_before_auth: 6
+    note: >
+      Authorisation attaches only beyond the sixth visit. A useful trap: the same
+      service is both NO_AUTH_REQUIRED and AUTH_REQUIRED depending on a visit count
+      the record may not state.
+
+  - service: Emergency room admission
+    service_key: emergency_admission
+    synthea_snomed: "50849002"
+    requires_prior_auth: false
+    governing_policy: null
+    note: >
+      Emergency services are never prospectively authorised. Every seed patient's
+      index encounter is an ER admission, so a verifier must not attempt to verify
+      the encounter itself against a policy.

@@ -1,0 +1,137 @@
+# Generated ledger for TKA-0033. Hidden from the verifier.
+
+case_id: TKA-0033
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 0ba90366-87ad-4f9d-9bcd-c11e63eb6f27
+  name: Magaret Champlin
+  sex: F
+  birthdate: '1955-03-04'
+  city: Sharon
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2009-02-18'
+  request_date: '2017-03-23'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2009-02-18'
+    end: '2017-03-23'
+  therapy_lookback_window:
+    start: '2016-03-23'
+    end: '2017-03-23'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 26
+    observations_lifetime: 174
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '1995-03-10'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1997-04-18'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-03-25'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-08-18'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-09-29'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-08-26'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-03-07'
+    description: Chronic congestive heart failure (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-11-24'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2009-02-18'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 02e08c8e-bc60-4ea4-89cc-8fb6243a20e6
+  encounter_class: ambulatory
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2009-02-18-ed-visit.md
+- id: E002
+  date: '2009-02-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2009-02-18-ed-visit.md
+  - input/notes/2009-03-02-ortho-consult.md
+- id: E003
+  date: '2009-02-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2009-02-18-ed-visit.md
+  - input/notes/2009-03-02-ortho-consult.md
+- id: A004
+  date: '2009-02-18'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2009-02-18-ed-visit.md
+  - input/notes/2009-03-02-ortho-consult.md
+- id: A005
+  date: '2009-02-18'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2009-02-18-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

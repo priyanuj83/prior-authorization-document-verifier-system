@@ -1,0 +1,19 @@
+---
+note_id: {{ note_id }}
+case_id: {{ case_id }}
+date: {{ date }}
+setting: Primary care
+author: {{ author }}
+patient: {{ last }}, {{ first }} (DOB {{ dob }})
+mrn: {{ mrn }}
+---
+
+# CLINIC NOTE
+
+**Chief complaint:** {{ chief_complaint }}
+
+{{ body }}
+
+Unrelated to the current surgical request. Included because it falls inside the lookback window of the enclosed packet.
+
+*{{ author }} — {{ date }}*

@@ -1,0 +1,112 @@
+# Generated ledger for SPINE-MRI-0028. Hidden from the verifier.
+
+case_id: SPINE-MRI-0028
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 44c8b4c8-4457-4ba0-94b6-285ef327a249
+  name: Jamey Hermiston
+  sex: M
+  birthdate: '1941-03-25'
+  city: Concord
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '1980-10-31'
+  request_date: '2013-07-11'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '1980-10-31'
+    end: '2013-07-11'
+  therapy_lookback_window:
+    start: '2012-07-11'
+    end: '2013-07-11'
+  patient_chart_totals:
+    conditions_lifetime: 6
+    encounters_lifetime: 16
+    observations_lifetime: 125
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '1966-05-31'
+    description: Coronary Heart Disease
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1977-03-16'
+    description: Osteoarthritis of knee
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1987-05-14'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1989-01-17'
+    description: Myocardial Infarction
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1989-01-17'
+    description: History of myocardial infarction (situation)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1980-10-31'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 38f372ae-80c5-4012-ae52-3d5339c58c43
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/1980-10-31-ed-visit.md
+- id: E002
+  date: '1980-10-31'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/1980-10-31-ed-visit.md
+- id: E003
+  date: '1977-03-16'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/1980-10-31-ed-visit.md
+- id: A004
+  date: '1980-10-31'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/1980-10-31-ed-visit.md
+- id: A005
+  date: '1980-10-31'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/1980-10-31-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

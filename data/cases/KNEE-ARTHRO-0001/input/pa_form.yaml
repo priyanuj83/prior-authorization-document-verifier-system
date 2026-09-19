@@ -1,0 +1,121 @@
+# =============================================================================
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-ARTHRO-0001
+# =============================================================================
+# This file plus input/notes/ is the CASE-SPECIFIC input to the verifier.
+#
+# It is NOT the complete input. The verifier also requires the applicable POLICY,
+# which it must resolve for itself from the three fields below:
+#
+#     member.plan_id  +  requested_service.service_key  +  submitted_date
+#            |
+#            v
+#     pa_requirements/<plan_id>.yaml     -> is authorisation required on this date?
+#            |
+#            v
+#     policies/<governing_policy>.yaml   -> the criteria to verify against
+#
+# Without the policy the verifier has no basis for deciding which facts matter.
+# See data/README.md section 3 for the full runtime contract.
+#
+# Everything under gold/ is hidden from the verifier: ledger.yaml, labels.yaml and
+# generation_plan.yaml.
+#
+# The form is deliberately TWO-SIDED. The attestations are claims made by the
+# submitting provider, and they are not automatically true. In this case they all
+# happen to be supported by the notes; in KNEE-ARTHRO-0002 one of them is not.
+# A verifier must check attestations against the record rather than trusting them.
+#
+# Path convention: all paths in this corpus are relative to the CASE ROOT, so note
+# files are written as input/notes/... even when referenced from inside input/.
+# =============================================================================
+
+form_type: prior_authorisation_request
+submitted_date: 2014-04-16
+
+member:
+  name: Ethan Goyette
+  member_id: SYN-34382E29
+  dob: 1980-04-29
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+
+requesting_provider:
+  name: R. Danvers, MD
+  specialty: Orthopaedic Surgery
+  practice: Orthopaedic Associates of Middlesex
+  npi: SYN-0000001
+
+requested_service:
+  description: Arthroscopic partial medial meniscectomy, left knee
+  service_key: knee_arthroscopy
+  laterality: left
+  setting: outpatient day case
+  proposed_date: 2014-05-06
+  urgency: routine
+
+diagnosis:
+  primary:
+    description: Tear of meniscus of knee, left
+    snomed: "239720000"
+  onset_date: 2014-01-31
+
+# -----------------------------------------------------------------------------
+# PROVIDER ATTESTATIONS
+# -----------------------------------------------------------------------------
+# Free-text claims. Verify each against notes/ rather than accepting at face value.
+# -----------------------------------------------------------------------------
+
+attestations:
+
+  - id: AT1
+    text: >
+      The patient has persistent left knee pain with recurrent true locking episodes
+      requiring manual reduction.
+
+  - id: AT2
+    text: >
+      Plain radiographs demonstrate no significant degenerative disease of the
+      affected knee.
+
+  - id: AT3
+    text: >
+      MRI of the left knee confirms a tear of the posterior horn of the medial
+      meniscus.
+
+  - id: AT4
+    text: >
+      The patient completed a supervised outpatient physiotherapy course for the left
+      knee, attending twice weekly, without resolution of his mechanical symptoms.
+      The therapy discharge summary is enclosed.
+
+  - id: AT5
+    text: >
+      The knee is not currently locked in a fixed position and this is not submitted
+      as an emergency.
+
+# -----------------------------------------------------------------------------
+# ENCLOSED DOCUMENTATION
+# -----------------------------------------------------------------------------
+
+enclosures:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+  - input/notes/2014-04-01-pt-discharge.md
+  - input/notes/2014-04-09-mri-report.md
+  - input/notes/2014-04-16-ortho-followup.md
+
+# Declared scope of the enclosed records. Model-visible: a real submission states
+# the service dates and what is attached. What was deliberately EXCLUDED from the
+# packet is recorded in gold/ledger.yaml under `scope`, not here.
+records_scope:
+  episode_start: 2014-01-31
+  episode_end: 2014-04-16
+  records_cover: left knee episode from index injury to date of request
+  is_complete_chart: false
+
+prior_authorisations_referenced:
+  - service: MRI of the knee
+    policy: PA-KNEE-MRI-001
+    status: approved
+    approved_date: 2014-04-04

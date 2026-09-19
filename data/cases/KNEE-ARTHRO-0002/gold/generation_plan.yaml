@@ -1,0 +1,149 @@
+# =============================================================================
+# GENERATION PLAN: KNEE-ARTHRO-0002
+# =============================================================================
+# Intended labels are INPUTS to generation, never outputs. See
+# KNEE-ARTHRO-0001/gold/generation_plan.yaml for the two hard rules governing what the
+# note generator may see.
+#
+# THIS CASE INTRODUCES A DISTINCTION THAT MATTERS MORE THAN ANY OTHER IN THE CORPUS:
+#
+#   clinical truth       - what is actually so about the patient
+#   documentation state  - what the submitted record establishes
+#
+# These come apart here. The physical therapy course really was only 30 days, so
+# clinically the criterion is NOT MET. But no therapy documentation is enclosed and
+# no note states a duration, so what the SUBMITTED RECORD supports is MISSING, not
+# CONTRADICTED.
+#
+# The labels reflect the DOCUMENTATION STATE, because that is a prior authorisation
+# reviewer's actual job. A payer does not know ground truth. It knows what arrived
+# in the envelope.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0002
+corpus_version: 0.1.0
+generator: hand-authored reference case
+seed: null
+
+patient:
+  synthea_patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  name: Gianna370 Kling921
+  sex: F
+  birthdate: 1991-08-02
+  age_at_request: 24
+
+request:
+  requested_service: Arthroscopic partial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  request_date: 2015-10-28
+  submitting_provider: Boston Sports Orthopaedics (synthetic)
+
+plan_resolution:
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  payer_name: Aetna
+  plan_id: AETNA-COMMERCIAL-01
+  requires_prior_auth: true
+  requirement_effective_from: 2012-01-01
+  request_date_within_effect: true
+  governing_policy: PA-KNEE-ARTHRO-001
+
+# -----------------------------------------------------------------------------
+# INTENDED LABELS
+# -----------------------------------------------------------------------------
+intended_documentation_status: NOT_READY
+intended_remediable: true
+intended_payer_view: PEND             # derived, not scored
+
+criteria:
+
+  - id: C1_symptoms
+    intended_label: SUPPORTED
+    realization: narrative_plain
+    directive: >
+      Document knee pain and catching that the patient describes clearly. Keep this
+      criterion clean so the case tests C3 and C4 in isolation.
+
+  - id: C2_oa_severity
+    intended_label: SUPPORTED
+    realization: radiology_report_grade
+    directive: >
+      Plain film report states Kellgren-Lawrence grade 0. Consistent with a
+      24-year-old with no osteoarthritis diagnosis.
+
+  - id: C3_radiologic_confirmation
+    intended_label: MISSING
+    realization: xray_only_no_mri
+    directive: >
+      Include the knee X-ray and NO MRI. Do not author an MRI report and do not
+      reference one anywhere.
+    why_this_is_the_cheapest_defect: >
+      This is the data-true state. Every one of the six meniscus-tear patients in
+      synthea_data has a knee X-ray (SNOMED 74016001) and none has an MRI. Nothing is
+      invented to produce this defect.
+    trap: >
+      The X-ray is present and does mention the meniscus is not assessable. A verifier
+      that treats "an imaging study exists" as satisfying the criterion will wrongly
+      mark this SUPPORTED. The policy requires MRI specifically for meniscal tears.
+
+  - id: C4_conservative_therapy
+    intended_label: MISSING
+    realization: no_pt_documentation_enclosed
+    directive: >
+      A physiotherapy referral is placed and later notes mention in passing that she
+      has been doing exercises. Do NOT enclose any therapy documentation. Do NOT state
+      a duration anywhere. Do NOT state a modality clearly.
+      The one hint available is that the exercises are described as being done at
+      home, which should raise doubt about modality without settling it.
+    clinical_truth_for_reference: >
+      The careplan in synthea_data really ran 2015-09-16 to 2015-10-16, which is 30
+      days and fails the 42-day threshold. This is NOT visible to the verifier and
+      must not drive the label.
+    label_rationale: >
+      MISSING rather than CONTRADICTED. The record does not establish the criterion,
+      but neither does it affirmatively demonstrate that the criterion is unmet. No
+      duration appears in any enclosed document.
+
+waivers:
+  - id: W1_locked_knee
+    intended_state: NOT_FIRED
+    directive: >
+      THIS IS THE PRIMARY TRAP OF THE CASE. Have the patient describe one episode
+      where the knee "felt stuck for a moment". Document NO bucket-handle tear and
+      NO displaced fragment. There is no MRI at all, so tear morphology is simply
+      unknown.
+    why_it_matters: >
+      A verifier looking for a way to resolve the C4 gap may reach for this waiver.
+      Firing it would waive C4 and flip NOT_READY to READY_FOR_SUBMISSION. It must not
+      fire: the waiver logic is all_of and requires both true locking and a
+      demonstrated displaced bucket-handle tear, and neither is established.
+      Unlike KNEE-ARTHRO-0001, here the error DOES change the outcome. That is the
+      point of the pair.
+
+attestations:
+  - id: AT4
+    intended_verdict: NOT_SUPPORTED
+    realization: provider_over_claim
+    directive: >
+      The form attests that the patient "completed a course of physical therapy
+      without relief". No enclosed document corroborates completion, duration or
+      supervision.
+    why_it_matters: >
+      This is the two-sided-form mechanism. The claim on the form goes beyond the
+      evidence in the record. A verifier that reads attestations as facts will mark C4
+      SUPPORTED on the strength of the form alone, which is the most consequential
+      realistic failure mode in automated prior authorisation.
+
+# -----------------------------------------------------------------------------
+# DIFFICULTY
+# -----------------------------------------------------------------------------
+difficulty:
+  overall: high
+  drivers:
+    - two criteria MISSING for different structural reasons
+    - a waiver that would resolve one gap and must be correctly declined
+    - a provider attestation that contradicts the documentation state
+    - modality doubt raised but never settled
+  purpose: >
+    Tests whether the verifier distinguishes "the record does not show this" from
+    "the provider says this". Also tests restraint: three of the four plausible
+    shortcuts available here all lead to a wrongly clean packet being submitted.

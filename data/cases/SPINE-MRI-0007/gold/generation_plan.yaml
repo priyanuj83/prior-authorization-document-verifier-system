@@ -1,0 +1,45 @@
+# Generation plan for SPINE-MRI-0007. Hidden from the verifier.
+
+case_id: SPINE-MRI-0007
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 171
+patient:
+  synthea_patient_id: 10ab86b6-a248-4dcf-bebb-3ba143c0ea29
+  name: Blake Connelly
+  sex: M
+  birthdate: '1982-03-15'
+  age_at_request: 36
+request:
+  requested_service: MRI of the cervical spine without contrast
+  service_key: spine_mri_ct
+  request_date: '2018-10-10'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: spine_mri_ct
+    request_date: '2018-10-10'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SPINE-MRI-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: full_packet
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE
+criteria:
+- id: B8_trauma_fracture
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B9_suspected_cord_injury
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

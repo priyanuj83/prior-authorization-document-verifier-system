@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0058
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2010-02-10'
+generator: template-v0.3
+member:
+  name: Manie Torp
+  member_id: SYN-076688B0
+  dob: '1959-04-24'
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2010-03-03'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1996-04-14'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: Conservative measures have been tried for the left knee.
+enclosures:
+- input/notes/1996-04-14-ed-visit.md
+- input/notes/1996-04-26-ortho-consult.md
+- input/notes/2010-02-10-ortho-followup.md
+records_scope:
+  episode_start: '1996-04-14'
+  episode_end: '2010-02-10'
+  is_complete_chart: false

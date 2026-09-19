@@ -1,0 +1,141 @@
+# Generated ledger for TKA-0021. Hidden from the verifier.
+
+case_id: TKA-0021
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 875d9a6a-1c7e-44a9-96a0-b4ba92e40841
+  name: Shanae Wiegand
+  sex: F
+  birthdate: '1958-01-07'
+  city: Newton
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2009-12-25'
+  request_date: '2019-11-06'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2009-12-25'
+    end: '2019-11-06'
+  therapy_lookback_window:
+    start: '2018-11-06'
+    end: '2019-11-06'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 55
+    observations_lifetime: 248
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1976-03-02'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1989-05-17'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-07-31'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-07-31'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-03-26'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-06-27'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-07-14'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-06-25'
+    description: Facial laceration
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-07-23'
+    description: Streptococcal sore throat (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2009-12-25'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 2ec67bc4-ebae-4008-b4a8-0003281e9e6c
+  encounter_class: ambulatory
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2009-12-25-ed-visit.md
+- id: E002
+  date: '2009-12-25'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2009-12-25-ed-visit.md
+  - input/notes/2010-01-06-ortho-consult.md
+- id: E003
+  date: '2009-12-25'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2009-12-25-ed-visit.md
+  - input/notes/2010-01-06-ortho-consult.md
+- id: A004
+  date: '2009-12-25'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2009-12-25-ed-visit.md
+  - input/notes/2010-01-06-ortho-consult.md
+- id: A005
+  date: '2009-12-25'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2009-12-25-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

@@ -1,0 +1,153 @@
+# Generated ledger for TKA-0045. Hidden from the verifier.
+
+case_id: TKA-0045
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 2be232c2-45cd-4621-b16a-9bd0ff62181a
+  name: Timoteo Rico
+  sex: M
+  birthdate: '1954-06-05'
+  city: New Bedford
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '1996-05-25'
+  request_date: '2019-08-31'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '1996-05-25'
+    end: '2019-08-31'
+  therapy_lookback_window:
+    start: '2018-08-31'
+    end: '2019-08-31'
+  patient_chart_totals:
+    conditions_lifetime: 13
+    encounters_lifetime: 66
+    observations_lifetime: 281
+    careplans_lifetime: 6
+  excluded_from_packet:
+  - date: '1962-08-11'
+    description: Cardiac Arrest
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1962-08-11'
+    description: History of cardiac arrest (situation)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1981-10-17'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1981-10-17'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-03-07'
+    description: Impacted molars
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-10-27'
+    description: Chronic pain
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1992-05-07'
+    description: Chronic intractable migraine without aura
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2001-03-18'
+    description: Drug overdose
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-06-29'
+    description: Pulmonary emphysema (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2004-05-23'
+    description: Gout
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-09-20'
+    description: Concussion with no loss of consciousness
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-02-19'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1996-05-25'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: a73bf534-273b-40ca-b644-d6130159f51f
+  encounter_class: ambulatory
+  payer_id: b1c428d6-4f07-31e0-90f0-68ffa6ff8c76
+  rendered_in:
+  - input/notes/1996-05-25-ed-visit.md
+- id: E002
+  date: '1996-05-25'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/1996-05-25-ed-visit.md
+  - input/notes/1996-06-06-ortho-consult.md
+- id: E003
+  date: '1996-05-25'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/1996-05-25-ed-visit.md
+  - input/notes/1996-06-06-ortho-consult.md
+- id: A004
+  date: '1996-05-25'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/1996-05-25-ed-visit.md
+  - input/notes/1996-06-06-ortho-consult.md
+- id: A005
+  date: '1996-05-25'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/1996-05-25-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

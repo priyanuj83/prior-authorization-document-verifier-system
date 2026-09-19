@@ -1,0 +1,51 @@
+# Generation plan for TKA-0006. Hidden from the verifier.
+
+case_id: TKA-0006
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 84
+patient:
+  synthea_patient_id: 36cfc9c6-c720-41a3-ba03-bc9d11840564
+  name: Ben Schaden
+  sex: M
+  birthdate: '1943-12-26'
+  age_at_request: 75
+request:
+  requested_service: Total knee arthroplasty, right
+  service_key: total_knee_arthroplasty
+  request_date: '2019-12-20'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-12-20'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2010-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: omit_pt_notes
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: MISSING
+  realization: SILENT
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

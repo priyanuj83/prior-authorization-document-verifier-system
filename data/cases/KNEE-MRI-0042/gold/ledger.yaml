@@ -1,0 +1,144 @@
+# Generated ledger for KNEE-MRI-0042. Hidden from the verifier.
+
+case_id: KNEE-MRI-0042
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: a52b02ff-bff3-4a5f-8fe4-f06a1712f0e6
+  name: Domenic Emard
+  sex: M
+  birthdate: '1981-04-21'
+  city: Middleborough
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2013-11-13'
+  request_date: '2014-02-03'
+  anchor_condition: Injury of anterior cruciate ligament
+scope:
+  episode_window:
+    start: '2013-11-13'
+    end: '2014-02-03'
+  therapy_lookback_window:
+    start: '2013-02-03'
+    end: '2014-02-03'
+  patient_chart_totals:
+    conditions_lifetime: 3
+    encounters_lifetime: 7
+    observations_lifetime: 83
+    careplans_lifetime: 1
+  excluded_from_packet: []
+  excluded_because_post_request:
+    events:
+    - date: '2015-04-15'
+      description: Viral sinusitis (disorder)
+    - date: '2017-01-24'
+      description: Otitis media
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2013-11-13'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 39145daa-72fd-4ea3-8e47-fab0a6469816
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2013-11-13-ed-visit.md
+- id: E002
+  date: '2013-11-13'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of anterior cruciate ligament
+  code: '444470001'
+  rendered_in:
+  - input/notes/2013-11-13-ed-visit.md
+  - input/notes/2013-11-25-ortho-consult.md
+- id: E003
+  date: '2013-11-13'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: e9d6c7f6-ed07-4580-ac36-7cf17fe4c41d
+  description: Physical therapy procedure
+  reason: Injury of anterior cruciate ligament
+  date_range:
+    start: '2013-11-13'
+    stop: '2014-01-19'
+  duration_days: 67
+  rendered_in:
+  - input/notes/2014-01-19-pt-discharge.md
+- id: A004
+  date: '2013-11-13'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2013-11-13-ed-visit.md
+  - input/notes/2013-11-25-ortho-consult.md
+- id: A005
+  date: '2013-11-25'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2013-11-25-ortho-consult.md
+- id: A006
+  date: '2013-11-13'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2013-11-13-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2013-11-13'
+    end: '2014-01-19'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2014-01-19-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.

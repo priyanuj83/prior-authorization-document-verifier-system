@@ -1,0 +1,181 @@
+# Generated ledger for SHOULDER-RCR-0021. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0021
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 926fc2c9-0e8c-4dd4-a00a-6d37a01dd304
+  name: Retta Volkman
+  sex: F
+  birthdate: '1967-04-20'
+  city: Salem
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2011-03-19'
+  request_date: '2012-02-10'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2011-03-19'
+    end: '2012-02-10'
+  therapy_lookback_window:
+    start: '2011-02-10'
+    end: '2012-02-10'
+  patient_chart_totals:
+    conditions_lifetime: 17
+    encounters_lifetime: 54
+    observations_lifetime: 331
+    careplans_lifetime: 6
+  excluded_from_packet:
+  - date: '1986-08-31'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1997-06-12'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-10-07'
+    description: Chronic obstructive bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2003-07-17'
+    description: Diabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2004-07-22'
+    description: Hypertriglyceridemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2004-07-22'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2005-07-28'
+    description: Hyperglycemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2005-07-28'
+    description: Metabolic syndrome X (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-08-09'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-08-09'
+    description: Neuropathy due to type 2 diabetes mellitus (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2013-02-17'
+      description: Otitis media
+    - date: '2014-01-08'
+      description: Acute bronchitis (disorder)
+    - date: '2014-03-20'
+      description: Normal pregnancy
+    - date: '2017-12-28'
+      description: Normal pregnancy
+    - date: '2017-12-28'
+      description: Fetus with unknown complication
+    - date: '2018-12-02'
+      description: Acute viral pharyngitis (disorder)
+  distractor_content:
+    present: true
+events:
+- id: E001
+  date: '2011-03-19'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 272e4517-eb6d-4d32-88b4-fa9d85f55810
+  encounter_class: ambulatory
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2011-03-19-ed-visit.md
+- id: E002
+  date: '2011-03-19'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2011-03-19-ed-visit.md
+  - input/notes/2011-03-31-ortho-consult.md
+- id: E003
+  date: '2011-03-19'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: e7cd9af1-8caa-409f-a236-566ca26708bd
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2011-03-19'
+    stop: '2011-05-18'
+  duration_days: 60
+  rendered_in:
+  - input/notes/2011-05-18-pt-discharge.md
+- id: A004
+  date: '2011-03-19'
+  type: symptom
+  provenance: authored
+  description: Pain of the left shoulder
+  rendered_in:
+  - input/notes/2011-03-19-ed-visit.md
+  - input/notes/2011-03-31-ortho-consult.md
+- id: A005
+  date: '2011-03-19'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2011-03-19-ed-visit.md
+- id: A006
+  date: '2011-05-26'
+  type: imaging
+  provenance: authored
+  modality: mri
+  description: Authored MRI — no MRI exists in synthea_data
+  rendered_in:
+  - input/notes/2011-05-26-mri-report.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2011-03-19'
+    end: '2011-05-18'
+  attributes:
+    modality: in_person
+    duration_days: 60
+    body_region: shoulder
+    sessions_attended: 17
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2011-05-18-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: MRI/US confirming a cuff tear.
+  C3_conservative_therapy:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 60 days vs threshold 42; modality in_person; body region shoulder; enclosed.

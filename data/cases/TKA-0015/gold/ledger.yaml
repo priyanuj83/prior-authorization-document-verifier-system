@@ -1,0 +1,151 @@
+# Generated ledger for TKA-0015. Hidden from the verifier.
+
+case_id: TKA-0015
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 7a8e4ef0-adf4-4e6d-8d28-5d36886547f4
+  name: Ernie Stamm
+  sex: M
+  birthdate: '1976-02-21'
+  city: Boston
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2013-02-11'
+  request_date: '2019-09-07'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2013-02-11'
+    end: '2019-09-07'
+  therapy_lookback_window:
+    start: '2018-09-07'
+    end: '2019-09-07'
+  patient_chart_totals:
+    conditions_lifetime: 13
+    encounters_lifetime: 38
+    observations_lifetime: 248
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1982-12-22'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1983-05-20'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1991-12-18'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1994-04-16'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1995-04-22'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1996-04-27'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-10-26'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2000-05-20'
+    description: Coronary Heart Disease
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-05-27'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-10-16'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-09-05'
+    description: Concussion with no loss of consciousness
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2020-04-21'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2013-02-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 17a757f8-3b8e-4e2b-a4d8-b15fa8ea0192
+  encounter_class: ambulatory
+  payer_id: 047f6ec3-6215-35eb-9608-f9dda363a44c
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+- id: E002
+  date: '2013-02-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+  - input/notes/2013-02-23-ortho-consult.md
+- id: E003
+  date: '2013-02-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+  - input/notes/2013-02-23-ortho-consult.md
+- id: A004
+  date: '2013-02-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+  - input/notes/2013-02-23-ortho-consult.md
+- id: A005
+  date: '2013-02-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

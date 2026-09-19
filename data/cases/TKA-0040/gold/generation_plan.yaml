@@ -1,0 +1,51 @@
+# Generation plan for TKA-0040. Hidden from the verifier.
+
+case_id: TKA-0040
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 118
+patient:
+  synthea_patient_id: 1c2aa038-9366-4c7d-9a3e-52cb753a670f
+  name: Homero Carrillo
+  sex: M
+  birthdate: '1962-09-13'
+  age_at_request: 57
+request:
+  requested_service: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  request_date: '2019-10-24'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-10-24'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2010-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: short_pt_enclosed
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

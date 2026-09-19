@@ -1,0 +1,172 @@
+# Generated ledger for KNEE-MRI-0056. Hidden from the verifier.
+
+case_id: KNEE-MRI-0056
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: cb1be644-93a5-4208-8776-f5feece6967a
+  name: Lon Schuppe
+  sex: M
+  birthdate: '1954-02-03'
+  city: New Ashford
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '1972-09-10'
+  request_date: '2013-07-11'
+  anchor_condition: Rupture of patellar tendon
+scope:
+  episode_window:
+    start: '1972-09-10'
+    end: '2013-07-11'
+  therapy_lookback_window:
+    start: '2012-07-11'
+    end: '2013-07-11'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 33
+    observations_lifetime: 200
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '1964-04-25'
+    description: Concussion with loss of consciousness
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1968-01-05'
+    description: Fracture of forearm
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1969-03-12'
+    description: Coronary Heart Disease
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1969-11-22'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1970-07-18'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1972-11-26'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1973-09-19'
+    description: Cardiac Arrest
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1973-09-19'
+    description: History of cardiac arrest (situation)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1972-09-10'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: aa506250-5ad8-43e4-9476-7972d26f2bf1
+  encounter_class: emergency
+  payer_id: b1c428d6-4f07-31e0-90f0-68ffa6ff8c76
+  rendered_in:
+  - input/notes/1972-09-10-ed-visit.md
+- id: E002
+  date: '1972-09-10'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Rupture of patellar tendon
+  code: '30832001'
+  rendered_in:
+  - input/notes/1972-09-10-ed-visit.md
+  - input/notes/1972-09-22-ortho-consult.md
+- id: E003
+  date: '1972-09-10'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 08441301-0907-444b-b0c1-cb6acaec384b
+  description: Physical therapy procedure
+  reason: Rupture of patellar tendon
+  date_range:
+    start: '1972-09-10'
+    stop: '1972-11-16'
+  duration_days: 67
+  rendered_in:
+  - input/notes/1972-11-16-pt-discharge.md
+- id: A004
+  date: '1972-09-10'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/1972-09-10-ed-visit.md
+  - input/notes/1972-09-22-ortho-consult.md
+- id: A005
+  date: '1972-09-22'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/1972-09-22-ortho-consult.md
+- id: A006
+  date: '1972-09-10'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/1972-09-10-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '1972-09-10'
+    end: '1972-11-16'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/1972-11-16-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.

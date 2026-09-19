@@ -1,0 +1,245 @@
+# =============================================================================
+# GOLD LABELS: KNEE-ARTHRO-0001
+# =============================================================================
+# Derived from ledger.yaml `criterion_truth`, NOT from reading the notes.
+# See ../../README.md for the label definitions and why the distinction between
+# MISSING and CONTRADICTED is drawn where it is.
+#
+# `evidence` cites ledger event ids AND the note locations where a verifier could
+# legitimately find them. A verifier that reaches the right label from the wrong
+# evidence is not actually correct, and citation-level scoring is what catches that.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0001
+policy_id: PA-KNEE-ARTHRO-001
+policy_version: 1.0.0
+labelled_by: hand-authored reference case
+labelled_date: 2026-08-30
+
+# -----------------------------------------------------------------------------
+# STEP 1 - POLICY RESOLUTION
+# -----------------------------------------------------------------------------
+# Runtime step one, not an evaluation artifact. The verifier performs this itself
+# from the three fields on input/pa_form.yaml before any criterion is read.
+# -----------------------------------------------------------------------------
+policy_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_arthroscopy
+    request_date: 2014-04-16
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: 2013-06-01
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  note: >
+    Request date falls after the requirement effective date, so authorisation is
+    required and the criteria must be verified. Had this episode occurred before
+    2013-06-01 the correct answer would be NO_AUTH_REQUIRED, with no criterion
+    evaluation at all and nothing for the provider to prepare.
+
+# -----------------------------------------------------------------------------
+# STEP 2 - CRITERION LABELS
+# -----------------------------------------------------------------------------
+
+criteria:
+
+  - id: C1_symptoms
+    label: SUPPORTED
+    evidence:
+      ledger: [A002]
+      notes:
+        - file: input/notes/2014-02-12-ortho-consult.md
+          locator: "catching and then locking outright ... manually straighten the leg"
+        - file: input/notes/2014-04-01-pt-discharge.md
+          locator: "the knee locked during a session here in the department"
+    reasoning: >
+      Both required components are present. Pain is documented throughout. True
+      mechanical locking is documented in the orthopaedic note and independently
+      corroborated by the therapist, who witnessed it. Corroboration by a second
+      author is deliberate: it gives the verifier two routes to the same conclusion.
+
+  - id: C2_oa_severity
+    label: SUPPORTED
+    evidence:
+      ledger: [A003]
+      notes:
+        - file: input/notes/2014-01-31-ed-visit.md
+          locator: "Kellgren-Lawrence grade 1"
+        - file: input/notes/2014-04-09-mri-report.md
+          locator: "Grade 1 chondral signal change ... No osteophytosis"
+    reasoning: >
+      Grade 1 is within the grade 0-2 allowance. The grade is stated explicitly, so
+      this is the easiest criterion in the case.
+
+  - id: C3_radiologic_confirmation
+    label: SUPPORTED
+    evidence:
+      ledger: [A004]
+      notes:
+        - file: input/notes/2014-04-09-mri-report.md
+          locator: "Oblique tear of the posterior horn of the medial meniscus"
+    reasoning: >
+      Pathology is a meniscal tear, so the policy requires MRI specifically. An MRI
+      is present and confirms the tear.
+    distractor_warning: >
+      A knee X-ray also exists (input/notes/2014-01-31-ed-visit.md). It does NOT satisfy
+      this criterion for a meniscal tear. A verifier citing only the X-ray has
+      reached SUPPORTED on invalid evidence and should be scored wrong on citation
+      even though the label matches.
+
+  - id: C4_conservative_therapy
+    label: SUPPORTED
+    evidence:
+      ledger: [E004, E005, A005]
+      notes:
+        - file: input/notes/2014-01-31-ed-visit.md
+          locator: "Referral placed today to the outpatient physiotherapy service"
+          supplies: start_date_2014-01-31
+        - file: input/notes/2014-04-01-pt-discharge.md
+          locator: "attended twice weekly since, coming in to the clinic"
+          supplies: [end_date_2014-04-01, modality_in_person, response_no_improvement]
+    reasoning: >
+      Requires all four of duration, modality, body region and recency.
+
+      Duration. The start date appears only in the ED note as a referral dated
+      2014-01-31. The end date appears only in the therapy discharge summary dated
+      2014-04-01. Neither note states a duration. 60 days must be computed, which
+      exceeds the 42-day threshold.
+
+      Modality. Never stated as "in-person". Established indirectly by "coming in to
+      the clinic for each appointment", "delivered here under direct supervision" and
+      the presence of a home exercise sheet described explicitly as an adjunct rather
+      than a substitute. The last clause is the guard against a verifier seizing on
+      the words "exercise sheet" and concluding the programme was home-based.
+
+      Body region. Stated as left knee, matching the request.
+
+      Recency. Completed 2014-04-01, which is 15 days before the 2014-04-16 request
+      and well inside the 365-day lookback.
+    difficulty: high
+    exercises: [trap_multi_hop, trap_modality]
+
+# -----------------------------------------------------------------------------
+# STEP 3 - WAIVERS
+# -----------------------------------------------------------------------------
+
+waivers:
+  - id: W1_locked_knee
+    state: NOT_FIRED
+    evidence:
+      ledger: [A004]
+      notes:
+        - file: input/notes/2014-04-09-mri-report.md
+          locator: "there is no displaced fragment and no bucket-handle configuration"
+    reasoning: >
+      Locking is present, satisfying one of the two required conditions, but the MRI
+      explicitly excludes a displaced bucket-handle tear. The waiver logic is all_of,
+      so it does not fire.
+    scoring_note: >
+      Wrongly firing this waiver does not change the outcome here, because C4 is
+      independently SUPPORTED. Score waiver state separately from outcome so this
+      error is still visible.
+
+# -----------------------------------------------------------------------------
+# STEP 4 - EXCLUSIONS
+# -----------------------------------------------------------------------------
+
+exclusions:
+  - id: X1_diagnostic_only
+    state: NOT_TRIGGERED
+    reasoning: Pathology is radiologically proven, so this is not a diagnostic-only request.
+  - id: X2_meniscal_root_tear
+    state: NOT_TRIGGERED
+    evidence:
+      notes:
+        - file: input/notes/2014-04-09-mri-report.md
+          locator: "The meniscal root attachments are intact both anteriorly and posteriorly"
+    reasoning: >
+      Root integrity is stated explicitly. Authored deliberately so the exclusion can
+      be affirmatively cleared rather than merely assumed absent.
+
+# -----------------------------------------------------------------------------
+# STEP 5 - ATTESTATION CHECK
+# -----------------------------------------------------------------------------
+
+attestation_check:
+  - id: AT1
+    verdict: SUPPORTED
+  - id: AT2
+    verdict: SUPPORTED
+  - id: AT3
+    verdict: SUPPORTED
+  - id: AT4
+    verdict: SUPPORTED
+    note: >
+      Every clause of this attestation is corroborated, including the twice-weekly
+      frequency and the absence of resolution. Contrast KNEE-ARTHRO-0002 AT4, where a
+      similarly worded attestation is NOT supported.
+  - id: AT5
+    verdict: SUPPORTED
+
+# -----------------------------------------------------------------------------
+# OUTCOME
+# -----------------------------------------------------------------------------
+# PROVIDER-SIDE. This system tells a provider whether their documentation is ready
+# to submit. It does NOT decide coverage; it is not pretending to be Humana.
+#
+# The criterion labels above are the ground truth and are framework-neutral. Both
+# views below are DERIVED PROJECTIONS of those labels. provider_view is the product.
+# payer_view is retained only to make the mapping difference explicit and is not
+# used for scoring.
+# -----------------------------------------------------------------------------
+
+outcome:
+
+  provider_view:
+    documentation_status: READY_FOR_SUBMISSION
+    remediable: null                 # nothing to remedy
+    reasoning: >
+      All four criteria are supported by the enclosed record, no waiver is needed, no
+      exclusion is triggered, and every attestation on the form is corroborated by the
+      documentation behind it. The packet can be submitted as it stands.
+    remediation: []
+    provider_message: >
+      Documentation appears to support all required criteria for this policy. The
+      therapy course is evidenced by a discharge summary confirming supervised
+      outpatient attendance, and the meniscal tear is confirmed on MRI.
+
+  payer_view:
+    decision: APPROVE
+    note: >
+      Derived, not scored. Included so the mapping difference from provider_view is
+      visible: payer-side collapses MISSING and CONTRADICTED into "not approved",
+      whereas provider-side must distinguish them because one is fixable and the
+      other is not.
+
+  criterion_label_counts:
+    SUPPORTED: 4
+    MISSING: 0
+    CONTRADICTED: 0
+
+# -----------------------------------------------------------------------------
+# EVALUATION NOTES
+# -----------------------------------------------------------------------------
+
+evaluation_notes:
+  role_in_corpus: clean-approval reference, false-positive control
+  expected_failure_modes:
+    - >
+      Marking C4 MISSING because no note contains the phrase "six weeks" or
+      "conservative therapy". This is the single most likely error and is exactly what
+      the case is built to detect.
+    - >
+      Marking C4 MISSING because no note states a duration, without attempting the
+      two-note date computation.
+    - >
+      Marking C4 CONTRADICTED on modality after over-weighting the home exercise
+      sheet mentioned in the discharge summary.
+    - >
+      Reaching SUPPORTED on C3 while citing the January X-ray rather than the April
+      MRI. Correct label, invalid citation.
+  why_it_matters: >
+    A corpus consisting only of defective cases cannot distinguish a good verifier
+    from one that flags everything. This case, and cases like it, are what make the
+    false-positive rate measurable.

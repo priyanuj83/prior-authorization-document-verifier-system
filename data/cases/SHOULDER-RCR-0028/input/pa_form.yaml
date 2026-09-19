@@ -1,0 +1,48 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: SHOULDER-RCR-0028
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2015-05-29'
+generator: template-v0.3
+member:
+  name: Valentin Grady
+  member_id: SYN-C6FC7FE8
+  dob: '1963-05-17'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  laterality: left
+  setting: outpatient
+  proposed_date: '2015-06-19'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of tendon of the rotator cuff of shoulder
+    snomed: '307731004'
+  onset_date: '2015-04-14'
+attestations:
+- id: AT1
+  text: The patient has persistent left shoulder pain with mechanical catching.
+- id: AT2
+  text: MRI confirms a rotator cuff tear of the left shoulder.
+- id: AT3
+  text: Conservative measures have been tried for the left shoulder.
+enclosures:
+- input/notes/2015-04-14-ed-visit.md
+- input/notes/2015-04-26-ortho-consult.md
+- input/notes/2015-05-22-mri-report.md
+- input/notes/2015-05-29-ortho-followup.md
+records_scope:
+  episode_start: '2015-04-14'
+  episode_end: '2015-05-29'
+  is_complete_chart: false

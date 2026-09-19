@@ -1,0 +1,48 @@
+# Generation plan for SHOULDER-RCR-0025. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0025
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 153
+patient:
+  synthea_patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  name: Lana Grady
+  sex: F
+  birthdate: '1950-07-30'
+  age_at_request: 62
+request:
+  requested_service: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  request_date: '2013-07-11'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: rotator_cuff_repair
+    request_date: '2013-07-11'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: full_packet
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_symptoms_and_exam
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_imaging_confirmation
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_therapy
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

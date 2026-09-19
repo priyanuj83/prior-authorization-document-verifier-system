@@ -1,0 +1,54 @@
+# Generation plan for KNEE-MRI-0018. Hidden from the verifier.
+
+case_id: KNEE-MRI-0018
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 36
+patient:
+  synthea_patient_id: 508d609e-4740-4458-a1b0-3d2fcb0ba804
+  name: Shayla Cummings
+  sex: F
+  birthdate: '1992-03-24'
+  age_at_request: 25
+request:
+  requested_service: MRI of the right knee, without contrast
+  service_key: knee_mri
+  request_date: '2017-11-21'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_mri
+    request_date: '2017-11-21'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-MRI-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: omit_exam
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: B2_C1_acute_injury
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B2_C2_objective_finding
+  intended_label: MISSING
+  realization: SILENT
+- id: B1_C1_persistent_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C2_suspected_derangement
+  intended_label: MISSING
+  realization: SILENT
+- id: B1_C3_conservative_trial
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

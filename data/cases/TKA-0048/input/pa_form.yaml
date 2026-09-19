@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0048
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2016-06-01'
+generator: template-v0.3
+member:
+  name: Natalya Mills
+  member_id: SYN-2E00E359
+  dob: '1951-02-22'
+  sex: F
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  laterality: left
+  setting: outpatient
+  proposed_date: '2016-06-22'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1993-02-11'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the left knee.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1993-02-11-ed-visit.md
+- input/notes/1993-02-23-ortho-consult.md
+- input/notes/2016-05-25-pt-discharge.md
+- input/notes/2016-06-01-ortho-followup.md
+records_scope:
+  episode_start: '1993-02-11'
+  episode_end: '2016-06-01'
+  is_complete_chart: false

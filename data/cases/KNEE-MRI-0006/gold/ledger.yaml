@@ -1,0 +1,150 @@
+# Generated ledger for KNEE-MRI-0006. Hidden from the verifier.
+
+case_id: KNEE-MRI-0006
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  name: Ethan Goyette
+  sex: M
+  birthdate: '1980-04-29'
+  city: Framingham
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-01-31'
+  request_date: '2014-04-16'
+  anchor_condition: Tear of meniscus of knee
+scope:
+  episode_window:
+    start: '2014-01-31'
+    end: '2014-04-16'
+  therapy_lookback_window:
+    start: '2013-04-16'
+    end: '2014-04-16'
+  patient_chart_totals:
+    conditions_lifetime: 4
+    encounters_lifetime: 8
+    observations_lifetime: 89
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '2012-06-20'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-10-06'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2019-07-19'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-01-31'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: f874906b-5b9b-4d72-b3c2-f89b07149221
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+- id: E002
+  date: '2014-01-31'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Tear of meniscus of knee
+  code: '239720000'
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+- id: E003
+  date: '2014-01-31'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 9a6c004e-4cf9-4856-bd66-641286170f31
+  description: Physical therapy procedure
+  reason: Tear of meniscus of knee
+  date_range:
+    start: '2014-01-31'
+    stop: '2014-04-01'
+  duration_days: 60
+  rendered_in:
+  - input/notes/2014-04-01-pt-discharge.md
+- id: A004
+  date: '2014-01-31'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+  - input/notes/2014-02-12-ortho-consult.md
+- id: A005
+  date: '2014-02-12'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2014-02-12-ortho-consult.md
+- id: A006
+  date: '2014-01-31'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2014-01-31-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2014-01-31'
+    end: '2014-04-01'
+  attributes:
+    modality: in_person
+    duration_days: 60
+    body_region: knee
+    sessions_attended: 17
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2014-04-01-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 60 days vs threshold 42; modality in_person; body region knee; enclosed.

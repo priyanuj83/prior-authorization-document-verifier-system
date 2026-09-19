@@ -1,0 +1,127 @@
+# Generated ledger for SHOULDER-RCR-0015. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0015
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 6e9ca2a6-00eb-47ca-9e31-f249a33c90ad
+  name: Angelo Monahan
+  sex: M
+  birthdate: '2007-11-14'
+  city: Palmer
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-05-11'
+  request_date: '2014-06-25'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2014-05-11'
+    end: '2014-06-25'
+  therapy_lookback_window:
+    start: '2013-06-25'
+    end: '2014-06-25'
+  patient_chart_totals:
+    conditions_lifetime: 3
+    encounters_lifetime: 16
+    observations_lifetime: 179
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '2011-03-13'
+    description: Otitis media
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2017-02-27'
+      description: Acute viral pharyngitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-05-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 370d122d-7c3e-49b9-b2bd-abfb8fac3286
+  encounter_class: ambulatory
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2014-05-11-ed-visit.md
+- id: E002
+  date: '2014-05-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2014-05-11-ed-visit.md
+  - input/notes/2014-05-23-ortho-consult.md
+- id: E003
+  date: '2014-05-11'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 2316cd3f-7d1c-450d-9faf-6952f3e93e06
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2014-05-11'
+    stop: '2014-06-10'
+  duration_days: 30
+  rendered_in:
+  - input/notes/2014-06-10-pt-discharge.md
+- id: A004
+  date: '2014-05-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the right shoulder
+  rendered_in:
+  - input/notes/2014-05-11-ed-visit.md
+  - input/notes/2014-05-23-ortho-consult.md
+- id: A005
+  date: '2014-05-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2014-05-11-ed-visit.md
+- id: A006
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2014-05-11'
+    end: '2014-06-10'
+  attributes:
+    modality: in_person
+    duration_days: 30
+    body_region: shoulder
+    sessions_attended: 9
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2014-06-10-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No MRI or ultrasound report enclosed.
+  C3_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 30 days vs threshold 42; modality in_person; body region shoulder; enclosed.

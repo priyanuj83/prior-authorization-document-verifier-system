@@ -1,0 +1,51 @@
+# Generation plan for TKA-0003. Hidden from the verifier.
+
+case_id: TKA-0003
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 81
+patient:
+  synthea_patient_id: 2a5c04ff-26e1-4406-831f-be13b540cbc7
+  name: Laura Bergstrom
+  sex: F
+  birthdate: '1968-10-14'
+  age_at_request: 50
+request:
+  requested_service: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  request_date: '2019-08-05'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-08-05'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2010-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: full_packet
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

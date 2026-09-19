@@ -1,0 +1,101 @@
+# Generated labels for KNEE-ARTHRO-0009. Derived from the ledger, not the notes.
+
+case_id: KNEE-ARTHRO-0009
+policy_id: PA-KNEE-ARTHRO-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_arthroscopy
+    request_date: '2014-04-16'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+criteria:
+- id: C1_symptoms
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Pain and mechanical symptoms documented in the clinical notes.
+- id: C2_oa_severity
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/2014-01-31-ed-visit.md
+      locator: Kellgren-Lawrence grade 1
+  reasoning: Kellgren-Lawrence grade 1 (allowance 0-2).
+- id: C3_radiologic_confirmation
+  label: MISSING
+  clinical_truth: MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No MRI report enclosed. A plain film does not confirm a meniscal tear.
+- id: C4_conservative_therapy
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger:
+    - A005
+    - E004
+    notes:
+    - file: input/notes/2014-04-01-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/2014-01-31-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: course length 60 days vs threshold 42; modality in_person; body region knee; enclosed.
+waivers:
+- id: W1_locked_knee
+  state: NOT_FIRED
+  reasoning: Locking may be present but a displaced bucket-handle tear is not documented.
+exclusions:
+- id: X1_diagnostic_only
+  state: NOT_TRIGGERED
+- id: X2_meniscal_root_tear
+  state: NOT_TRIGGERED
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: NOT_READY
+    remediable: true
+    reasoning: 'NOT_READY from criterion labels: C1_symptoms=SUPPORTED, C2_oa_severity=SUPPORTED,
+      C3_radiologic_confirmation=MISSING, C4_conservative_therapy=SUPPORTED.'
+    remediation:
+    - criterion: C3_radiologic_confirmation
+      action: Obtain the missing documentation that would establish this requirement.
+      blocking: true
+    escalation: []
+    provider_message: Not ready to submit. One or more required items cannot be verified from the
+      enclosed records.
+  payer_view:
+    decision: PEND
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 3
+    MISSING: 1
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: omit_imaging
+  generator: template-v0.3

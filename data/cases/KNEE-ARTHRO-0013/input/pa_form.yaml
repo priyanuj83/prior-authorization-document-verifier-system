@@ -1,0 +1,48 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-ARTHRO-0013
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2015-10-31'
+generator: template-v0.3
+member:
+  name: Gianna Kling
+  member_id: SYN-C2128123
+  dob: '1991-08-02'
+  sex: F
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: R. Danvers, MD
+  specialty: Orthopaedic Surgery
+  practice: Orthopaedic Associates of Middlesex
+  npi: SYN-0000001
+requested_service:
+  description: Arthroscopic partial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  laterality: right
+  setting: outpatient
+  proposed_date: '2015-11-21'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Tear of meniscus of knee
+    snomed: '239720000'
+  onset_date: '2015-09-16'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: MRI of the right knee confirms a meniscal tear.
+- id: AT3
+  text: Conservative measures have been tried for the right knee.
+enclosures:
+- input/notes/2015-09-16-ed-visit.md
+- input/notes/2015-09-28-ortho-consult.md
+- input/notes/2015-10-24-mri-report.md
+- input/notes/2015-10-31-ortho-followup.md
+records_scope:
+  episode_start: '2015-09-16'
+  episode_end: '2015-10-31'
+  is_complete_chart: false

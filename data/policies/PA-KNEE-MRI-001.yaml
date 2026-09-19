@@ -1,0 +1,135 @@
+# =============================================================================
+# PA-KNEE-MRI-001
+# MRI of the knee
+# =============================================================================
+# Logical shape: DISJUNCTIVE with one conjunctive branch.
+# This policy is the natural UPSTREAM companion to PA-KNEE-ARTHRO-001: the
+# arthroscopy policy requires MRI confirmation (C3), so a realistic case series
+# has the MRI authorised first, then the surgery. Chaining the two lets you build
+# multi-request episodes where the outcome of one PA feeds the evidence for the next.
+# =============================================================================
+
+policy_id: PA-KNEE-MRI-001
+version: 1.0.0
+title: Magnetic resonance imaging of the knee
+specialty: radiology
+logic: any_of
+tier: 1
+
+provenance:
+  derived_from: >
+    Composed for this corpus from the conservative-management and imaging-
+    confirmation structure common to musculoskeletal extremity imaging policy,
+    consistent with Aetna CPB 0673 and general payer practice for advanced
+    extremity imaging.
+  cross_reference:
+    - name: Carelon Clinical Appropriateness Guidelines, Imaging of the Extremities
+      url: https://guidelines.carelonmedicalbenefitsmanagement.com/current-radiology-guidelines/
+      usage: >
+        Consulted as a design reference for criterion decomposition only. No Carelon
+        text or close paraphrase appears in this corpus.
+  relationship: original prose, clinically conventional criteria
+  retrieved: 2026-08-30
+
+requested_service:
+  description: MRI of the knee, without contrast
+  synthea_proxy: null
+  note: >
+    No knee MRI exists in the extract. That is correct and expected: the MRI is the
+    service being REQUESTED, so its absence from the record is the normal state.
+
+definitions:
+  conservative_management:
+    text: >
+      Activity modification, non-steroidal anti-inflammatory drugs or other
+      analgesics, and a formal physical therapy course.
+    note: >
+      Unlike PA-KNEE-ARTHRO-001 C4, this policy accepts home-based physical therapy.
+      The divergence is deliberate: it tests whether the verifier reads the modality
+      requirement from the policy in force rather than generalising across policies.
+
+branches:
+
+  - id: B1_persistent_after_conservative
+    logic: all_of
+    text: >
+      Persistent knee pain with suspected internal derangement that has not resolved
+      after at least six weeks of conservative management.
+    criteria:
+      - id: B1_C1_persistent_symptoms
+        text: Knee pain persisting through the current episode.
+        type: clinical_finding
+      - id: B1_C2_suspected_derangement
+        text: >
+          Clinical suspicion of internal derangement, such as mechanical symptoms or
+          a positive provocative examination manoeuvre.
+        type: clinical_finding
+        failure_modes:
+          missing: pain documented without any examination findings
+      - id: B1_C3_conservative_trial
+        text: At least six weeks of conservative management without resolution.
+        type: therapy_trial
+        threshold:
+          duration_days: 42
+          comparator: ">="
+        modality_required: any
+        lookback_days: 365
+        uses_definition: conservative_management
+        failure_modes:
+          missing: therapy documented without duration
+          contradicted: documented duration shorter than 42 days
+          trap_distractor: qualifying therapy documented for a different joint
+
+  - id: B2_acute_trauma_with_effusion
+    logic: all_of
+    text: >
+      Acute knee injury with joint effusion or inability to bear weight, where
+      ligamentous or meniscal injury is suspected.
+    criteria:
+      - id: B2_C1_acute_injury
+        text: Acute traumatic knee injury in the current episode.
+        type: clinical_finding
+      - id: B2_C2_objective_finding
+        text: Joint effusion, locked knee, or inability to bear weight.
+        type: clinical_finding
+    bypasses_conservative_therapy: true
+    notes: >
+      This branch is why an emergency-department presentation matters. All three seed
+      patients in cases/ present via an ER encounter (SNOMED 50849002), so B2 is
+      frequently the branch in play for them, not B1.
+
+  - id: B3_preoperative_planning
+    text: >
+      Preoperative planning for a knee procedure where the operative plan depends on
+      soft-tissue anatomy not visible on plain radiography.
+    type: clinical_finding
+
+  - id: B4_postoperative_recurrence
+    text: Recurrent or persistent symptoms following prior knee surgery.
+    type: clinical_finding
+
+  - id: B5_suspected_neoplasm_or_infection
+    text: Suspected bone or soft-tissue neoplasm, osteomyelitis, or septic arthritis.
+    type: clinical_finding
+
+exclusions:
+  - id: X1_advanced_oa_only
+    text: >
+      MRI is not covered where plain radiography already demonstrates advanced
+      osteoarthritis sufficient to explain the symptoms and no surgical intervention
+      other than arthroplasty is contemplated.
+    notes: >
+      Pairs with PA-KNEE-ARTHRO-001 C2. In a 67-year-old with Kellgren-Lawrence
+      grade 4 disease, an MRI request is excluded here and an arthroscopy request is
+      contradicted there. Seed patient 1ab6d5c8 is exactly this profile.
+
+# Framework-neutral. See PA-KNEE-ARTHRO-001 for the full projection table.
+criteria_logic:
+  all_met_if: at least one branch fully satisfied and no exclusion applies
+  fails_if: no branch satisfied, or an exclusion applies
+  indeterminate_if: >
+    no branch fully satisfied, but the failures are documentation gaps rather than
+    substantive contradictions
+  projections:
+    provider_side: {all_met: READY_FOR_SUBMISSION, indeterminate: NOT_READY, fails: REVIEW_NEEDED}
+    payer_side: {all_met: APPROVE, indeterminate: PEND, fails: DENY}

@@ -1,0 +1,54 @@
+# Generation plan for KNEE-MRI-0011. Hidden from the verifier.
+
+case_id: KNEE-MRI-0011
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 29
+patient:
+  synthea_patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+  name: Iraida Oberbrunner
+  sex: F
+  birthdate: '1979-11-19'
+  age_at_request: 35
+request:
+  requested_service: MRI of the left knee, without contrast
+  service_key: knee_mri
+  request_date: '2015-09-24'
+plan_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: knee_mri
+    request_date: '2015-09-24'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-KNEE-MRI-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+variant: full_packet
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE
+criteria:
+- id: B2_C1_acute_injury
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B2_C2_objective_finding
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C1_persistent_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C2_suspected_derangement
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C3_conservative_trial
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

@@ -1,0 +1,365 @@
+# =============================================================================
+# GOLD LABELS: KNEE-ARTHRO-0003
+# =============================================================================
+# The corpus's only non-remediable case. Three criteria pass, one is contradicted, and the
+# contradicted one governs.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0003
+policy_id: PA-KNEE-ARTHRO-001
+policy_version: 1.0.0
+labelled_by: hand-authored reference case
+labelled_date: 2026-08-30
+
+# -----------------------------------------------------------------------------
+# STEP 1 - POLICY RESOLUTION
+# -----------------------------------------------------------------------------
+policy_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: knee_arthroscopy
+    request_date: 2014-04-22
+  requires_prior_auth: false
+  requires_coverage_review: true
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  reasoning: >
+    THE FIRST TRAP, AND IT FIRES BEFORE ANY CLINICAL REASONING BEGINS.
+
+    requires_prior_auth is FALSE for this plan. A verifier keying on that field alone
+    returns NO_AUTH_REQUIRED and never evaluates a single criterion, thereby missing
+    the only case in the corpus where the patient substantively fails the policy.
+
+    The correct behaviour is to verify the criteria anyway, because
+    requires_coverage_review is TRUE. Authorisation is not required before the
+    procedure, but the service remains subject to review against the same clinical
+    criteria after the fact.
+
+    Provider-side this distinction matters more than it does payer-side, and the
+    advice it generates is concrete: you do not need authorisation before operating,
+    but this will be reviewed retrospectively, so the documentation needs to hold up
+    exactly as if you had sought prior approval. Providers routinely get this wrong
+    and repay the claim later.
+
+    See pa_requirements/MEDICARE-FFS-01.yaml for the two-field outcome matrix.
+  scoring_note: >
+    Score resolution separately from the criterion labels. A verifier that returns
+    NO_AUTH_REQUIRED here should score zero on this case regardless of what else it
+    says, because it never looked at the evidence.
+
+# -----------------------------------------------------------------------------
+# STEP 2 - CRITERION LABELS
+# -----------------------------------------------------------------------------
+
+criteria:
+
+  - id: C1_symptoms
+    label: SUPPORTED
+    evidence:
+      ledger: [A002]
+      notes:
+        - file: input/notes/2014-02-10-ortho-consult.md
+          locator: >
+            "catching sensation ... the joint snagging mid-movement ... she is
+            emphatic that this is not the same as the crunching and stiffness she has
+            lived with for years"
+        - file: input/notes/2014-04-01-pt-discharge.md
+          locator: >
+            "the mechanical catching that prompted the referral has not changed at
+            all ... On two occasions the catching occurred during a session here"
+    reasoning: >
+      Pain and a mechanical symptom are both documented. The notes take deliberate
+      care to distinguish new mechanical catching from the crepitus and stiffness of
+      long-standing arthritis, and the therapist independently witnessed the catching.
+      This separation matters: without it, a reviewer could reasonably argue the
+      catching is just arthritic crepitus and C1 is not met.
+
+  - id: C2_oa_severity
+    label: CONTRADICTED
+    evidence:
+      ledger: [A003, A004, E001, E002]
+      notes:
+        - file: input/notes/2014-01-31-ed-visit.md
+          locator: >
+            "severe tricompartmental degenerative change ... bone-on-bone contact ...
+            Kellgren-Lawrence grade 4"
+          weight: primary
+        - file: input/notes/2014-04-10-mri-report.md
+          locator: >
+            "Full-thickness cartilage loss ... exposed subchondral bone ... Outerbridge
+            grade 4"
+          weight: independent corroboration, second modality and second author
+        - file: input/notes/2014-02-10-ortho-consult.md
+          locator: >
+            "carried a diagnosis of left knee osteoarthritis since June 1986 - some
+            twenty-eight years"
+          weight: structural plausibility
+    reasoning: >
+      THE GOVERNING CRITERION.
+
+      The policy allows Kellgren-Lawrence grade 0, 1 or 2, or modified Outerbridge
+      grade 0, 1 or 2. The record states grade 4 on plain radiography and Outerbridge
+      grade 4 on MRI. The threshold is exceeded on both scales the policy names.
+
+      CONTRADICTED rather than MISSING, because this is positive evidence that the
+      criterion is not met. A grade is stated explicitly, and it is stated twice by two
+      different radiologists on two different modalities. There is no silence to
+      resolve and no further documentation that could change the answer.
+    difficulty: low_to_detect_high_to_act_on
+    note: >
+      Detecting this is easy. ACTING on it is what the case tests. A verifier that
+      identifies grade 4 and still approves, because three other criteria passed and
+      the surgeon argued persuasively, has failed in the way that matters.
+
+  - id: C3_radiologic_confirmation
+    label: SUPPORTED
+    evidence:
+      ledger: [A004]
+      notes:
+        - file: input/notes/2014-04-10-mri-report.md
+          locator: >
+            "Complex degenerative tear of the posterior horn of the medial meniscus"
+    reasoning: >
+      Pathology is a meniscal tear, the policy requires MRI for that pathology, and an
+      MRI is present and confirms it. Deliberately SUPPORTED so the denial isolates to
+      C2. The tear being degenerative rather than traumatic does not affect this
+      criterion, which asks only whether the pathology is radiologically confirmed.
+
+  - id: C4_conservative_therapy
+    label: SUPPORTED
+    evidence:
+      ledger: [E006, E007, A005]
+      notes:
+        - file: input/notes/2014-01-31-ed-visit.md
+          locator: "Physiotherapy referral placed today"
+          supplies: start_date_2014-01-31
+        - file: input/notes/2014-04-01-pt-discharge.md
+          locator: >
+            "seen twice weekly since ... 15 attended sessions ... Every session was
+            delivered here in the outpatient department"
+          supplies: [end_date_2014-04-01, modality_in_person, response_no_improvement]
+    reasoning: >
+      All four components satisfied. Duration is 60 days, computed from a referral date
+      in the ED note and a discharge date in the therapy summary, exceeding the 42-day
+      threshold. Modality is in-person, established through setting and the explicit
+      statement that the home programme was a maintenance adjunct rather than the
+      substance of treatment. Body region is the left knee, matching the request.
+      Completed 21 days before the request, inside the 365-day lookback.
+    difficulty: high
+    exercises: [trap_multi_hop, trap_modality]
+    note: >
+      DELIBERATE MISDIRECTION. This is the most effortful criterion in the case and it
+      passes. Verification effort is concentrated where it does not change the answer,
+      so that a verifier which budgets attention by apparent difficulty is drawn away
+      from C2, which is trivially detectable and decisive.
+
+# -----------------------------------------------------------------------------
+# STEP 3 - WAIVERS
+# -----------------------------------------------------------------------------
+
+waivers:
+  - id: W1_locked_knee
+    state: NOT_FIRED
+    evidence:
+      ledger: [A002, A004]
+      notes:
+        - file: input/notes/2014-02-10-ortho-consult.md
+          locator: >
+            "She denies any episode where the knee has locked fixed and required her
+            to manipulate it to release"
+        - file: input/notes/2014-04-10-mri-report.md
+          locator: "no bucket-handle configuration"
+    reasoning: >
+      Neither required condition holds. The catching is explicitly distinguished from
+      true locking in the record, and the MRI excludes a bucket-handle configuration.
+    scoring_note: >
+      Firing this waiver cannot change the outcome, because it waives only C4, which
+      already passes. Waivers attach to specific criteria and cannot rescue a
+      contradicted one. A verifier that reaches for a waiver to resolve a denial has
+      misunderstood the mechanism, and recording the waiver state separately makes
+      that visible.
+
+# -----------------------------------------------------------------------------
+# STEP 4 - EXCLUSIONS
+# -----------------------------------------------------------------------------
+
+exclusions:
+  - id: X1_diagnostic_only
+    state: NOT_TRIGGERED
+    reasoning: Pathology is radiologically proven, so this is not diagnostic-only.
+  - id: X2_meniscal_root_tear
+    state: NOT_TRIGGERED
+    evidence:
+      notes:
+        - file: input/notes/2014-04-10-mri-report.md
+          locator: "The meniscal root attachments are intact"
+    reasoning: >
+      Meniscal extrusion is present, which can accompany root pathology, but the root
+      is explicitly reported intact. Authored deliberately so the denial cannot be
+      reached via this exclusion instead of via C2.
+
+# -----------------------------------------------------------------------------
+# STEP 5 - ATTESTATION CHECK
+# -----------------------------------------------------------------------------
+
+attestation_check:
+
+  - id: AT1
+    verdict: SUPPORTED
+
+  - id: AT2
+    verdict: CONTRADICTED
+    claim: >
+      "Imaging demonstrates mild degenerative change of the affected knee, which does
+      not preclude arthroscopic intervention."
+    reasoning: >
+      THE CLEANEST CONTRADICTION IN THE CORPUS.
+
+      The form says "mild degenerative change". The radiology report enclosed with the
+      same submission says severe tricompartmental degenerative change with
+      obliterated medial joint space, bone-on-bone contact, and Kellgren-Lawrence
+      grade 4. The MRI enclosed with the same submission says full-thickness cartilage
+      loss with exposed subchondral bone.
+
+      This requires no clinical judgement to detect. It requires only comparing two
+      documents in one envelope. A verifier that cannot catch this will not catch
+      anything subtler.
+    consequence: >
+      Directly drives the C2 verdict. Any verifier that accepts AT2 at face value will
+      mark C2 SUPPORTED and approve.
+
+  - id: AT3
+    verdict: SUPPORTED
+
+  - id: AT4
+    verdict: SUPPORTED
+    note: >
+      Fully corroborated, including the twice-weekly frequency, the fifteen-session
+      count and the absence of improvement. Contrast KNEE-ARTHRO-0002 AT4, which is
+      worded similarly but is NOT supported. A verifier must evaluate attestations
+      against the record rather than pattern-matching on their phrasing, and this pair
+      is what tests that.
+
+  - id: AT5
+    verdict: SUPPORTED
+    note: >
+      Accurate and, to the requesting surgeon's credit, candid. The follow-up note
+      records explicitly that the procedure will not treat the arthritis and that the
+      patient accepts this. Provider candour does not change the criterion verdict,
+      which is worth noting: a well-documented, honestly argued request can still fail
+      a policy, and the verifier must not be swayed by the quality of the advocacy.
+
+# -----------------------------------------------------------------------------
+# OUTCOME
+# -----------------------------------------------------------------------------
+
+# PROVIDER-SIDE. Both views are derived projections of the criterion labels above.
+# provider_view is the product. payer_view is not scored.
+#
+# THIS IS WHERE THE TWO VIEWS DIVERGE MOST SHARPLY, and it is the clearest
+# demonstration of why the provider-side mapping is a different function.
+
+outcome:
+
+  provider_view:
+    documentation_status: REVIEW_NEEDED
+    remediable: false
+    not_remediable_by_documentation: true
+    governing_criterion: C2_oa_severity
+    reasoning: >
+      The policy is conjunctive. One criterion is CONTRADICTED, and no number of
+      satisfied criteria offsets that. Three of four passing is not a partial pass.
+
+      Crucially for a provider-side tool, this gap is NOT a documentation gap. The
+      patient has end-stage tricompartmental osteoarthritis at Kellgren-Lawrence grade
+      4, confirmed on two modalities by two radiologists. No additional records will
+      change that, so there is nothing to go and fetch. This is what separates
+      REVIEW_NEEDED from NOT_READY: in KNEE-ARTHRO-0002 there is work to do, and here
+      there is a decision to make.
+
+      Status is REVIEW_NEEDED rather than a flat refusal because a human should look
+      before the request is abandoned. The grade could have been mis-transcribed, an
+      appeal or peer-to-peer pathway may exist, and the patient's own preference is
+      documented and reasonable. What the system should not do is let this be
+      submitted as routine on the assumption that it will pass.
+    remediation: []
+    remediation_note: >
+      Deliberately empty. Populating it would imply the problem is fixable by
+      paperwork, which is precisely the wrong message.
+    escalation:
+      - action: Clinical review before submission.
+        detail: >
+          The requested procedure does not meet this policy's osteoarthritis criterion.
+          Submitting as-is should be expected to fail review.
+      - action: Consider the alternative policy.
+        detail: >
+          PA-TKA-001 matches this patient's actual structural problem and her grade 4
+          disease SUPPORTS its advanced-osteoarthritis criterion. The requesting
+          surgeon had already raised arthroplasty with her twice, and it is recorded in
+          the notes. Be aware her 60-day therapy course falls short of that policy's
+          90-day conservative-management requirement, so a TKA request would need
+          further therapy documented first.
+      - action: If proceeding regardless, prepare for retrospective review.
+        detail: >
+          This plan does not require prior authorisation, so the procedure can go
+          ahead, but it is subject to review afterwards. The patient-preference
+          discussion in the 2014-04-22 note is the strongest available support and
+          should be preserved.
+    provider_message: >
+      Requires clinical review before submission. The record affirmatively shows
+      advanced osteoarthritis, which this policy excludes, and no additional
+      documentation will resolve it. A different policy may be the better route.
+
+  payer_view:
+    decision: DENY
+    governing_criterion: C2_oa_severity
+    note: >
+      Derived, not scored. This is the divergence: payer-side this is a denial, an
+      endpoint. Provider-side it is a decision point reached BEFORE submission, and
+      the useful output is not the verdict but the redirection to PA-TKA-001. Same
+      criterion labels, materially different product.
+
+  criterion_label_counts:
+    SUPPORTED: 3
+    MISSING: 0
+    CONTRADICTED: 1
+
+# -----------------------------------------------------------------------------
+# EVALUATION NOTES
+# -----------------------------------------------------------------------------
+
+evaluation_notes:
+  role_in_corpus: >
+    Sole non-remediable case, therefore the only measure of whether the system can
+    distinguish a documentation gap from a substantive failure. Also the only case
+    exercising the Medicare coverage-review path.
+  expected_failure_modes:
+    - >
+      Returning NO_AUTH_REQUIRED at policy resolution because requires_prior_auth is
+      false, and never verifying anything at all.
+    - >
+      Reporting NOT_READY with a remediation list, sending the provider to chase
+      records that cannot exist. This is the characteristic provider-side failure and
+      it is worse than a payer-side false approval, because it wastes real staff time
+      on an unwinnable request.
+    - >
+      Reporting READY_FOR_SUBMISSION because three of four criteria are SUPPORTED,
+      treating criteria additively rather than conjunctively.
+    - >
+      Accepting AT2's "mild degenerative change" over the enclosed radiology report.
+    - >
+      Being persuaded by the surgeon's candid and well-reasoned narrative. The
+      follow-up note is deliberately sympathetic and the patient's preference is
+      deliberately reasonable. Neither is a policy criterion.
+    - >
+      Marking C2 MISSING rather than CONTRADICTED, on the grounds that the form did
+      not state a grade. The grade is in the enclosures, which are part of the
+      submission.
+  reuse:
+    - >
+      Run this ledger against PA-TKA-001 to obtain the inverted pair: C1_advanced_oa
+      becomes SUPPORTED on the same radiology report, while C3_conservative_management
+      becomes CONTRADICTED because 60 days falls short of that policy's 90-day
+      threshold. Two criteria flipping in opposite directions with no change to the
+      clinical facts is the strongest available probe of whether a verifier reads
+      thresholds from the policy in force.

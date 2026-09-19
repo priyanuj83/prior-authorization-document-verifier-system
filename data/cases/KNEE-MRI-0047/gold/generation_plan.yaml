@@ -1,0 +1,54 @@
+# Generation plan for KNEE-MRI-0047. Hidden from the verifier.
+
+case_id: KNEE-MRI-0047
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 65
+patient:
+  synthea_patient_id: b4d1167c-9adf-40e0-8295-4c3f25fdb3b4
+  name: Yong Zulauf
+  sex: M
+  birthdate: '2010-04-06'
+  age_at_request: 4
+request:
+  requested_service: MRI of the right knee, without contrast
+  service_key: knee_mri
+  request_date: '2014-04-07'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_mri
+    request_date: '2014-04-07'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-MRI-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: full_packet
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE
+criteria:
+- id: B2_C1_acute_injury
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B2_C2_objective_finding
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C1_persistent_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C2_suspected_derangement
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: B1_C3_conservative_trial
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

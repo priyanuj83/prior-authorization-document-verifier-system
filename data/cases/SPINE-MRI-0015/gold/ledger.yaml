@@ -1,0 +1,115 @@
+# Generated ledger for SPINE-MRI-0015. Hidden from the verifier.
+
+case_id: SPINE-MRI-0015
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 1bacaab1-708b-42fe-8f12-fbe97a725440
+  name: Rochell Koch
+  sex: F
+  birthdate: '1950-07-25'
+  city: Milton
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2013-02-11'
+  request_date: '2013-02-14'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2013-02-11'
+    end: '2013-02-14'
+  therapy_lookback_window:
+    start: '2012-02-15'
+    end: '2013-02-14'
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 47
+    observations_lifetime: 462
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1975-09-30'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1984-10-09'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1984-10-09'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1994-08-23'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1996-08-13'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-06-12'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2017-08-31'
+      description: Viral sinusitis (disorder)
+    - date: '2018-08-17'
+      description: Sprain of wrist
+    - date: '2019-02-14'
+      description: Viral sinusitis (disorder)
+    - date: '2020-04-05'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2013-02-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 8533a9e4-7573-46fd-b49f-4370ca0a2926
+  encounter_class: emergency
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+- id: E002
+  date: '2013-02-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+- id: A003
+  date: '2013-02-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+- id: A004
+  date: '2013-02-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2013-02-11-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

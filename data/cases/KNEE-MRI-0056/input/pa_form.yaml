@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0056
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2013-07-11'
+generator: template-v0.3
+member:
+  name: Lon Schuppe
+  member_id: SYN-CB1BE644
+  dob: '1954-02-03'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: MRI of the right knee, without contrast
+  service_key: knee_mri
+  laterality: right
+  setting: outpatient
+  proposed_date: '2013-08-01'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Rupture of patellar tendon
+    snomed: '30832001'
+  onset_date: '1972-09-10'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain.
+- id: AT2
+  text: Advanced imaging of the right knee is requested.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the right knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1972-09-10-ed-visit.md
+- input/notes/1972-09-22-ortho-consult.md
+- input/notes/1972-11-16-pt-discharge.md
+- input/notes/2013-07-11-ortho-followup.md
+records_scope:
+  episode_start: '1972-09-10'
+  episode_end: '2013-07-11'
+  is_complete_chart: false

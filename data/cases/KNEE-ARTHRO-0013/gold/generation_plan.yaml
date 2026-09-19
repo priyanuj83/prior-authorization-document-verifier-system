@@ -1,0 +1,51 @@
+# Generation plan for KNEE-ARTHRO-0013. Hidden from the verifier.
+
+case_id: KNEE-ARTHRO-0013
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 10
+patient:
+  synthea_patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+  name: Gianna Kling
+  sex: F
+  birthdate: '1991-08-02'
+  age_at_request: 24
+request:
+  requested_service: Arthroscopic partial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  request_date: '2015-10-31'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: knee_arthroscopy
+    request_date: '2015-10-31'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: omit_pt_notes
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: C1_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_oa_severity
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_radiologic_confirmation
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C4_conservative_therapy
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

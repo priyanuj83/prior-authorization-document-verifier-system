@@ -1,0 +1,87 @@
+# Generated labels for SHOULDER-RCR-0002. Derived from the ledger, not the notes.
+
+case_id: SHOULDER-RCR-0002
+policy_id: PA-SHOULDER-RCR-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: rotator_cuff_repair
+    request_date: '2011-06-20'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+criteria:
+- id: C1_symptoms_and_exam
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Shoulder pain with restricted motion on examination.
+- id: C2_imaging_confirmation
+  label: MISSING
+  clinical_truth: MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No MRI or ultrasound report enclosed.
+- id: C3_conservative_therapy
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger:
+    - A005
+    - E004
+    notes:
+    - file: input/notes/2011-06-05-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/2011-04-06-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: course length 60 days vs threshold 42; modality in_person; body region shoulder; enclosed.
+waivers:
+- id: W1_acute_traumatic_full_thickness
+  state: NOT_FIRED
+  reasoning: Waiver not used; therapy criterion is evaluated on its own.
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: NOT_READY
+    remediable: true
+    reasoning: 'NOT_READY from criterion labels: C1_symptoms_and_exam=SUPPORTED, C2_imaging_confirmation=MISSING,
+      C3_conservative_therapy=SUPPORTED.'
+    remediation:
+    - criterion: C2_imaging_confirmation
+      action: Obtain the missing documentation that would establish this requirement.
+      blocking: true
+    escalation: []
+    provider_message: Not ready to submit. One or more required items cannot be verified from the
+      enclosed records.
+  payer_view:
+    decision: PEND
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 2
+    MISSING: 1
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: omit_imaging
+  generator: template-v0.3

@@ -1,0 +1,157 @@
+# Generated ledger for TKA-0012. Hidden from the verifier.
+
+case_id: TKA-0012
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  name: Kellye Schuppe
+  sex: F
+  birthdate: '1964-10-30'
+  city: Great Barrington
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2013-10-18'
+  request_date: '2019-12-14'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2013-10-18'
+    end: '2019-12-14'
+  therapy_lookback_window:
+    start: '2018-12-14'
+    end: '2019-12-14'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 25
+    observations_lifetime: 233
+    careplans_lifetime: 6
+  excluded_from_packet:
+  - date: '1996-05-24'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-11-23'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-01-03'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-01-03'
+    description: Fetus with unknown complication
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-04-26'
+    description: Second degree burn
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-10-28'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-08-18'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2018-11-23'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2019-04-02'
+    description: Injury of tendon of the rotator cuff of shoulder
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2013-10-18'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: caef0a57-7a03-441f-bc72-4e1b174e4894
+  encounter_class: ambulatory
+  payer_id: 7c4411ce-02f1-39b5-b9ec-dfbea9ad3c1a
+  rendered_in:
+  - input/notes/2013-10-18-ed-visit.md
+- id: E002
+  date: '2013-10-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2013-10-18-ed-visit.md
+  - input/notes/2013-10-30-ortho-consult.md
+- id: E003
+  date: '2013-10-18'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2013-10-18-ed-visit.md
+  - input/notes/2013-10-30-ortho-consult.md
+- id: A004
+  date: '2013-10-18'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2013-10-18-ed-visit.md
+  - input/notes/2013-10-30-ortho-consult.md
+- id: A005
+  date: '2013-10-18'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2013-10-18-ed-visit.md
+- id: A006
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2019-11-07'
+    end: '2019-12-07'
+  attributes:
+    modality: in_person
+    duration_days: 30
+    body_region: knee
+    sessions_attended: 9
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2019-12-07-pt-discharge.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 30 days vs threshold 90; modality in_person; body region knee; enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

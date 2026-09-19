@@ -1,0 +1,72 @@
+# Generated labels for SPINE-MRI-0010. Derived from the ledger, not the notes.
+
+case_id: SPINE-MRI-0010
+policy_id: PA-SPINE-MRI-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: spine_mri_ct
+    request_date: '2013-08-24'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SPINE-MRI-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+criteria:
+- id: B8_trauma_fracture
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+- id: B9_suspected_cord_injury
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: No cord-injury suspicion documented.
+waivers: []
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: NOT_SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: NOT_READY
+    remediable: true
+    reasoning: 'NOT_READY from criterion labels: B8_trauma_fracture=MISSING, B9_suspected_cord_injury=MISSING.'
+    remediation:
+    - criterion: B8_trauma_fracture
+      action: Obtain the missing documentation that would establish this requirement.
+      blocking: true
+    - criterion: B9_suspected_cord_injury
+      action: Obtain the missing documentation that would establish this requirement.
+      blocking: true
+    escalation: []
+    provider_message: Not ready to submit. One or more required items cannot be verified from the
+      enclosed records.
+  payer_view:
+    decision: PEND
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 0
+    MISSING: 2
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: omit_imaging
+  generator: template-v0.3

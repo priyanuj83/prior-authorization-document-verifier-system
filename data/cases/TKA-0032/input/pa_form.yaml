@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0032
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2019-09-06'
+generator: template-v0.3
+member:
+  name: Eugena Schmeler
+  member_id: SYN-08180C75
+  dob: '1953-05-27'
+  sex: F
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: R. Danvers, MD
+  specialty: Orthopaedic Surgery
+  practice: Orthopaedic Associates of Middlesex
+  npi: SYN-0000001
+requested_service:
+  description: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  laterality: left
+  setting: outpatient
+  proposed_date: '2019-09-27'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1987-05-19'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the left knee.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1987-05-19-ed-visit.md
+- input/notes/1987-05-31-ortho-consult.md
+- input/notes/2019-08-30-pt-discharge.md
+- input/notes/2019-09-06-ortho-followup.md
+records_scope:
+  episode_start: '1987-05-19'
+  episode_end: '2019-09-06'
+  is_complete_chart: false

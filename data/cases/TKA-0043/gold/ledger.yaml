@@ -1,0 +1,155 @@
+# Generated ledger for TKA-0043. Hidden from the verifier.
+
+case_id: TKA-0043
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 21ce6dc0-8668-4221-a5bc-6d6a1afe4c52
+  name: Tiara Reinger
+  sex: F
+  birthdate: '1958-11-06'
+  city: Lowell
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2018-10-22'
+  request_date: '2019-10-02'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '2018-10-22'
+    end: '2019-10-02'
+  therapy_lookback_window:
+    start: '2018-10-02'
+    end: '2019-10-02'
+  patient_chart_totals:
+    conditions_lifetime: 16
+    encounters_lifetime: 66
+    observations_lifetime: 168
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '1959-03-12'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1963-08-03'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1965-02-23'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1970-07-20'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1972-12-06'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1974-02-20'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1976-12-30'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1996-04-18'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2004-10-28'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-01-24'
+    description: Cardiac Arrest
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-01-24'
+    description: History of cardiac arrest (situation)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2008-06-05'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2020-04-18'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-10-22'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 84847990-3533-4f82-b8af-c7615da34c6c
+  encounter_class: ambulatory
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2018-10-22-ed-visit.md
+- id: E002
+  date: '2018-10-22'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/2018-10-22-ed-visit.md
+  - input/notes/2018-11-03-ortho-consult.md
+- id: E003
+  date: '2018-10-22'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2018-10-22-ed-visit.md
+  - input/notes/2018-11-03-ortho-consult.md
+- id: A004
+  date: '2018-10-22'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2018-10-22-ed-visit.md
+  - input/notes/2018-11-03-ortho-consult.md
+- id: A005
+  date: '2018-10-22'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2018-10-22-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

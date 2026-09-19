@@ -1,0 +1,121 @@
+# Generated ledger for TKA-0041. Hidden from the verifier.
+
+case_id: TKA-0041
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 1c591f0d-95b1-4289-94a9-9713ab3834e7
+  name: Edmund Walker
+  sex: M
+  birthdate: '1954-04-04'
+  city: Norwell
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '1989-03-26'
+  request_date: '2019-06-30'
+  anchor_condition: Osteoarthritis of knee
+scope:
+  episode_window:
+    start: '1989-03-26'
+    end: '2019-06-30'
+  therapy_lookback_window:
+    start: '2018-06-30'
+    end: '2019-06-30'
+  patient_chart_totals:
+    conditions_lifetime: 5
+    encounters_lifetime: 16
+    observations_lifetime: 161
+    careplans_lifetime: 2
+  excluded_from_packet:
+  - date: '1983-04-19'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1988-06-19'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-07-30'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-07-07'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '1989-03-26'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 3ac39627-43b0-4989-a904-9f06bbb33ba9
+  encounter_class: ambulatory
+  payer_id: 6e2f1a2d-27bd-3701-8d08-dae202c58632
+  rendered_in:
+  - input/notes/1989-03-26-ed-visit.md
+- id: E002
+  date: '1989-03-26'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  code: '239873007'
+  rendered_in:
+  - input/notes/1989-03-26-ed-visit.md
+  - input/notes/1989-04-07-ortho-consult.md
+- id: E003
+  date: '1989-03-26'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/1989-03-26-ed-visit.md
+  - input/notes/1989-04-07-ortho-consult.md
+- id: A004
+  date: '1989-03-26'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/1989-03-26-ed-visit.md
+  - input/notes/1989-04-07-ortho-consult.md
+- id: A005
+  date: '1989-03-26'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/1989-03-26-ed-visit.md
+criterion_truth:
+  C1_advanced_oa:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 4 (requires 3-4).
+  C2_functional_impairment:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Function limited in daily activity.
+  C3_conservative_management:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+  C4_no_active_infection:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Infection status addressed as absent.

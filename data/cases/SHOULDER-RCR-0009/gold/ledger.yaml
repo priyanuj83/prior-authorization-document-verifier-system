@@ -1,0 +1,149 @@
+# Generated ledger for SHOULDER-RCR-0009. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0009
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 5f1c9186-80b0-405f-9f74-c4e26beb1d01
+  name: Sheba Ziemann
+  sex: F
+  birthdate: '1990-07-01'
+  city: Wakefield
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2018-05-29'
+  request_date: '2018-07-13'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2018-05-29'
+    end: '2018-07-13'
+  therapy_lookback_window:
+    start: '2017-07-13'
+    end: '2018-07-13'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 40
+    observations_lifetime: 88
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '2005-08-07'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-09-09'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-02-09'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2015-11-22'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-08-12'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-09-09'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2019-05-12'
+      description: Normal pregnancy
+    - date: '2019-06-25'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-05-29'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: e994b657-28c3-454b-af13-592582f450dd
+  encounter_class: ambulatory
+  payer_id: 6e2f1a2d-27bd-3701-8d08-dae202c58632
+  rendered_in:
+  - input/notes/2018-05-29-ed-visit.md
+- id: E002
+  date: '2018-05-29'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2018-05-29-ed-visit.md
+  - input/notes/2018-06-10-ortho-consult.md
+- id: E003
+  date: '2018-05-29'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: ed5e4b90-5b69-4ffd-8f71-4b758d31650e
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2018-05-29'
+    stop: '2018-06-28'
+  duration_days: 30
+  rendered_in:
+  - input/notes/2018-06-28-pt-discharge.md
+- id: A004
+  date: '2018-05-29'
+  type: symptom
+  provenance: authored
+  description: Pain of the right shoulder
+  rendered_in:
+  - input/notes/2018-05-29-ed-visit.md
+  - input/notes/2018-06-10-ortho-consult.md
+- id: A005
+  date: '2018-05-29'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-05-29-ed-visit.md
+- id: A006
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2018-05-29'
+    end: '2018-06-28'
+  attributes:
+    modality: in_person
+    duration_days: 30
+    body_region: shoulder
+    sessions_attended: 9
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2018-06-28-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No MRI or ultrasound report enclosed.
+  C3_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 30 days vs threshold 42; modality in_person; body region shoulder; enclosed.

@@ -1,0 +1,51 @@
+# Generation plan for KNEE-ARTHRO-0021. Hidden from the verifier.
+
+case_id: KNEE-ARTHRO-0021
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 18
+patient:
+  synthea_patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+  name: Annalisa Schaefer
+  sex: F
+  birthdate: '1981-06-26'
+  age_at_request: 35
+request:
+  requested_service: Arthroscopic partial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  request_date: '2017-06-02'
+plan_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_arthroscopy
+    request_date: '2017-06-02'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+variant: omit_imaging
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: C1_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_oa_severity
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_radiologic_confirmation
+  intended_label: MISSING
+  realization: SILENT
+- id: C4_conservative_therapy
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

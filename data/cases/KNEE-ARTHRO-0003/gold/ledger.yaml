@@ -1,0 +1,439 @@
+# =============================================================================
+# EVIDENCE LEDGER: KNEE-ARTHRO-0003
+# =============================================================================
+# Canonical truth for this case. The verifier never sees this file.
+#
+# Unlike KNEE-ARTHRO-0002, clinical truth and documentation state AGREE throughout
+# this case. Everything true is also documented. That is what makes the C2 verdict
+# CONTRADICTED rather than MISSING.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0003
+ledger_version: 1.0.0
+
+patient:
+  synthea_patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  name: Sharilyn202 Romaguera67
+  sex: F
+  birthdate: 1946-06-24
+  city: New Bedford
+  state: Massachusetts
+
+episode:
+  laterality: left
+  index_date: 2014-01-31
+  request_date: 2014-04-22
+
+# -----------------------------------------------------------------------------
+# PACKET SCOPE
+# -----------------------------------------------------------------------------
+# An evidence packet for one episode, not the patient's complete chart.
+#
+# This case demonstrates why the lookback window is PER-CRITERION and not global:
+# the knee osteoarthritis diagnosis from 1986 sits far outside any lookback, yet it
+# is essential evidence and IS rendered. A packet builder that applied a single
+# 365-day window to everything would discard the fact that decides the case.
+# -----------------------------------------------------------------------------
+
+scope:
+  episode_window:
+    start: 2014-01-31
+    end: 2014-04-22
+  therapy_lookback_window:
+    start: 2013-04-22
+    end: 2014-04-22
+    applies_to: [C4_conservative_therapy]
+    note: >
+      Applies ONLY to the therapy trial criterion. C2_oa_severity has no lookback and
+      properly relies on a 1986 diagnosis plus 2014 imaging.
+
+  included_outside_lookback:
+    - date: 1986-06-14
+      description: Osteoarthritis of knee
+      reason: >
+        Twenty-eight years outside the therapy lookback, and indispensable. It is the
+        basis for the grade 4 finding that CONTRADICTS C2 and therefore decides the
+        case. Deliberately rendered.
+    - date: 1986-06-14
+      description: Musculoskeletal care careplan, still open
+      reason: corroborates the duration and continuity of the osteoarthritis
+
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 26
+    observations_lifetime: 247
+    careplans_lifetime: 5
+    note: >
+      A moderate utiliser. Roughly three times the chart volume of KNEE-ARTHRO-0001,
+      which is why scoping actually does work here.
+
+  excluded_from_packet:
+    - date: 2013-09-29
+      description: Viral sinusitis (disorder)
+      in_therapy_lookback: true
+      reason: clinically unrelated
+      distractor_candidate: true
+    - date: 2010-12-11
+      description: Acute bronchitis, with a respiratory therapy careplan to 2011-09-19
+      in_therapy_lookback: false
+      reason: clinically unrelated
+      distractor_candidate: true
+      note: >
+        A completed therapy careplan of a DIFFERENT kind, well outside the lookback.
+        Strong distractor material for C4: a verifier searching for "therapy" would
+        find a real 282-day course that has nothing to do with the knee.
+    - date: 2006-08-21
+      description: Osteoporosis (disorder)
+      in_therapy_lookback: false
+      reason: >
+        Not relevant to this arthroscopy request, but IS relevant if this ledger is
+        reused against PA-TKA-001. Retain when generating that variant.
+    - date: 1980-09-08
+      description: Prediabetes, with an open diabetes self-management careplan
+      in_therapy_lookback: false
+      reason: clinically unrelated to the knee
+    - date: 1983-02-19
+      description: Chronic sinusitis (disorder)
+      in_therapy_lookback: false
+      reason: clinically unrelated
+
+  excluded_because_post_request:
+    note: >
+      ALL of the following post-date the 2014-04-22 request and must never appear in
+      the packet under any circumstances.
+    events:
+      - date: 2016-06-19
+        description: Polyp of colon
+      - date: 2016-12-16
+        description: Fracture subluxation of wrist
+      - date: 2016-12-16
+        description: Pathological fracture due to osteoporosis (disorder)
+      - date: 2016-12-16
+        description: Fracture care careplan, to 2017-02-14
+        hazard: >
+          HIGHEST-RISK LEAK IN THIS CASE. A completed 60-day careplan. If it leaked
+          into the packet, a verifier could satisfy C4 from an unrelated body region
+          two years after the request. It happens to have the same duration as the
+          real knee therapy course, so the leak would be invisible in the label.
+      - date: 2017-09-23
+        description: Viral sinusitis (disorder)
+      - date: 2017-10-01
+        description: Streptococcal sore throat (disorder)
+
+  distractor_content:
+    present: false
+    best_available_material: >
+      The 2013 sinusitis visit sits inside the therapy lookback, and the 2010 to 2011
+      respiratory therapy careplan is a genuine completed therapy course of the wrong
+      type. Together they are the strongest authentic distractor material in the
+      corpus, and neither requires invention.
+
+events:
+
+  # ---------------------------------------------------------------------------
+  # LONG-STANDING BACKGROUND, from synthea
+  # ---------------------------------------------------------------------------
+
+  - id: E001
+    date: 1986-06-14
+    type: condition_onset
+    provenance: synthea
+    source:
+      file: synthea_data/conditions.csv
+    code: "239873007"
+    description: Osteoarthritis of knee
+    stop: null
+    derived:
+      duration_years_at_episode: 28
+    rendered_in: [input/notes/2014-01-31-ed-visit.md, input/notes/2014-02-10-ortho-consult.md]
+    significance: >
+      THE PIVOT OF THE ENTIRE CASE. Twenty-eight years of continuously documented knee
+      osteoarthritis in a 67-year-old is what makes Kellgren-Lawrence grade 4 the
+      correct authored finding rather than an arbitrary choice.
+
+  - id: E002
+    date: 1986-06-14
+    type: careplan_start
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 1701
+      careplan_id: 54ed5cf6-7a57-4a4d-b985-4f9b738267e6
+    code: "408869004"
+    description: Musculoskeletal care
+    reason_code: "239873007"
+    reason_description: Osteoarthritis of knee
+    stop: null
+    rendered_in: [input/notes/2014-02-10-ortho-consult.md]
+    significance: >
+      An open careplan running 28 years for the same knee. Independent structural
+      corroboration that this is long-standing degenerative disease, not an acute
+      problem in an otherwise healthy joint.
+
+  # ---------------------------------------------------------------------------
+  # INDEX EPISODE, from synthea
+  # ---------------------------------------------------------------------------
+
+  - id: E003
+    date: 2014-01-31
+    type: encounter
+    provenance: synthea
+    source:
+      file: synthea_data/encounters.csv
+      encounter_id: 2b618ac2-2b4f-4a8d-ac15-22d61d52ff34
+    encounter_class: emergency
+    code: "50849002"
+    description: Emergency room admission (procedure)
+    payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+    payer_name: Medicare
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E004
+    date: 2014-01-31
+    type: condition_onset
+    provenance: synthea
+    source:
+      file: synthea_data/conditions.csv
+      line: 4185
+    code: "239720000"
+    description: Tear of meniscus of knee
+    stop: 2014-04-01
+    rendered_in: [input/notes/2014-01-31-ed-visit.md, input/notes/2014-02-10-ortho-consult.md]
+
+  - id: E005
+    date: 2014-01-31
+    type: procedure
+    provenance: synthea
+    source:
+      file: synthea_data/procedures.csv
+      line: 16682
+      raw_timestamp: 2014-01-31T13:00:42Z
+    code: "74016001"
+    description: Knee X-ray
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E006
+    date: 2014-01-31
+    type: careplan_start
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 1703
+      careplan_id: 6b9579e6-973d-4e41-896c-ecf8fa44c703
+    code: "91251008"
+    description: Physical therapy procedure
+    reason_code: "239720000"
+    reason_description: Tear of meniscus of knee
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E007
+    date: 2014-04-01
+    type: careplan_stop
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 1703
+      careplan_id: 6b9579e6-973d-4e41-896c-ecf8fa44c703
+    description: Physical therapy procedure completed
+    derived:
+      duration_days: 60
+      computation: 2014-04-01 minus 2014-01-31
+      meets_42_day_threshold: true
+    rendered_in: [input/notes/2014-04-01-pt-discharge.md]
+
+  # ---------------------------------------------------------------------------
+  # AUTHORED EVENTS
+  # ---------------------------------------------------------------------------
+
+  - id: A001
+    date: 2014-01-31
+    type: symptom
+    provenance: authored
+    description: >
+      Acute worsening of chronic left knee pain after a misstep on a kerb, with a
+      new sharp medial component distinct from her usual arthritic ache.
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: A002
+    date: 2014-02-10
+    type: symptom
+    provenance: authored
+    description: >
+      Recurrent catching of the left knee, distinct from her long-standing stiffness,
+      occurring several times weekly on rotation.
+    satisfies_criterion: C1_symptoms
+    is_mechanical_symptom: true
+    rendered_in: [input/notes/2014-02-10-ortho-consult.md]
+
+  - id: A003
+    date: 2014-01-31
+    type: imaging_grading
+    provenance: authored
+    modality: xray
+    body_site: left knee
+    findings:
+      kellgren_lawrence_grade: 4
+      compartments_involved: [medial, lateral, patellofemoral]
+      medial_joint_space: obliterated, bone-on-bone contact
+      osteophytes: large, marginal, all compartments
+      subchondral_sclerosis: marked
+      subchondral_cysts: present
+      alignment: varus
+      acute_fracture: false
+    contradicts_criterion: C2_oa_severity
+    rationale: >
+      Derived from E001 and E002 per the grounding heuristic: osteoarthritis onset more
+      than 20 years ago and age over 65 yields grade 3 or 4. Grade 4 chosen so the
+      contradiction is unambiguous rather than borderline.
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: A004
+    date: 2014-04-10
+    type: imaging
+    provenance: authored
+    modality: mri
+    body_site: left knee
+    findings:
+      medial_meniscus: >
+        Complex degenerative tear of the posterior horn with an oblique component
+        reaching the inferior articular surface. Meniscal extrusion present.
+      displaced_bucket_handle_tear: false
+      cartilage: >
+        Full-thickness cartilage loss over the medial femoral condyle and medial
+        tibial plateau with reactive subchondral marrow oedema. Outerbridge grade 4.
+      osteophytes: extensive
+      cruciate_ligaments: intact
+    satisfies_criterion: C3_radiologic_confirmation
+    also_contradicts_criterion: C2_oa_severity
+    rationale: >
+      Serves two purposes deliberately. It CONFIRMS the meniscal tear, satisfying C3,
+      and it INDEPENDENTLY CORROBORATES the grade 4 disease, reinforcing the C2
+      contradiction from a second modality and a second author. A verifier cannot
+      dismiss the osteoarthritis finding as a single radiologist's opinion.
+    rendered_in: [input/notes/2014-04-10-mri-report.md]
+
+  - id: A005
+    date_range:
+      start: 2014-01-31
+      end: 2014-04-01
+    type: therapy_detail
+    provenance: authored
+    description: Attributes of the therapy course recorded in E006 and E007.
+    attributes:
+      modality: in_person
+      setting: outpatient clinic
+      frequency: twice weekly
+      sessions_attended: 15
+      body_region: left knee
+      response: no improvement in mechanical symptoms
+      adherence: good
+    satisfies_criterion: C4_conservative_therapy
+    rendered_in: [input/notes/2014-04-01-pt-discharge.md]
+
+  - id: A006
+    date: 2014-04-22
+    type: clinical_assessment
+    provenance: authored
+    description: >
+      Surgical plan for left knee arthroscopy with partial medial meniscectomy,
+      proposed by the requesting surgeon.
+    rendered_in: [input/notes/2014-04-22-ortho-followup.md]
+
+# -----------------------------------------------------------------------------
+# CRITERION TRUTH TABLE
+# -----------------------------------------------------------------------------
+# Clinical truth and documentation state agree throughout this case.
+# -----------------------------------------------------------------------------
+
+criterion_truth:
+
+  C1_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    basis: [A002]
+    label_follows: SUPPORTED
+
+  C2_oa_severity:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_DEMONSTRATED_UNMET
+    basis: [A003, A004, E001, E002]
+    label_follows: CONTRADICTED
+    detail: >
+      Kellgren-Lawrence grade 4 exceeds the grade 0-2 maximum. Stated explicitly on
+      plain film, independently corroborated on MRI as Outerbridge grade 4, and
+      structurally consistent with 28 years of documented disease. This is positive
+      evidence against the criterion, which is what distinguishes CONTRADICTED from
+      MISSING.
+
+  C3_radiologic_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    basis: [A004]
+    label_follows: SUPPORTED
+    detail: MRI confirms the meniscal tear. Correct modality for this pathology.
+
+  C4_conservative_therapy:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    basis: [E006, E007, A005]
+    label_follows: SUPPORTED
+    detail: >
+      60 days of supervised in-person outpatient therapy for the left knee, completed
+      2014-04-01, which is 21 days before the request and inside the 365-day lookback.
+
+  W1_locked_knee:
+    clinical_truth: NOT_APPLICABLE
+    documentation_state: NOT_ESTABLISHED
+    basis: [A002, A004]
+    label_follows: NOT_FIRED
+    detail: >
+      Catching without true locking, and A004 excludes a bucket-handle configuration.
+      Note that firing this waiver could not change the outcome, since it waives only
+      C4, which already passes. Waivers cannot rescue a contradicted criterion.
+
+  exclusions:
+    X1_diagnostic_only:
+      state: NOT_TRIGGERED
+      detail: Pathology is radiologically proven.
+    X2_meniscal_root_tear:
+      state: NOT_TRIGGERED
+      detail: >
+        Meniscal extrusion is present but the tear is described as posterior horn
+        rather than root. Deliberately kept clear of the root-tear exclusion so the
+        denial rests solely on C2.
+
+# -----------------------------------------------------------------------------
+# CROSS-POLICY REUSE
+# -----------------------------------------------------------------------------
+
+cross_policy:
+
+  PA-TKA-001:
+    C1_advanced_oa:
+      label_would_be: SUPPORTED
+      basis: [A003, A004]
+      detail: >
+        Requires Kellgren-Lawrence grade 3 or more. Grade 4 satisfies it. The SAME
+        radiology report that contradicts PA-KNEE-ARTHRO-001 C2 supports this one.
+    C3_conservative_management:
+      label_would_be: CONTRADICTED
+      basis: [E006, E007]
+      detail: >
+        Requires 90 days. The documented course is 60 days, which affirmatively falls
+        short. A second inversion: the same therapy episode that SUPPORTS the
+        arthroscopy criterion at a 42-day threshold CONTRADICTS the arthroplasty
+        criterion at a 90-day threshold.
+    value: >
+      Generating this ledger against PA-TKA-001 yields a case where two criteria flip
+      label in opposite directions purely because the policy changed. No corpus of
+      single-policy cases can produce that, and it is the strongest available evidence
+      of whether a verifier is reading thresholds or reciting them.
+
+  PA-KNEE-MRI-001:
+    X1_advanced_oa_only:
+      state_would_be: TRIGGERED
+      detail: >
+        The April MRI would itself have been deniable, since plain films already
+        demonstrated advanced disease sufficient to explain the symptoms. Usable for a
+        chained-request case in which an upstream imaging authorisation should have
+        been refused.

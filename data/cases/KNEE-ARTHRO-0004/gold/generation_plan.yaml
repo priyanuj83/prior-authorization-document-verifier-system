@@ -1,0 +1,51 @@
+# Generation plan for KNEE-ARTHRO-0004. Hidden from the verifier.
+
+case_id: KNEE-ARTHRO-0004
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 1
+patient:
+  synthea_patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+  name: Sharilyn Romaguera
+  sex: F
+  birthdate: '1946-06-24'
+  age_at_request: 67
+request:
+  requested_service: Arthroscopic partial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  request_date: '2014-04-16'
+plan_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: knee_arthroscopy
+    request_date: '2014-04-16'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+variant: full_packet
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_symptoms
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_oa_severity
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+- id: C3_radiologic_confirmation
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C4_conservative_therapy
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

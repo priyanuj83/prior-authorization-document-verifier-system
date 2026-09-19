@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0030
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2019-07-07'
+generator: template-v0.3
+member:
+  name: Manie Torp
+  member_id: SYN-076688B0
+  dob: '1959-04-24'
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+requesting_provider:
+  name: A. Okonkwo, MD
+  specialty: Orthopaedic Surgery
+  practice: Commonwealth Bone and Joint
+  npi: SYN-0000004
+requested_service:
+  description: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  laterality: left
+  setting: outpatient
+  proposed_date: '2019-07-28'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1996-04-14'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the left knee.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1996-04-14-ed-visit.md
+- input/notes/1996-04-26-ortho-consult.md
+- input/notes/2019-06-30-pt-discharge.md
+- input/notes/2019-07-07-ortho-followup.md
+records_scope:
+  episode_start: '1996-04-14'
+  episode_end: '2019-07-07'
+  is_complete_chart: false

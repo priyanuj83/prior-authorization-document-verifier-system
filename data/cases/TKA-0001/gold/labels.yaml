@@ -1,0 +1,96 @@
+# Generated labels for TKA-0001. Derived from the ledger, not the notes.
+
+case_id: TKA-0001
+policy_id: PA-TKA-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-11-04'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+criteria:
+- id: C1_advanced_oa
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/1986-06-14-ed-visit.md
+      locator: Kellgren-Lawrence grade 4
+  reasoning: Kellgren-Lawrence grade 4 (requires 3-4).
+- id: C2_functional_impairment
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Function limited in daily activity.
+- id: C3_conservative_management
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger:
+    - A005
+    notes:
+    - file: input/notes/2019-10-21-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/1986-06-14-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: Authored therapy course of 100 days (provenance authored; Synthea has no 90-day PT courses).
+- id: C4_no_active_infection
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/2019-10-21-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/1986-06-14-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: Infection status addressed as absent.
+waivers:
+- id: W1_structural_emergency
+  state: NOT_FIRED
+  reasoning: No periarticular fracture, AVN, or failed arthroplasty on the ledger.
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: READY_FOR_SUBMISSION
+    remediable: null
+    reasoning: 'READY_FOR_SUBMISSION from criterion labels: C1_advanced_oa=SUPPORTED, C2_functional_impairment=SUPPORTED,
+      C3_conservative_management=SUPPORTED, C4_no_active_infection=SUPPORTED.'
+    remediation: []
+    escalation: []
+    provider_message: Documentation appears to support the required criteria for this request.
+  payer_view:
+    decision: APPROVE
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 4
+    MISSING: 0
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: full_packet
+  generator: template-v0.3

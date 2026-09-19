@@ -1,0 +1,100 @@
+# Generated labels for KNEE-MRI-0002. Derived from the ledger, not the notes.
+
+case_id: KNEE-MRI-0002
+policy_id: PA-KNEE-MRI-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: HUMANA-COMMERCIAL-01
+    service_key: knee_mri
+    request_date: '2013-05-22'
+  requires_prior_auth: false
+  requires_coverage_review: null
+  requirement_effective_from: '2013-06-01'
+  gate_result: NO_AUTH_REQUIRED
+  governing_policy: null
+  review_type: prospective
+  plan_name: Humana Commercial HMO (synthetic)
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+criteria:
+- id: B2_C1_acute_injury
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Acute traumatic knee injury described in the emergency note.
+- id: B2_C2_objective_finding
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Effusion or inability to bear weight documented.
+- id: B1_C1_persistent_symptoms
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Persistent knee pain through the episode.
+- id: B1_C2_suspected_derangement
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Mechanical symptoms or provocative exam recorded.
+- id: B1_C3_conservative_trial
+  label: CONTRADICTED
+  clinical_truth: NOT_MET
+  documentation_state: AFFIRMATIVELY_UNMET
+  evidence:
+    ledger:
+    - A005
+    - E004
+    notes:
+    - file: input/notes/2012-01-12-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/2011-11-06-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.
+waivers: []
+exclusions:
+- id: X1_advanced_oa_only
+  state: TRIGGERED
+  reasoning: Kellgren-Lawrence grade 4.
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: READY_FOR_SUBMISSION
+    remediable: null
+    reasoning: Request date falls before the plan's authorisation effective date, or the service is
+      not authorised on this plan.
+    remediation: []
+    escalation: []
+    provider_message: Prior authorisation is not required for this plan on this date. Nothing to prepare
+      under this policy.
+  payer_view:
+    decision: APPROVE
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 0
+    MISSING: 0
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: pre_effective_date
+  generator: template-v0.3

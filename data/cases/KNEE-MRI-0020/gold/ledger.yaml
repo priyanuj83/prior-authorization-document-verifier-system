@@ -1,0 +1,170 @@
+# Generated ledger for KNEE-MRI-0020. Hidden from the verifier.
+
+case_id: KNEE-MRI-0020
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 8a9b659b-4fff-4cef-b189-adbc7914caca
+  name: Theodora Schaden
+  sex: F
+  birthdate: '1972-12-24'
+  city: Springfield
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2018-08-23'
+  request_date: '2018-10-14'
+  anchor_condition: Injury of medial collateral ligament of knee
+scope:
+  episode_window:
+    start: '2018-08-23'
+    end: '2018-10-14'
+  therapy_lookback_window:
+    start: '2017-10-14'
+    end: '2018-10-14'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 56
+    observations_lifetime: 135
+    careplans_lifetime: 6
+  excluded_from_packet:
+  - date: '1990-09-11'
+    description: Drug overdose
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1991-02-17'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1991-02-17'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-09-15'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-04-09'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-12-30'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2019-06-28'
+      description: Acute bronchitis (disorder)
+    - date: '2019-08-10'
+      description: Viral sinusitis (disorder)
+    - date: '2019-09-22'
+      description: Viral sinusitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-08-23'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: c7d01c57-9d1c-4ff5-ace2-37f8f0ac5727
+  encounter_class: emergency
+  payer_id: 7c4411ce-02f1-39b5-b9ec-dfbea9ad3c1a
+  rendered_in:
+  - input/notes/2018-08-23-ed-visit.md
+- id: E002
+  date: '2018-08-23'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of medial collateral ligament of knee
+  code: '444448004'
+  rendered_in:
+  - input/notes/2018-08-23-ed-visit.md
+  - input/notes/2018-09-04-ortho-consult.md
+- id: E003
+  date: '2018-08-23'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 855455f0-681d-4e5f-a62c-8e5663026ff6
+  description: Physical therapy procedure
+  reason: Injury of medial collateral ligament of knee
+  date_range:
+    start: '2018-08-23'
+    stop: '2018-09-29'
+  duration_days: 37
+  rendered_in:
+  - input/notes/2018-09-29-pt-discharge.md
+- id: A004
+  date: '2018-08-23'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2018-08-23-ed-visit.md
+  - input/notes/2018-09-04-ortho-consult.md
+- id: A005
+  date: '2018-09-04'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2018-09-04-ortho-consult.md
+- id: A006
+  date: '2018-08-23'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-08-23-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2018-08-23'
+    end: '2018-09-29'
+  attributes:
+    modality: in_person
+    duration_days: 37
+    body_region: knee
+    sessions_attended: 11
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2018-09-29-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 37 days vs threshold 42; modality in_person; body region knee; enclosed.

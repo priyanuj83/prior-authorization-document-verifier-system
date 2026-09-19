@@ -1,0 +1,158 @@
+# Generated ledger for KNEE-MRI-0045. Hidden from the verifier.
+
+case_id: KNEE-MRI-0045
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 33c2184c-bda1-4d31-b0cb-4f18c46822da
+  name: Karey Erdman
+  sex: F
+  birthdate: '1967-11-27'
+  city: Concord
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2018-04-03'
+  request_date: '2018-06-24'
+  anchor_condition: Rupture of patellar tendon
+scope:
+  episode_window:
+    start: '2018-04-03'
+    end: '2018-06-24'
+  therapy_lookback_window:
+    start: '2017-06-24'
+    end: '2018-06-24'
+  patient_chart_totals:
+    conditions_lifetime: 6
+    encounters_lifetime: 55
+    observations_lifetime: 158
+    careplans_lifetime: 4
+  excluded_from_packet:
+  - date: '1986-01-20'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1995-04-10'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2006-05-15'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2014-08-25'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-05-09'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-04-03'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 10858d74-4c12-4096-a6f2-3a7b2d1e841a
+  encounter_class: emergency
+  payer_id: 047f6ec3-6215-35eb-9608-f9dda363a44c
+  rendered_in:
+  - input/notes/2018-04-03-ed-visit.md
+- id: E002
+  date: '2018-04-03'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Rupture of patellar tendon
+  code: '30832001'
+  rendered_in:
+  - input/notes/2018-04-03-ed-visit.md
+  - input/notes/2018-04-15-ortho-consult.md
+- id: E003
+  date: '2018-04-03'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 004be31e-2abf-48bf-b028-4557fcd189e2
+  description: Physical therapy procedure
+  reason: Rupture of patellar tendon
+  date_range:
+    start: '2018-04-03'
+    stop: '2018-06-09'
+  duration_days: 67
+  rendered_in: []
+- id: A004
+  date: '2018-04-03'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2018-04-03-ed-visit.md
+  - input/notes/2018-04-15-ortho-consult.md
+- id: A005
+  date: '2018-04-15'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching and locking
+  is_mechanical_symptom: true
+  is_true_locking: true
+  rendered_in:
+  - input/notes/2018-04-15-ortho-consult.md
+- id: A006
+  date: '2018-04-03'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-04-03-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2018-04-03'
+    end: '2018-06-09'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: false
+  rendered_in: []
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Effusion or inability to bear weight documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Mechanical symptoms or provocative exam recorded.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; not enclosed.

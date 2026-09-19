@@ -1,0 +1,264 @@
+# =============================================================================
+# GROUNDING: PA-KNEE-ARTHRO-001
+# =============================================================================
+# This is an ENGINEERING artifact, not a clinical one. It is deliberately kept
+# out of the policy file so that policies stay clinically clean and reviewable.
+#
+# It answers one question per criterion: where in synthea_data/ does the evidence
+# for this criterion come from, and what can therefore be generated truthfully?
+#
+# Keyed by criterion_id from policies/PA-KNEE-ARTHRO-001.yaml.
+# =============================================================================
+
+policy_id: PA-KNEE-ARTHRO-001
+grounding_version: 1.0.0
+source_extract: synthea_data/
+extract_profiled: 2026-08-30
+
+# -----------------------------------------------------------------------------
+# COHORT
+# -----------------------------------------------------------------------------
+cohort:
+  anchor_conditions:
+    - description: Tear of meniscus of knee
+      snomed: "239720000"
+      patients: 6
+    - description: Injury of medial collateral ligament of knee
+      snomed: "444448004"
+      patients: 11
+    - description: Injury of anterior cruciate ligament
+      snomed: "444470001"
+      patients: 4
+    - description: Osteoarthritis of knee
+      snomed: "239873007"
+      patients: 65
+  total_addressable_patients: ~86
+  note: >
+    Small by machine-learning standards, adequate here because the CASE is the unit
+    of generation, not the patient. One patient crossed with several policies and
+    several defect patterns yields many cases.
+
+# -----------------------------------------------------------------------------
+# PER-CRITERION GROUNDING
+# -----------------------------------------------------------------------------
+criteria:
+
+  C1_symptoms:
+    synthea_support: none
+    status: must_be_authored
+    rationale: >
+      Synthea records diagnoses, not symptom phenomenology. There is no
+      representation of locking, catching, or giving way anywhere in the extract.
+      Pain severity observations exist (16,820 rows) but are NOT usable as a
+      symptom signal - see caveat below.
+    generator_instruction: >
+      Author mechanical symptoms in the clinician narrative. The evidence ledger owns
+      the truth of whether they are present.
+    caveat_pain_severity:
+      finding: >
+        "Pain severity - 0-10 verbal numeric rating" is attached predominantly to
+        wellness encounters (9,964 of 16,820) and is not clinically coherent with the
+        patient's conditions. Chronic-pain patients average 3.36 versus 2.57 for
+        everyone else, which is noise.
+      worked_example: >
+        Patient 1c591f0d-95b1-4289-94a9-9713ab3834e7 has had knee osteoarthritis since
+        1989. Their annual pain scores from 2010 to 2019 are 1,3,1,3,2,1,2,3,0,1.
+      conclusion: >
+        Do NOT ground symptom persistence in pain severity observations. It will
+        introduce label noise that looks like model error.
+
+  C2_oa_severity:
+    synthea_support: partial
+    status: partially_derivable
+    derivable_from:
+      - source: synthea_data/conditions.csv
+        entity: Osteoarthritis of knee (239873007)
+        yields: presence or absence of osteoarthritis, and duration since onset
+      - source: synthea_data/patients.csv
+        field: BIRTHDATE
+        yields: age at episode
+    not_derivable: Kellgren-Lawrence or modified Outerbridge grade
+    generator_instruction: >
+      Derive a plausible grade from osteoarthritis presence, duration since onset, and
+      age, then author it into a radiology report. Record the grade in the ledger as
+      the authoritative fact.
+    suggested_heuristic:
+      - if: no osteoarthritis diagnosis and age under 40
+        grade: 0 or 1
+      - if: osteoarthritis onset within 5 years
+        grade: 2
+      - if: osteoarthritis onset more than 20 years ago, or age over 65
+        grade: 3 or 4
+    inversion_note: >
+      Any patient generated at grade 3 or 4 here becomes a SUPPORTED case for
+      PA-TKA-001 C1. Generate the radiology report once and reuse it against both
+      policies to get an inverted label pair for free.
+
+  C3_radiologic_confirmation:
+    synthea_support: partial
+    status: partially_derivable
+    derivable_from:
+      - source: synthea_data/procedures.csv
+        entity: Knee X-ray
+        snomed: "74016001"
+        rows: 28
+        satisfies: loose_body only
+        does_not_satisfy: meniscal_tear
+    not_derivable:
+      entity: knee MRI
+      evidence: >
+        imaging_studies.csv contains only Computed Tomography (328), Digital
+        Radiography (278), Ultrasound (173) and Computed Radiography (76). No MRI
+        modality exists. Knee body-site studies number 29 and are radiography.
+    generator_instruction: >
+      For SUPPORTED, author an MRI report into the ledger. For MISSING, leave only the
+      X-ray, which is the data-true state for all six meniscus-tear patients and is a
+      genuinely common real-world documentation gap.
+    high_value_note: >
+      Because every meniscus patient in the extract has an X-ray and none has an MRI,
+      MISSING on C3 is the cheapest well-grounded defect in the entire corpus.
+
+  C4_conservative_therapy:
+    synthea_support: strong
+    status: fully_derivable
+    derivable_from:
+      - source: synthea_data/careplans.csv
+        entity: Physical therapy procedure
+        snomed: "91251008"
+        rows: 230
+        fields:
+          duration_days: STOP - START
+          body_region: from REASONDESCRIPTION
+          completed: STOP is non-empty
+    duration_distribution:
+      14: 59
+      21: 41
+      28: 47
+      30: 7
+      35: 41
+      37: 9
+      60: 9
+      67: 15
+    threshold_split:
+      threshold_days: 42
+      below_threshold: 204
+      at_or_above_threshold: 24
+      ended_total: 228
+      still_ongoing: 2
+    label_implication: >
+      204 careplans fail the six-week requirement on duration alone and 24 satisfy it.
+      Imbalanced toward failure, which mirrors reality. For a balanced eval split,
+      oversample the 60-day and 67-day careplans rather than reweighting.
+    not_derivable:
+      - modality (in-person versus home versus virtual)
+      - patient response to therapy
+      - adherence or attendance
+    generator_instruction: >
+      Take duration and body region truthfully from the careplan. Author modality and
+      response. Modality is the single highest-value authored field in the corpus
+      because the real policy text turns on it.
+    distractor_source:
+      finding: >
+        PT careplan reasons are dominated by regions unrelated to the knee: ankle
+        sprain 134, wrist sprain 56, rotator cuff 12, MCL 11, patellar tendon 7,
+        meniscus 6, ACL 4.
+      exemplar_patient: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+      exemplar_detail: >
+        Has a 60-day PT careplan for a knee meniscus tear (2015-07-11 to 2015-09-09)
+        AND a 14-day PT careplan for a wrist sprain (2017-08-29 to 2017-09-12). Ideal
+        for trap_distractor and for trap_temporal simultaneously.
+
+  W1_locked_knee:
+    synthea_support: none
+    status: must_be_authored
+    rationale: Synthea models neither knee locking nor tear morphology.
+    generator_instruction: >
+      Author both conditions explicitly when the waiver should fire, and author only
+      one of them when testing trap_partial_waiver.
+
+# -----------------------------------------------------------------------------
+# SEED PATIENTS used by cases/
+# -----------------------------------------------------------------------------
+seed_patients:
+
+  - patient_id: 34382e29-6854-4353-85be-802262bfea6e
+    name: Ethan766 Goyette777
+    sex: M
+    birthdate: 1980-04-29
+    age_at_episode: 33
+    episode_condition: Tear of meniscus of knee
+    episode_start: 2014-01-31
+    episode_stop: 2014-04-01
+    encounter_id: f874906b-5b9b-4d72-b3c2-f89b07149221
+    encounter_class: emergency
+    encounter_snomed: "50849002"
+    payer: Humana
+    payer_id: d47b3510-2895-3b70-9897-342d681c769d
+    pt_careplan_id: 9a6c004e-4cf9-4856-bd66-641286170f31
+    pt_duration_days: 60
+    knee_xray: 2014-02-01
+    knee_oa: false
+    used_by_case: KNEE-ARTHRO-0001
+    intended_documentation_status: READY_FOR_SUBMISSION
+
+  - patient_id: c2128123-c579-48b9-8452-d1741f5a3c4c
+    name: Gianna370 Kling921
+    sex: F
+    birthdate: 1991-08-02
+    age_at_episode: 24
+    episode_condition: Tear of meniscus of knee
+    episode_start: 2015-09-16
+    episode_stop: 2015-10-16
+    encounter_id: cf93bb8c-b095-4f24-898a-51760af1cbc7
+    encounter_class: emergency
+    encounter_snomed: "50849002"
+    payer: Aetna
+    payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+    pt_careplan_id: 4eb3e678-668b-4545-a338-4ead8e52fe3a
+    pt_duration_days: 30
+    knee_xray: 2015-09-16
+    knee_oa: false
+    used_by_case: KNEE-ARTHRO-0002
+    intended_documentation_status: NOT_READY
+
+  - patient_id: 1ab6d5c8-edbe-4c71-8f7a-2af7010af2ab
+    name: Sharilyn202 Romaguera67
+    sex: F
+    birthdate: 1946-06-24
+    age_at_episode: 67
+    episode_condition: Tear of meniscus of knee
+    episode_start: 2014-01-31
+    episode_stop: 2014-04-01
+    encounter_id: 2b618ac2-2b4f-4a8d-ac15-22d61d52ff34
+    encounter_class: emergency
+    encounter_snomed: "50849002"
+    payer: Medicare
+    payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+    pt_careplan_id: 6b9579e6-973d-4e41-896c-ecf8fa44c703
+    pt_duration_days: 60
+    knee_xray: 2014-01-31
+    knee_oa: true
+    knee_oa_onset: 1986-06-14
+    knee_oa_duration_years_at_episode: 28
+    used_by_case: KNEE-ARTHRO-0003
+    intended_documentation_status: REVIEW_NEEDED
+    note: >
+      A 67-year-old with 28 years of documented knee osteoarthritis is precisely the
+      profile payers deny for arthroscopy. Three of four criteria pass, so this case
+      punishes a verifier that reports a clean packet on majority-satisfaction.
+
+  - patient_id: df7c1d66-eac2-49bd-9d12-ee17e8758f68
+    reserved_for: distractor and temporal-trap cases
+    detail: two PT careplans, knee 60 days in 2015 and wrist 14 days in 2017
+    used_by_case: null
+
+# -----------------------------------------------------------------------------
+# REMAINING MENISCUS PATIENTS (unused, available for expansion)
+# -----------------------------------------------------------------------------
+unused_cohort:
+  - patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+    pt_duration_days: 30
+    also_has: Prediabetes with a diabetes self-management careplan
+  - patient_id: ea32ff72-a209-4c99-a5e5-09f047152280
+    pt_duration_days: 60
+    also_has: two routine antenatal careplans, useful as narrative noise

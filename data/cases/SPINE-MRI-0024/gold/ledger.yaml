@@ -1,0 +1,95 @@
+# Generated ledger for SPINE-MRI-0024. Hidden from the verifier.
+
+case_id: SPINE-MRI-0024
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 383da7a1-916b-41ce-8223-43afa899c86e
+  name: Al Metz
+  sex: M
+  birthdate: '2006-10-05'
+  city: Cohasset
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2010-08-15'
+  request_date: '2013-07-11'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2010-08-15'
+    end: '2013-07-11'
+  therapy_lookback_window:
+    start: '2012-07-11'
+    end: '2013-07-11'
+  patient_chart_totals:
+    conditions_lifetime: 4
+    encounters_lifetime: 14
+    observations_lifetime: 155
+    careplans_lifetime: 1
+  excluded_from_packet:
+  - date: '2011-05-13'
+    description: Streptococcal sore throat (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-03-07'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-06-05'
+    description: Otitis media
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2010-08-15'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 5cdfb442-d2ba-4e74-915e-fef446c5ee54
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2010-08-15-ed-visit.md
+- id: E002
+  date: '2010-08-15'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2010-08-15-ed-visit.md
+- id: A003
+  date: '2010-08-15'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2010-08-15-ed-visit.md
+- id: A004
+  date: '2010-08-15'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2010-08-15-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

@@ -1,0 +1,37 @@
+---
+note_id: {{ note_id }}
+case_id: {{ case_id }}
+date: {{ date }}
+setting: {{ setting }}
+author: {{ author }}
+patient: {{ last }}, {{ first }} (DOB {{ dob }})
+mrn: {{ mrn }}
+---
+
+# {{ heading }}
+
+**Chief complaint:** {{ chief_complaint }}
+
+**HPI**
+
+{{ age }} y/o {{ sex_word }}, presents after {{ mechanism }}. {{ hpi_detail }}
+
+**PMH:** {{ pmh }}
+**Meds:** {{ meds }}
+**Allergies:** None known.
+
+**Examination**
+
+{{ exam }}
+
+{% if imaging_block %}
+**Imaging**
+
+{{ imaging_block }}
+{% endif %}
+
+**Assessment / Plan**
+
+{{ plan }}
+
+*{{ author }} — {{ date }}*

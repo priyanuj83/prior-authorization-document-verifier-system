@@ -1,0 +1,145 @@
+# Generated ledger for SHOULDER-RCR-0023. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0023
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 96e4e7cd-b134-4d6a-9f30-89cf6104f923
+  name: Adán Espinosa
+  sex: M
+  birthdate: '1972-06-26'
+  city: Pembroke
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2018-11-22'
+  request_date: '2019-01-13'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2018-11-22'
+    end: '2019-01-13'
+  therapy_lookback_window:
+    start: '2018-01-13'
+    end: '2019-01-13'
+  patient_chart_totals:
+    conditions_lifetime: 5
+    encounters_lifetime: 12
+    observations_lifetime: 97
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '1983-07-11'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2009-09-14'
+    description: Opioid abuse (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-08-05'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-02-19'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-11-22'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 0b3d8117-7ba8-49de-9ec7-0b22d52ac4fb
+  encounter_class: ambulatory
+  payer_id: 6e2f1a2d-27bd-3701-8d08-dae202c58632
+  rendered_in:
+  - input/notes/2018-11-22-ed-visit.md
+- id: E002
+  date: '2018-11-22'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2018-11-22-ed-visit.md
+  - input/notes/2018-12-04-ortho-consult.md
+- id: E003
+  date: '2018-11-22'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 80736e6b-f4b6-4858-abb2-0cc55be3a5c0
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2018-11-22'
+    stop: '2018-12-29'
+  duration_days: 37
+  rendered_in:
+  - input/notes/2018-12-29-pt-discharge.md
+- id: A004
+  date: '2018-11-22'
+  type: symptom
+  provenance: authored
+  description: Pain of the left shoulder
+  rendered_in:
+  - input/notes/2018-11-22-ed-visit.md
+  - input/notes/2018-12-04-ortho-consult.md
+- id: A005
+  date: '2018-11-22'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-11-22-ed-visit.md
+- id: A006
+  date: '2019-01-06'
+  type: imaging
+  provenance: authored
+  modality: mri
+  description: Authored MRI — no MRI exists in synthea_data
+  rendered_in:
+  - input/notes/2019-01-06-mri-report.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2018-11-22'
+    end: '2018-12-29'
+  attributes:
+    modality: in_person
+    duration_days: 37
+    body_region: shoulder
+    sessions_attended: 11
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2018-12-29-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: MRI/US confirming a cuff tear.
+  C3_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 37 days vs threshold 42; modality in_person; body region shoulder; enclosed.

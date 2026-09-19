@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0046
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2018-06-24'
+generator: template-v0.3
+member:
+  name: Karey Erdman
+  member_id: SYN-33C2184C
+  dob: '1967-11-27'
+  sex: F
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2018-07-15'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Rupture of patellar tendon
+    snomed: '30832001'
+  onset_date: '2018-04-03'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2018-04-03-ed-visit.md
+- input/notes/2018-04-15-ortho-consult.md
+- input/notes/2018-06-09-pt-discharge.md
+- input/notes/2018-06-24-ortho-followup.md
+records_scope:
+  episode_start: '2018-04-03'
+  episode_end: '2018-06-24'
+  is_complete_chart: false

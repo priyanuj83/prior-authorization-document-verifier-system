@@ -1,0 +1,125 @@
+# Generated ledger for SPINE-MRI-0003. Hidden from the verifier.
+
+case_id: SPINE-MRI-0003
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 04db6603-0017-4cc6-a46d-6df577b0a10d
+  name: Angella Reynolds
+  sex: F
+  birthdate: '1972-09-04'
+  city: Leverett
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2018-11-02'
+  request_date: '2018-11-05'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2018-11-02'
+    end: '2018-11-05'
+  therapy_lookback_window:
+    start: '2017-11-05'
+    end: '2018-11-05'
+  patient_chart_totals:
+    conditions_lifetime: 12
+    encounters_lifetime: 75
+    observations_lifetime: 173
+    careplans_lifetime: 7
+  excluded_from_packet:
+  - date: '1989-10-23'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1990-10-29'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2002-08-26'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-01-24'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-07-22'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-01-16'
+    description: Normal pregnancy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-04-04'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2015-06-07'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-06-01'
+    description: Acute bronchitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-07-06'
+    description: Streptococcal sore throat (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2019-11-24'
+      description: Acute bronchitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2018-11-02'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 0841d029-c81f-418e-b35c-849d17ad38b9
+  encounter_class: emergency
+  payer_id: 6e2f1a2d-27bd-3701-8d08-dae202c58632
+  rendered_in:
+  - input/notes/2018-11-02-ed-visit.md
+- id: E002
+  date: '2018-11-02'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2018-11-02-ed-visit.md
+- id: A003
+  date: '2018-11-02'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/2018-11-02-ed-visit.md
+- id: A004
+  date: '2018-11-02'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2018-11-02-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Trauma mechanism plus inconclusive cervical films.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

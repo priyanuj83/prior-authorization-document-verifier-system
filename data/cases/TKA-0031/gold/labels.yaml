@@ -1,0 +1,95 @@
+# Generated labels for TKA-0031. Derived from the ledger, not the notes.
+
+case_id: TKA-0031
+policy_id: PA-TKA-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-09-06'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2010-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+criteria:
+- id: C1_advanced_oa
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/1987-05-19-ed-visit.md
+      locator: Kellgren-Lawrence grade 4
+  reasoning: Kellgren-Lawrence grade 4 (requires 3-4).
+- id: C2_functional_impairment
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Function limited in daily activity.
+- id: C3_conservative_management
+  label: MISSING
+  clinical_truth: NOT_MET
+  documentation_state: SILENT
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/1987-05-19-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: no therapy course on the ledger; modality in_person; body region knee; not enclosed.
+- id: C4_no_active_infection
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/1987-05-19-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: Infection status addressed as absent.
+waivers:
+- id: W1_structural_emergency
+  state: NOT_FIRED
+  reasoning: No periarticular fracture, AVN, or failed arthroplasty on the ledger.
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: NOT_SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: NOT_READY
+    remediable: true
+    reasoning: 'NOT_READY from criterion labels: C1_advanced_oa=SUPPORTED, C2_functional_impairment=SUPPORTED,
+      C3_conservative_management=MISSING, C4_no_active_infection=SUPPORTED.'
+    remediation:
+    - criterion: C3_conservative_management
+      action: Obtain the missing documentation that would establish this requirement.
+      blocking: true
+    escalation: []
+    provider_message: Not ready to submit. One or more required items cannot be verified from the
+      enclosed records.
+  payer_view:
+    decision: PEND
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 3
+    MISSING: 1
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: omit_pt_notes
+  generator: template-v0.3

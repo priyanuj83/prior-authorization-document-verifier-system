@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0001
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2019-11-04'
+generator: template-v0.3
+member:
+  name: Sharilyn Romaguera
+  member_id: SYN-1AB6D5C8
+  dob: '1946-06-24'
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+requesting_provider:
+  name: M. Alvarez, MD
+  specialty: Radiology
+  practice: Metro Imaging Associates
+  npi: SYN-0000005
+requested_service:
+  description: Total knee arthroplasty, right
+  service_key: total_knee_arthroplasty
+  laterality: right
+  setting: outpatient
+  proposed_date: '2019-11-25'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '1986-06-14'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the right knee.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the right knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/1986-06-14-ed-visit.md
+- input/notes/1986-06-26-ortho-consult.md
+- input/notes/2019-10-21-pt-discharge.md
+- input/notes/2019-11-04-ortho-followup.md
+records_scope:
+  episode_start: '1986-06-14'
+  episode_end: '2019-11-04'
+  is_complete_chart: false

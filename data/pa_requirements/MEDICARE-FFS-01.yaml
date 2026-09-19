@@ -1,0 +1,119 @@
+# =============================================================================
+# PRIOR AUTHORISATION REQUIREMENTS
+# Plan: MEDICARE-FFS-01  (fictional plan layered on Synthea's "Medicare" payer)
+# =============================================================================
+# This plan is structurally DIFFERENT from the commercial plans on purpose.
+# Traditional fee-for-service Medicare historically required very little
+# prospective authorisation, relying instead on retrospective review against
+# coverage determinations. Modelling that difference means the same clinical facts
+# routed to this plan produce a different VERIFICATION PATH, not just a different
+# threshold.
+# =============================================================================
+
+plan_id: MEDICARE-FFS-01
+plan_name: Medicare fee-for-service (synthetic)
+payer_name_in_synthea: Medicare
+synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+plan_type: medicare_ffs
+effective_from: 2010-01-01
+effective_to: null
+
+disclaimer: >
+  Fictional plan constructed for this research corpus. Illustrative only, and not a
+  transcription of any real Medicare authorisation or coverage requirement.
+
+coverage_reference:
+  name: CMS Medicare Coverage Database
+  url: https://www.cms.gov/medicare-coverage-database/search.aspx
+  note: >
+    CMS National and Local Coverage Determinations are US Government works and not
+    subject to copyright, which makes them the safest source to build on. LCDs do
+    embed AMA-copyrighted CPT descriptors, which are deliberately absent from this
+    corpus. Services here are keyed on SNOMED and free-text descriptions only.
+
+default_review_type: retrospective
+
+requirements:
+
+  - service: Arthroscopic knee surgery / partial meniscectomy / meniscal repair
+    service_key: knee_arthroscopy
+    requires_prior_auth: false
+    requires_coverage_review: true
+    review_type: retrospective
+    governing_policy: PA-KNEE-ARTHRO-001
+    note: >
+      IMPORTANT AND SUBTLE. Authorisation is not required prospectively, but the
+      service is still subject to coverage review against the same clinical criteria.
+      The correct gate result is COVERAGE_REVIEW_REQUIRED, not NO_AUTH_REQUIRED. The
+      criteria must still be verified; only the timing and the consequence differ.
+
+      Provider-side, the resulting advice is specific and useful: you may proceed
+      without authorisation, but the documentation must hold up under later review,
+      so prepare it as if you had sought prior approval.
+
+      This distinction is the reason `requires_coverage_review` exists as a separate
+      field from `requires_prior_auth`. A verifier that collapses the two will
+      wrongly skip verification on every Medicare case, including KNEE-ARTHRO-0003,
+      which is the corpus's only non-remediable case.
+
+  - service: MRI of the knee
+    service_key: knee_mri
+    requires_prior_auth: false
+    requires_coverage_review: true
+    review_type: retrospective
+    governing_policy: PA-KNEE-MRI-001
+
+  - service: Total knee arthroplasty
+    service_key: total_knee_arthroplasty
+    requires_prior_auth: false
+    requires_coverage_review: true
+    review_type: retrospective
+    governing_policy: PA-TKA-001
+
+  - service: Rotator cuff repair
+    service_key: rotator_cuff_repair
+    requires_prior_auth: false
+    requires_coverage_review: true
+    review_type: retrospective
+    governing_policy: PA-SHOULDER-RCR-001
+
+  - service: MRI or CT of the spine
+    service_key: spine_mri_ct
+    requires_prior_auth: false
+    requires_coverage_review: true
+    review_type: retrospective
+    governing_policy: PA-SPINE-MRI-001
+
+  # ---------------------------------------------------------------------------
+  # Neither authorised nor coverage-reviewed
+  # ---------------------------------------------------------------------------
+
+  - service: Knee X-ray
+    service_key: knee_xray
+    synthea_snomed: "74016001"
+    requires_prior_auth: false
+    requires_coverage_review: false
+    governing_policy: null
+
+  - service: Emergency room admission
+    service_key: emergency_admission
+    synthea_snomed: "50849002"
+    requires_prior_auth: false
+    requires_coverage_review: false
+    governing_policy: null
+
+# -----------------------------------------------------------------------------
+# OUTCOME MATRIX
+# -----------------------------------------------------------------------------
+# How the two boolean fields combine, for implementers:
+#
+#   requires_prior_auth  requires_coverage_review  ->  gate_result
+#   -------------------  ------------------------      -----------
+#   true                 (ignored)                     AUTH_REQUIRED
+#                                                        verify criteria
+#   false                true                          COVERAGE_REVIEW_REQUIRED
+#                                                        verify criteria anyway,
+#                                                        retrospective consequence
+#   false                false                          NO_AUTH_REQUIRED
+#                                                        stop, verify nothing
+# -----------------------------------------------------------------------------

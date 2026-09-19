@@ -1,0 +1,32 @@
+---
+note_id: KNEE-MRI-0041-ortho
+case_id: KNEE-MRI-0041
+date: 2013-11-25
+setting: Orthopaedic clinic
+author: M. Alvarez, MD
+patient: Emard, Domenic (DOB 1981-04-21)
+mrn: SYN-A52B02FF
+---
+
+# ORTHOPAEDIC CONSULTATION
+
+**Chief complaint:** right knee symptoms
+
+**HPI**
+
+32 y/o male, presents after coming down awkwardly from a jump during a gym class. Describes catching and then the right knee locking outright, needing to manually straighten the leg.  Stairs and pivoting remain unreliable.
+
+**PMH:** Nil of note
+**Meds:** As previously
+**Allergies:** None known.
+
+**Examination**
+
+Joint-line tenderness medially. McMurray uncomfortable. Small residual effusion. No fixed locked position today.
+
+
+**Assessment / Plan**
+
+Continue the physiotherapy already arranged. If symptoms persist, MRI of the right knee.
+
+*M. Alvarez, MD — 2013-11-25*

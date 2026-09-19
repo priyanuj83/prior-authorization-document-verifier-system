@@ -1,0 +1,167 @@
+# Generated ledger for KNEE-ARTHRO-0011. Hidden from the verifier.
+
+case_id: KNEE-ARTHRO-0011
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: c1de8dc8-87e2-4016-8b95-fdc64c3bc78d
+  name: Francisca Turner
+  sex: F
+  birthdate: '1923-05-15'
+  city: West Springfield
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2015-04-20'
+  request_date: '2015-06-04'
+  anchor_condition: Tear of meniscus of knee
+scope:
+  episode_window:
+    start: '2015-04-20'
+    end: '2015-06-04'
+  therapy_lookback_window:
+    start: '2014-06-04'
+    end: '2015-06-04'
+  patient_chart_totals:
+    conditions_lifetime: 8
+    encounters_lifetime: 19
+    observations_lifetime: 244
+    careplans_lifetime: 2
+  excluded_from_packet:
+  - date: '1941-07-08'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1954-12-07'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-10-04'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2010-11-12'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-03-07'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2015-07-25'
+      description: Viral sinusitis (disorder)
+    - date: '2017-01-17'
+      description: Atrial Fibrillation
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2015-04-20'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 2dc895b7-439f-4227-89c7-8b18e9c8b51c
+  encounter_class: emergency
+  payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+  rendered_in:
+  - input/notes/2015-04-20-ed-visit.md
+- id: E002
+  date: '2015-04-20'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Tear of meniscus of knee
+  code: '239720000'
+  rendered_in:
+  - input/notes/2015-04-20-ed-visit.md
+  - input/notes/2015-05-02-ortho-consult.md
+- id: E003
+  date: '2015-04-20'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: dc883ef2-fc3b-4dc5-b3d0-d96e1adca983
+  description: Physical therapy procedure
+  reason: Tear of meniscus of knee
+  date_range:
+    start: '2015-04-20'
+    stop: '2015-05-20'
+  duration_days: 30
+  rendered_in:
+  - input/notes/2015-05-20-pt-discharge.md
+- id: A004
+  date: '2015-04-20'
+  type: symptom
+  provenance: authored
+  description: Pain of the left knee
+  rendered_in:
+  - input/notes/2015-04-20-ed-visit.md
+  - input/notes/2015-05-02-ortho-consult.md
+- id: A005
+  date: '2015-05-02'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching and locking
+  is_mechanical_symptom: true
+  is_true_locking: true
+  rendered_in:
+  - input/notes/2015-05-02-ortho-consult.md
+- id: A006
+  date: '2015-04-20'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2015-04-20-ed-visit.md
+- id: A007
+  date: '2015-05-28'
+  type: imaging
+  provenance: authored
+  modality: mri
+  description: Authored MRI — no MRI exists in synthea_data
+  rendered_in:
+  - input/notes/2015-05-28-mri-report.md
+- id: A008
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2015-04-20'
+    end: '2015-05-20'
+  attributes:
+    modality: in_person
+    duration_days: 30
+    body_region: knee
+    sessions_attended: 9
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2015-05-20-pt-discharge.md
+criterion_truth:
+  C1_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Pain and mechanical symptoms documented in the clinical notes.
+  C2_oa_severity:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Kellgren-Lawrence grade 1 (allowance 0-2).
+  C3_radiologic_confirmation:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: MRI report enclosed confirming meniscal tear.
+  C4_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 30 days vs threshold 42; modality in_person; body region knee; enclosed.

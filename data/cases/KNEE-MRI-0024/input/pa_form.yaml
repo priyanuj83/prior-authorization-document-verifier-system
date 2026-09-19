@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0024
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2016-03-13'
+generator: template-v0.3
+member:
+  name: Francisco Delrío
+  member_id: SYN-A0AF88B5
+  dob: '1971-09-04'
+  sex: M
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: L. Chen, MD
+  specialty: Orthopaedic Surgery
+  practice: North Shore Joint Centre
+  npi: SYN-0000003
+requested_service:
+  description: MRI of the left knee, without contrast
+  service_key: knee_mri
+  laterality: left
+  setting: outpatient
+  proposed_date: '2016-04-03'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of medial collateral ligament of knee
+    snomed: '444448004'
+  onset_date: '2015-12-22'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain.
+- id: AT2
+  text: Advanced imaging of the left knee is requested.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2015-12-22-ed-visit.md
+- input/notes/2016-01-03-ortho-consult.md
+- input/notes/2016-02-27-pt-discharge.md
+- input/notes/2016-03-13-ortho-followup.md
+records_scope:
+  episode_start: '2015-12-22'
+  episode_end: '2016-03-13'
+  is_complete_chart: false

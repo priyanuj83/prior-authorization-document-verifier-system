@@ -1,0 +1,84 @@
+# Generated labels for SHOULDER-RCR-0019. Derived from the ledger, not the notes.
+
+case_id: SHOULDER-RCR-0019
+policy_id: PA-SHOULDER-RCR-001
+policy_version: 1.0.0
+labelled_by: template-v0.3
+labelled_date: '2026-09-04'
+policy_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: rotator_cuff_repair
+    request_date: '2012-02-10'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+criteria:
+- id: C1_symptoms_and_exam
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes: []
+  reasoning: Shoulder pain with restricted motion on examination.
+- id: C2_imaging_confirmation
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger: []
+    notes:
+    - file: input/notes/2011-05-26-mri-report.md
+  reasoning: MRI/US confirming a cuff tear.
+- id: C3_conservative_therapy
+  label: SUPPORTED
+  clinical_truth: MET
+  documentation_state: ESTABLISHED
+  evidence:
+    ledger:
+    - A005
+    - E004
+    notes:
+    - file: input/notes/2011-05-18-pt-discharge.md
+      locator: attended twice weekly
+    - file: input/notes/2011-03-19-ed-visit.md
+      locator: Referral placed today to the outpatient physiotherapy service
+  reasoning: course length 60 days vs threshold 42; modality in_person; body region shoulder; enclosed.
+waivers:
+- id: W1_acute_traumatic_full_thickness
+  state: NOT_FIRED
+  reasoning: Waiver not used; therapy criterion is evaluated on its own.
+exclusions: []
+attestation_check:
+- id: AT1
+  verdict: SUPPORTED
+- id: AT2
+  verdict: SUPPORTED
+- id: AT3
+  verdict: SUPPORTED
+  note: null
+outcome:
+  provider_view:
+    documentation_status: READY_FOR_SUBMISSION
+    remediable: null
+    reasoning: 'READY_FOR_SUBMISSION from criterion labels: C1_symptoms_and_exam=SUPPORTED, C2_imaging_confirmation=SUPPORTED,
+      C3_conservative_therapy=SUPPORTED.'
+    remediation: []
+    escalation: []
+    provider_message: Documentation appears to support the required criteria for this request.
+  payer_view:
+    decision: APPROVE
+    note: Derived, not scored.
+  criterion_label_counts:
+    SUPPORTED: 3
+    MISSING: 0
+    CONTRADICTED: 0
+evaluation_notes:
+  variant: full_packet
+  generator: template-v0.3

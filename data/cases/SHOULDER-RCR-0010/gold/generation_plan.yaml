@@ -1,0 +1,48 @@
+# Generation plan for SHOULDER-RCR-0010. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0010
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 138
+patient:
+  synthea_patient_id: 6c7ce9c1-78a9-4b72-beff-366cf7aeef5c
+  name: Kellye Schuppe
+  sex: F
+  birthdate: '1964-10-30'
+  age_at_request: 54
+request:
+  requested_service: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  request_date: '2019-06-16'
+plan_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: rotator_cuff_repair
+    request_date: '2019-06-16'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-SHOULDER-RCR-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+variant: full_packet
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE
+criteria:
+- id: C1_symptoms_and_exam
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_imaging_confirmation
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_therapy
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-MRI-0048
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2014-04-07'
+generator: template-v0.3
+member:
+  name: Yong Zulauf
+  member_id: SYN-B4D1167C
+  dob: '2010-04-06'
+  sex: M
+  plan: Humana Commercial HMO
+  plan_id: HUMANA-COMMERCIAL-01
+requesting_provider:
+  name: S. Patel, MD
+  specialty: Orthopaedic Surgery
+  practice: Riverbend Orthopaedics
+  npi: SYN-0000002
+requested_service:
+  description: MRI of the right knee, without contrast
+  service_key: knee_mri
+  laterality: right
+  setting: outpatient
+  proposed_date: '2014-04-28'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Rupture of patellar tendon
+    snomed: '30832001'
+  onset_date: '2014-02-14'
+attestations:
+- id: AT1
+  text: The patient has persistent right knee pain.
+- id: AT2
+  text: Advanced imaging of the right knee is requested.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the right knee, attending
+    twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2014-02-14-ed-visit.md
+- input/notes/2014-02-26-ortho-consult.md
+- input/notes/2014-03-23-pt-discharge.md
+- input/notes/2014-04-07-ortho-followup.md
+records_scope:
+  episode_start: '2014-02-14'
+  episode_end: '2014-04-07'
+  is_complete_chart: false

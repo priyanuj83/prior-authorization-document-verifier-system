@@ -1,0 +1,47 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: TKA-0004
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2019-08-05'
+generator: template-v0.3
+member:
+  name: Laura Bergstrom
+  member_id: SYN-2A5C04FF
+  dob: '1968-10-14'
+  sex: F
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+requesting_provider:
+  name: L. Chen, MD
+  specialty: Orthopaedic Surgery
+  practice: North Shore Joint Centre
+  npi: SYN-0000003
+requested_service:
+  description: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  laterality: left
+  setting: outpatient
+  proposed_date: '2019-08-26'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Osteoarthritis of knee
+    snomed: '239873007'
+  onset_date: '2007-10-05'
+attestations:
+- id: AT1
+  text: The patient has persistent left knee pain with mechanical catching.
+- id: AT2
+  text: Plain radiographs demonstrate advanced osteoarthritis of the left knee.
+- id: AT3
+  text: Conservative measures have been tried for the left knee.
+enclosures:
+- input/notes/2007-10-05-ed-visit.md
+- input/notes/2007-10-17-ortho-consult.md
+- input/notes/2019-08-05-ortho-followup.md
+records_scope:
+  episode_start: '2007-10-05'
+  episode_end: '2019-08-05'
+  is_complete_chart: false

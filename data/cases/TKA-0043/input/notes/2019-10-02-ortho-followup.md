@@ -1,0 +1,32 @@
+---
+note_id: TKA-0043-fu
+case_id: TKA-0043
+date: 2019-10-02
+setting: Orthopaedic clinic
+author: S. Patel, MD
+patient: Reinger, Tiara (DOB 1958-11-06)
+mrn: SYN-21CE6DC0
+---
+
+# ORTHOPAEDIC FOLLOW-UP
+
+**Chief complaint:** left knee — follow-up
+
+**HPI**
+
+60 y/o female, presents after as previously documented. Pain and limitation unchanged. Patient wishes to proceed with replacement.
+
+**PMH:** knee osteoarthritis since 2018-10-22
+**Meds:** As previously
+**Allergies:** None known.
+
+**Examination**
+
+Examination of the left knee is unchanged from the last clinic visit. No fever, no wound, no hot joint. No clinical evidence of active infection today.
+
+
+**Assessment / Plan**
+
+Request authorisation for left total knee arthroplasty.
+
+*S. Patel, MD — 2019-10-02*

@@ -1,0 +1,51 @@
+# Generation plan for TKA-0030. Hidden from the verifier.
+
+case_id: TKA-0030
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 108
+patient:
+  synthea_patient_id: 076688b0-f0d5-4c45-8bc6-b206684fa9ac
+  name: Manie Torp
+  sex: F
+  birthdate: '1959-04-24'
+  age_at_request: 60
+request:
+  requested_service: Total knee arthroplasty, left
+  service_key: total_knee_arthroplasty
+  request_date: '2019-07-07'
+plan_resolution:
+  resolved_from:
+    plan_id: MEDICARE-FFS-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-07-07'
+  requires_prior_auth: false
+  requires_coverage_review: true
+  requirement_effective_from: '2010-01-01'
+  gate_result: COVERAGE_REVIEW_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: retrospective
+  plan_name: Medicare fee-for-service (synthetic)
+  synthea_payer_id: 7caa7254-5050-3b5e-9eae-bd5ea30e809c
+variant: short_pt_enclosed
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

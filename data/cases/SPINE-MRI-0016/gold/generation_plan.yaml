@@ -1,0 +1,45 @@
+# Generation plan for SPINE-MRI-0016. Hidden from the verifier.
+
+case_id: SPINE-MRI-0016
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 180
+patient:
+  synthea_patient_id: 1bacaab1-708b-42fe-8f12-fbe97a725440
+  name: Rochell Koch
+  sex: F
+  birthdate: '1950-07-25'
+  age_at_request: 62
+request:
+  requested_service: MRI of the cervical spine without contrast
+  service_key: spine_mri_ct
+  request_date: '2013-02-14'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: spine_mri_ct
+    request_date: '2013-02-14'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2012-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-SPINE-MRI-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: omit_imaging
+intended_documentation_status: NOT_READY
+intended_payer_view: PEND
+criteria:
+- id: B8_trauma_fracture
+  intended_label: MISSING
+  realization: SILENT
+- id: B9_suspected_cord_injury
+  intended_label: MISSING
+  realization: SILENT
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

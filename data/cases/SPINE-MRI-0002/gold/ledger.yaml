@@ -1,0 +1,115 @@
+# Generated ledger for SPINE-MRI-0002. Hidden from the verifier.
+
+case_id: SPINE-MRI-0002
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 0288abb6-633c-40c3-ba0c-66c7d957727e
+  name: Keva Shanahan
+  sex: F
+  birthdate: '1950-11-28'
+  city: Williamstown
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2019-05-11'
+  request_date: '2019-05-14'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2019-05-11'
+    end: '2019-05-14'
+  therapy_lookback_window:
+    start: '2018-05-14'
+    end: '2019-05-14'
+  patient_chart_totals:
+    conditions_lifetime: 9
+    encounters_lifetime: 100
+    observations_lifetime: 176
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1954-12-04'
+    description: Perennial allergic rhinitis with seasonal variation
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-02-12'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-11-27'
+    description: Concussion with loss of consciousness
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2015-11-19'
+    description: Idiopathic atrophic hypothyroidism
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2016-05-29'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2017-07-29'
+    description: Laceration of forearm
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2019-03-05'
+    description: Acute bacterial sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  - date: '2019-05-01'
+    description: Chronic sinusitis (disorder)
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2019-05-11'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: ae4f3923-c9b5-46da-a34b-fd56fbf167e1
+  encounter_class: emergency
+  payer_id: b3221cfc-24fb-339e-823d-bc4136cbc4ed
+  rendered_in:
+  - input/notes/2019-05-11-ed-visit.md
+- id: E002
+  date: '2019-05-11'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2019-05-11-ed-visit.md
+- id: A003
+  date: '2019-05-11'
+  type: symptom
+  provenance: authored
+  description: Pain of the left neck
+  rendered_in:
+  - input/notes/2019-05-11-ed-visit.md
+- id: A004
+  date: '2019-05-11'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2019-05-11-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

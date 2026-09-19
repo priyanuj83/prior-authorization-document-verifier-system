@@ -1,0 +1,170 @@
+# Generated ledger for KNEE-MRI-0002. Hidden from the verifier.
+
+case_id: KNEE-MRI-0002
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 7a297104-f0bd-4ca6-aa19-c910e2a45f01
+  name: Deon Fadel
+  sex: M
+  birthdate: '1967-05-17'
+  city: Agawam
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2011-11-06'
+  request_date: '2013-05-22'
+  anchor_condition: Injury of anterior cruciate ligament
+scope:
+  episode_window:
+    start: '2011-11-06'
+    end: '2013-05-22'
+  therapy_lookback_window:
+    start: '2012-05-22'
+    end: '2013-05-22'
+  patient_chart_totals:
+    conditions_lifetime: 7
+    encounters_lifetime: 29
+    observations_lifetime: 325
+    careplans_lifetime: 4
+  excluded_from_packet:
+  - date: '1998-07-29'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2000-05-08'
+    description: Osteoarthritis of knee
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2007-05-23'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2013-01-06'
+    description: Sprain of wrist
+    in_therapy_lookback: true
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2015-04-06'
+      description: Acute viral pharyngitis (disorder)
+    - date: '2018-06-29'
+      description: Acute viral pharyngitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2011-11-06'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 86321cc6-e9d0-4a82-be35-f67deb86c4be
+  encounter_class: emergency
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2011-11-06-ed-visit.md
+- id: E002
+  date: '2011-11-06'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of anterior cruciate ligament
+  code: '444470001'
+  rendered_in:
+  - input/notes/2011-11-06-ed-visit.md
+  - input/notes/2011-11-18-ortho-consult.md
+- id: E003
+  date: '2000-05-08'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2011-11-06-ed-visit.md
+  - input/notes/2011-11-18-ortho-consult.md
+- id: E004
+  date: '2011-11-06'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 05812905-e3f9-4bd9-bcfa-414b370b6ded
+  description: Physical therapy procedure
+  reason: Injury of anterior cruciate ligament
+  date_range:
+    start: '2011-11-06'
+    stop: '2012-01-12'
+  duration_days: 67
+  rendered_in:
+  - input/notes/2012-01-12-pt-discharge.md
+- id: A005
+  date: '2011-11-06'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2011-11-06-ed-visit.md
+  - input/notes/2011-11-18-ortho-consult.md
+- id: A006
+  date: '2011-11-18'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching and locking
+  is_mechanical_symptom: true
+  is_true_locking: true
+  rendered_in:
+  - input/notes/2011-11-18-ortho-consult.md
+- id: A007
+  date: '2011-11-06'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2011-11-06-ed-visit.md
+- id: A008
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2011-11-06'
+    end: '2012-01-12'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2012-01-12-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Effusion or inability to bear weight documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Mechanical symptoms or provocative exam recorded.
+  B1_C3_conservative_trial:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.

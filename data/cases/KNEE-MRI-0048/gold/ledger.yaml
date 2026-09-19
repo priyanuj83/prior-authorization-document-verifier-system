@@ -1,0 +1,148 @@
+# Generated ledger for KNEE-MRI-0048. Hidden from the verifier.
+
+case_id: KNEE-MRI-0048
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: b4d1167c-9adf-40e0-8295-4c3f25fdb3b4
+  name: Yong Zulauf
+  sex: M
+  birthdate: '2010-04-06'
+  city: Wellesley
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2014-02-14'
+  request_date: '2014-04-07'
+  anchor_condition: Rupture of patellar tendon
+scope:
+  episode_window:
+    start: '2014-02-14'
+    end: '2014-04-07'
+  therapy_lookback_window:
+    start: '2013-04-07'
+    end: '2014-04-07'
+  patient_chart_totals:
+    conditions_lifetime: 4
+    encounters_lifetime: 26
+    observations_lifetime: 258
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '2011-09-28'
+    description: Otitis media
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2016-06-06'
+      description: Acute viral pharyngitis (disorder)
+    - date: '2018-02-24'
+      description: Acute bronchitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2014-02-14'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 1ec696e5-90d9-4a29-a193-b8b653baf8ff
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2014-02-14-ed-visit.md
+- id: E002
+  date: '2014-02-14'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Rupture of patellar tendon
+  code: '30832001'
+  rendered_in:
+  - input/notes/2014-02-14-ed-visit.md
+  - input/notes/2014-02-26-ortho-consult.md
+- id: E003
+  date: '2014-02-14'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 5506c676-79c7-460c-b25a-7b4f940a89df
+  description: Physical therapy procedure
+  reason: Rupture of patellar tendon
+  date_range:
+    start: '2014-02-14'
+    stop: '2014-03-23'
+  duration_days: 37
+  rendered_in:
+  - input/notes/2014-03-23-pt-discharge.md
+- id: A004
+  date: '2014-02-14'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2014-02-14-ed-visit.md
+  - input/notes/2014-02-26-ortho-consult.md
+- id: A005
+  date: '2014-02-26'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2014-02-26-ortho-consult.md
+- id: A006
+  date: '2014-02-14'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2014-02-14-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2014-02-14'
+    end: '2014-03-23'
+  attributes:
+    modality: in_person
+    duration_days: 37
+    body_region: knee
+    sessions_attended: 11
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2014-03-23-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 37 days vs threshold 42; modality in_person; body region knee; enclosed.

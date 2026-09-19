@@ -1,0 +1,51 @@
+# Generation plan for TKA-0020. Hidden from the verifier.
+
+case_id: TKA-0020
+corpus_version: 0.3.0
+generator: template-v0.3
+seed: 98
+patient:
+  synthea_patient_id: 844d1c39-6ca2-48df-a3de-f9a12633f69c
+  name: Corinna Boehm
+  sex: F
+  birthdate: '1963-07-20'
+  age_at_request: 56
+request:
+  requested_service: Total knee arthroplasty, right
+  service_key: total_knee_arthroplasty
+  request_date: '2019-08-24'
+plan_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: total_knee_arthroplasty
+    request_date: '2019-08-24'
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: '2010-01-01'
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-TKA-001
+  review_type: prospective
+  plan_name: Aetna Commercial PPO (synthetic)
+  synthea_payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+variant: short_pt_enclosed
+intended_documentation_status: REVIEW_NEEDED
+intended_payer_view: DENY
+criteria:
+- id: C1_advanced_oa
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C2_functional_impairment
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+- id: C3_conservative_management
+  intended_label: CONTRADICTED
+  realization: AFFIRMATIVELY_UNMET
+- id: C4_no_active_infection
+  intended_label: SUPPORTED
+  realization: ESTABLISHED
+forbidden_vocabulary:
+- conservative therapy
+- six weeks
+- in-person
+- criterion
+- policy

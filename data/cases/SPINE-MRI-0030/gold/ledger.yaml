@@ -1,0 +1,113 @@
+# Generated ledger for SPINE-MRI-0030. Hidden from the verifier.
+
+case_id: SPINE-MRI-0030
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: 55de6142-7bb1-47f0-95c3-29fda996ef6b
+  name: Gerard Blick
+  sex: M
+  birthdate: '1953-01-20'
+  city: Worcester
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2015-10-08'
+  request_date: '2015-10-11'
+  anchor_condition: Whiplash injury to neck
+scope:
+  episode_window:
+    start: '2015-10-08'
+    end: '2015-10-11'
+  therapy_lookback_window:
+    start: '2014-10-11'
+    end: '2015-10-11'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 31
+    observations_lifetime: 350
+    careplans_lifetime: 7
+  excluded_from_packet:
+  - date: '1987-01-13'
+    description: Appendicitis
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1987-01-13'
+    description: History of appendectomy
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1997-02-04'
+    description: Body mass index 30+ - obesity (finding)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-01-09'
+    description: Localized  primary osteoarthritis of the hand
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-03-13'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2012-12-01'
+    description: Sprain of ankle
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2018-10-27'
+      description: Laceration of forearm
+    - date: '2019-01-22'
+      description: Acute bronchitis (disorder)
+    - date: '2019-01-16'
+      description: Chronic congestive heart failure (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2015-10-08'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: 4f03c7df-f5f9-47b1-a77a-db319e604e1d
+  encounter_class: emergency
+  payer_id: 4d71f845-a6a9-3c39-b242-14d25ef86a8d
+  rendered_in:
+  - input/notes/2015-10-08-ed-visit.md
+- id: E002
+  date: '2015-10-08'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Whiplash injury to neck
+  code: '39848009'
+  rendered_in:
+  - input/notes/2015-10-08-ed-visit.md
+- id: A003
+  date: '2015-10-08'
+  type: symptom
+  provenance: authored
+  description: Pain of the right neck
+  rendered_in:
+  - input/notes/2015-10-08-ed-visit.md
+- id: A004
+  date: '2015-10-08'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2015-10-08-ed-visit.md
+criterion_truth:
+  B8_trauma_fracture:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: Inconclusive plain films not enclosed, so the trauma-fracture branch is not established.
+  B9_suspected_cord_injury:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No cord-injury suspicion documented.

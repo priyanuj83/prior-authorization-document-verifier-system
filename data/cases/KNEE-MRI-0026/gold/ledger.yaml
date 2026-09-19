@@ -1,0 +1,156 @@
+# Generated ledger for KNEE-MRI-0026. Hidden from the verifier.
+
+case_id: KNEE-MRI-0026
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: ccbd3a61-50ff-4f6f-8d64-8105c3fc54cf
+  name: Jamel Turner
+  sex: M
+  birthdate: '1981-09-03'
+  city: Boston
+  state: Massachusetts
+episode:
+  laterality: right
+  index_date: '2013-08-05'
+  request_date: '2013-10-26'
+  anchor_condition: Injury of medial collateral ligament of knee
+scope:
+  episode_window:
+    start: '2013-08-05'
+    end: '2013-10-26'
+  therapy_lookback_window:
+    start: '2012-10-26'
+    end: '2013-10-26'
+  patient_chart_totals:
+    conditions_lifetime: 5
+    encounters_lifetime: 28
+    observations_lifetime: 155
+    careplans_lifetime: 3
+  excluded_from_packet:
+  - date: '1994-08-31'
+    description: Seizure disorder
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1994-08-31'
+    description: History of single seizure (situation)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1999-10-28'
+    description: Hypertension
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-12-30'
+    description: Acute viral pharyngitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events: []
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2013-08-05'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: e377d8a9-10f3-4510-a913-c89c1890579d
+  encounter_class: emergency
+  payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  rendered_in:
+  - input/notes/2013-08-05-ed-visit.md
+- id: E002
+  date: '2013-08-05'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of medial collateral ligament of knee
+  code: '444448004'
+  rendered_in:
+  - input/notes/2013-08-05-ed-visit.md
+  - input/notes/2013-08-17-ortho-consult.md
+- id: E003
+  date: '2013-08-05'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 9689d454-df5a-4695-a3f1-9888c1177015
+  description: Physical therapy procedure
+  reason: Injury of medial collateral ligament of knee
+  date_range:
+    start: '2013-08-05'
+    stop: '2013-10-11'
+  duration_days: 67
+  rendered_in:
+  - input/notes/2013-10-11-pt-discharge.md
+- id: A004
+  date: '2013-08-05'
+  type: symptom
+  provenance: authored
+  description: Pain of the right knee
+  rendered_in:
+  - input/notes/2013-08-05-ed-visit.md
+  - input/notes/2013-08-17-ortho-consult.md
+- id: A005
+  date: '2013-08-17'
+  type: symptom
+  provenance: authored
+  description: Mechanical catching
+  is_mechanical_symptom: false
+  is_true_locking: false
+  rendered_in:
+  - input/notes/2013-08-17-ortho-consult.md
+- id: A006
+  date: '2013-08-05'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 1
+  rendered_in:
+  - input/notes/2013-08-05-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2013-08-05'
+    end: '2013-10-11'
+  attributes:
+    modality: in_person
+    duration_days: 67
+    body_region: knee
+    sessions_attended: 19
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2013-10-11-pt-discharge.md
+criterion_truth:
+  B2_C1_acute_injury:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Acute traumatic knee injury described in the emergency note.
+  B2_C2_objective_finding:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No effusion, locking, or weight-bearing failure documented.
+  B1_C1_persistent_symptoms:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Persistent knee pain through the episode.
+  B1_C2_suspected_derangement:
+    clinical_truth: NOT_MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No derangement findings documented.
+  B1_C3_conservative_trial:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: course length 67 days vs threshold 42; modality in_person; body region knee; enclosed.

@@ -1,0 +1,156 @@
+# =============================================================================
+# PA-TKA-001
+# Total knee arthroplasty
+# =============================================================================
+# Logical shape: CONJUNCTIVE (all_of).
+# This policy is the MIRROR of PA-KNEE-ARTHRO-001 on the osteoarthritis axis:
+# arthroscopy requires OA no worse than mild, arthroplasty requires OA at least
+# moderate-to-severe. The same radiology report therefore SUPPORTS one policy and
+# CONTRADICTS the other. That inversion is the most valuable property of having
+# both files in the corpus - it makes it impossible for a verifier to score well by
+# learning that "severe osteoarthritis" is a generically bad finding.
+# =============================================================================
+
+policy_id: PA-TKA-001
+version: 1.0.0
+title: Total knee arthroplasty
+specialty: orthopedics
+logic: all_of
+tier: 1
+
+provenance:
+  derived_from: >
+    Composed for this corpus from criteria conventional across commercial and
+    Medicare joint-replacement policy, consistent in structure with Aetna CPB 0673
+    and CMS Local Coverage Determinations for lower-extremity major joint replacement.
+  cross_reference:
+    - name: CMS Medicare Coverage Database
+      url: https://www.cms.gov/medicare-coverage-database/search.aspx
+      usage: >
+        LCD structure consulted. CMS material is a US Government work and not subject
+        to copyright, but LCDs embed AMA-copyrighted CPT descriptors, which are
+        deliberately not reproduced anywhere in this corpus.
+  relationship: original prose, clinically conventional criteria
+  retrieved: 2026-08-30
+
+requested_service:
+  description: Total knee arthroplasty, primary, unilateral
+  synthea_proxy:
+    description: Total knee replacement
+    note: >
+      Synthea ships a Total Joint Replacement core module. If the present extract
+      lacks arthroplasty procedures, regenerate with that module enabled rather than
+      authoring the procedures by hand.
+
+criteria:
+
+  - id: C1_advanced_oa
+    text: >
+      Radiographic evidence of advanced osteoarthritis of the affected knee,
+      Kellgren-Lawrence grade 3 or 4.
+    type: imaging_grading
+    required: true
+    threshold:
+      scale: kellgren_lawrence
+      min_inclusive: 3
+    evidence:
+      accepts: [radiology_report, clinician_narrative]
+    failure_modes:
+      missing: osteoarthritis described without a grade
+      contradicted: grade 2 or lower documented, or narrative describes mild disease
+    notes: >
+      Inverse of PA-KNEE-ARTHRO-001 C2. Seed patient 1ab6d5c8, who CONTRADICTS the
+      arthroscopy policy on osteoarthritis severity, SUPPORTS this criterion.
+
+  - id: C2_functional_impairment
+    text: >
+      Pain and functional limitation that materially interfere with activities of
+      daily living or occupational function.
+    type: clinical_finding
+    required: true
+    evidence:
+      accepts: [clinician_narrative, functional_score]
+    failure_modes:
+      missing: pain documented with no reference to functional impact
+      contradicted: function documented as preserved or independent
+
+  - id: C3_conservative_management
+    text: >
+      At least three months of conservative management, comprising pharmacotherapy
+      and a formal physical therapy course, without adequate relief.
+    type: therapy_trial
+    required: true
+    threshold:
+      duration_days: 90
+      comparator: ">="
+    modality_required: any
+    lookback_days: 365
+    evidence:
+      accepts_either: [physical_therapy_notes, member_claims_history, clinician_narrative]
+    waived_if: W1_structural_emergency
+    failure_modes:
+      missing: therapy documented without duration
+      contradicted: documented duration shorter than 90 days, or adequate relief documented
+    notes: >
+      A THIRD distinct duration threshold, after 42 days in PA-KNEE-ARTHRO-001 and
+      28/42 days in PA-SPINE-MRI-001. Deliberate: no single number generalises.
+
+  - id: C4_no_active_infection
+    text: >
+      No active local or systemic infection at the time of the planned procedure.
+    type: clinical_finding
+    required: true
+    polarity: negative          # the criterion is satisfied by documented ABSENCE
+    evidence:
+      accepts: [clinician_narrative, laboratory_result]
+    failure_modes:
+      missing: infection status never addressed
+      contradicted: active infection documented
+    notes: >
+      Negative-polarity criterion. Satisfying it requires affirmative documentation
+      that infection is absent, which is a different retrieval problem from finding a
+      positive finding. A verifier that treats silence as absence will wrongly mark
+      this SUPPORTED.
+
+waivers:
+  - id: W1_structural_emergency
+    text: >
+      The conservative management requirement does not apply where there is acute
+      periarticular fracture, joint destruction from avascular necrosis, or failure
+      of a previous arthroplasty requiring revision.
+    waives: [C3_conservative_management]
+    logic: any_of
+    conditions:
+      - acute_periarticular_fracture
+      - avascular_necrosis_with_joint_destruction
+      - failed_prior_arthroplasty
+
+exclusions:
+  - id: X1_skeletal_immaturity
+    text: Skeletal immaturity at the time of the planned procedure.
+  - id: X2_bmi_threshold_advisory
+    text: >
+      Body mass index at or above 40 requires documented medical clearance and a
+      weight-management discussion before authorisation.
+    type: advisory
+    threshold:
+      metric: bmi
+      min_inclusive: 40
+    synthea_grounding:
+      source: synthea_data/observations.csv, "Body Mass Index"
+      patients_at_or_above_40: 7
+      patients_at_or_above_35: 18
+    notes: >
+      Advisory rather than absolute. Cohort is small (7 patients at BMI 40+), so treat
+      this as a low-frequency criterion and do not build a large case series on it.
+
+# Framework-neutral. See PA-KNEE-ARTHRO-001 for the full projection table.
+criteria_logic:
+  all_met_if: >
+    every criterion is SUPPORTED after applying any firing waiver, and no exclusion
+    applies
+  fails_if: any criterion is CONTRADICTED, or a non-advisory exclusion applies
+  indeterminate_if: any criterion is MISSING and none is CONTRADICTED
+  projections:
+    provider_side: {all_met: READY_FOR_SUBMISSION, indeterminate: NOT_READY, fails: REVIEW_NEEDED}
+    payer_side: {all_met: APPROVE, indeterminate: PEND, fails: DENY}

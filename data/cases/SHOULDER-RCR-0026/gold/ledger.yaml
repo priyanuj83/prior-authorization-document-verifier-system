@@ -1,0 +1,161 @@
+# Generated ledger for SHOULDER-RCR-0026. Hidden from the verifier.
+
+case_id: SHOULDER-RCR-0026
+ledger_version: 0.3.0
+generator: template-v0.3
+patient:
+  synthea_patient_id: b574b7cc-3294-4d3b-8cfe-81dcf7456ab4
+  name: Lana Grady
+  sex: F
+  birthdate: '1950-07-30'
+  city: Fairhaven
+  state: Massachusetts
+episode:
+  laterality: left
+  index_date: '2011-09-25'
+  request_date: '2013-07-11'
+  anchor_condition: Injury of tendon of the rotator cuff of shoulder
+scope:
+  episode_window:
+    start: '2011-09-25'
+    end: '2013-07-11'
+  therapy_lookback_window:
+    start: '2012-07-11'
+    end: '2013-07-11'
+  patient_chart_totals:
+    conditions_lifetime: 10
+    encounters_lifetime: 42
+    observations_lifetime: 463
+    careplans_lifetime: 5
+  excluded_from_packet:
+  - date: '1981-10-11'
+    description: Prediabetes
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1984-10-14'
+    description: Anemia (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1987-11-29'
+    description: Miscarriage in first trimester
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '1995-07-19'
+    description: Osteoarthritis of knee
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2003-08-17'
+    description: Hyperlipidemia
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  - date: '2011-03-01'
+    description: Viral sinusitis (disorder)
+    in_therapy_lookback: false
+    reason: clinically unrelated to this episode
+  excluded_because_post_request:
+    events:
+    - date: '2016-03-25'
+      description: Acute viral pharyngitis (disorder)
+    - date: '2017-08-24'
+      description: Whiplash injury to neck
+    - date: '2019-12-01'
+      description: Acute bronchitis (disorder)
+  distractor_content:
+    present: false
+events:
+- id: E001
+  date: '2011-09-25'
+  type: encounter
+  provenance: synthea
+  source:
+    file: synthea_data/encounters.csv
+    encounter_id: e01bc48c-a913-44b8-b5c4-2fa140d2b47a
+  encounter_class: ambulatory
+  payer_id: 5059a55e-5d6e-34d1-b6cb-d83d16e57bcf
+  rendered_in:
+  - input/notes/2011-09-25-ed-visit.md
+- id: E002
+  date: '2011-09-25'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Injury of tendon of the rotator cuff of shoulder
+  code: '307731004'
+  rendered_in:
+  - input/notes/2011-09-25-ed-visit.md
+  - input/notes/2011-10-07-ortho-consult.md
+- id: E003
+  date: '1995-07-19'
+  type: condition
+  provenance: synthea
+  source:
+    file: synthea_data/conditions.csv
+  description: Osteoarthritis of knee
+  rendered_in:
+  - input/notes/2011-09-25-ed-visit.md
+  - input/notes/2011-10-07-ortho-consult.md
+- id: E004
+  date: '2011-09-25'
+  type: careplan
+  provenance: synthea
+  source:
+    file: synthea_data/careplans.csv
+    careplan_id: 8bfa04f3-13ef-4e8b-88c0-3f8c2b681953
+  description: Physical therapy procedure
+  reason: Injury of tendon of the rotator cuff of shoulder
+  date_range:
+    start: '2011-09-25'
+    stop: '2011-11-24'
+  duration_days: 60
+  rendered_in:
+  - input/notes/2011-11-24-pt-discharge.md
+- id: A005
+  date: '2011-09-25'
+  type: symptom
+  provenance: authored
+  description: Pain of the left shoulder
+  rendered_in:
+  - input/notes/2011-09-25-ed-visit.md
+  - input/notes/2011-10-07-ortho-consult.md
+- id: A006
+  date: '2011-09-25'
+  type: imaging_grading
+  provenance: authored
+  modality: xray
+  findings:
+    kellgren_lawrence_grade: 4
+  rendered_in:
+  - input/notes/2011-09-25-ed-visit.md
+- id: A007
+  date: null
+  type: therapy_detail
+  provenance: authored
+  date_range:
+    start: '2011-09-25'
+    end: '2011-11-24'
+  attributes:
+    modality: in_person
+    duration_days: 60
+    body_region: shoulder
+    sessions_attended: 17
+    response: no_improvement
+    documentation_enclosed: true
+  rendered_in:
+  - input/notes/2011-11-24-pt-discharge.md
+criterion_truth:
+  C1_symptoms_and_exam:
+    clinical_truth: MET
+    documentation_state: ESTABLISHED
+    label_follows: SUPPORTED
+    detail: Shoulder pain with restricted motion on examination.
+  C2_imaging_confirmation:
+    clinical_truth: MET
+    documentation_state: SILENT
+    label_follows: MISSING
+    detail: No MRI or ultrasound report enclosed.
+  C3_conservative_therapy:
+    clinical_truth: NOT_MET
+    documentation_state: AFFIRMATIVELY_UNMET
+    label_follows: CONTRADICTED
+    detail: course length 60 days vs threshold 42; modality in_person; body region shoulder; enclosed.

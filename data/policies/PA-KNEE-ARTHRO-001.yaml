@@ -1,0 +1,183 @@
+# =============================================================================
+# PA-KNEE-ARTHRO-001
+# Arthroscopic knee surgery, with or without partial meniscectomy / repair
+# =============================================================================
+# Logical shape: CONJUNCTIVE (all_of) with one conditional waiver.
+# Pair with PA-SPINE-MRI-001, which is disjunctive, to cover both shapes.
+# =============================================================================
+
+policy_id: PA-KNEE-ARTHRO-001
+version: 1.0.0
+title: Arthroscopic knee surgery, with or without partial meniscectomy or meniscal repair
+specialty: orthopedics
+logic: all_of
+
+provenance:
+  derived_from: Aetna Clinical Policy Bulletin 0673 (Knee Arthroscopy / Osteoarthritis of the Knee)
+  url: https://www.aetna.com/cpb/medical/data/600_699/0673.html
+  relationship: >
+    Clinically adapted and paraphrased into this schema. Criterion text below is
+    original prose written for this corpus, not reproduced from the source.
+  retrieved: 2026-08-30
+
+requested_service:
+  description: Arthroscopic knee surgery / partial meniscectomy / meniscal repair
+  synthea_proxy:
+    description: Surgical manipulation of joint of knee
+    note: >
+      Closest available analogue in synthea_data/procedures.csv (22 rows).
+      Synthea does not model arthroscopy directly.
+  codes:
+    snomed: null          # TODO: assign once service vocabulary is fixed
+    cpt: null             # intentionally omitted; CPT descriptors are AMA-copyrighted
+
+# -----------------------------------------------------------------------------
+# CRITERIA
+# -----------------------------------------------------------------------------
+criteria:
+
+  - id: C1_symptoms
+    text: >
+      The knee is significantly painful AND demonstrates mechanical symptoms,
+      meaning locking, catching, or giving way.
+    type: clinical_finding
+    required: true
+    evidence:
+      accepts: [clinician_narrative]
+    temporal_window: current_episode
+    notes: >
+      Pain alone does not satisfy this criterion. Mechanical symptoms are an
+      independently required finding and must be separately documented.
+    failure_modes:
+      missing: pain is documented but mechanical symptoms are never mentioned
+      contradicted: a note explicitly records the absence of mechanical symptoms
+
+  - id: C2_oa_severity
+    text: >
+      Osteoarthritis of the affected knee is no more severe than mild, defined as
+      Kellgren-Lawrence grade 0, 1, or 2, or modified Outerbridge grade 0, 1, or 2.
+    type: imaging_grading
+    required: true
+    threshold:
+      scale: kellgren_lawrence
+      max_inclusive: 2
+      equivalent_scale:
+        scale: modified_outerbridge
+        max_inclusive: 2
+    evidence:
+      accepts: [radiology_report, clinician_narrative]
+    failure_modes:
+      missing: osteoarthritis is present but never graded on either scale
+      contradicted: grade 3 or 4 is documented, or the narrative describes severe / advanced osteoarthritis
+
+  - id: C3_radiologic_confirmation
+    text: >
+      The pathology being treated is radiologically confirmed. Meniscal tears
+      require MRI confirmation. Loose bodies may be confirmed by MRI or plain X-ray.
+    type: imaging
+    required: true
+    evidence:
+      accepts: [mri_report, xray_report]
+      modality_rules:
+        meniscal_tear: [mri]              # X-ray alone is NOT sufficient
+        loose_body: [mri, xray]
+    failure_modes:
+      missing: a tear is asserted clinically but no imaging report is present
+      contradicted: the MRI report describes an intact meniscus
+      trap_modality: >
+        Only a knee X-ray is on file. This is a very common real pattern and is
+        insufficient for a meniscal tear. All three seed patients in cases/ have
+        a knee X-ray (SNOMED 74016001) and no MRI.
+
+  - id: C4_conservative_therapy
+    text: >
+      The member has a history of unsuccessful conservative management comprising
+      at least six weeks of formal, in-person physical therapy completed within the
+      twelve months preceding the request.
+    type: therapy_trial
+    required: true
+    threshold:
+      duration_days: 42
+      comparator: ">="
+    modality_required: in_person         # home-based or virtual PT does NOT qualify
+    lookback_days: 365
+    evidence:
+      accepts_either:
+        - physical_therapy_notes
+        - member_claims_history
+    waived_if: W1_locked_knee
+    failure_modes:
+      missing: >
+        PT is mentioned without a duration, or was ordered but completion is never
+        documented
+      contradicted: a documented duration shorter than 42 days
+      trap_modality: PT was completed but was home-based or virtual
+      trap_temporal: qualifying PT was completed more than 12 months before the request
+      trap_distractor: qualifying PT was completed for a different joint or body region
+      trap_multi_hop: >
+        Start and end dates appear in two different notes and the duration must be
+        computed rather than read
+
+# -----------------------------------------------------------------------------
+# WAIVERS
+# -----------------------------------------------------------------------------
+waivers:
+
+  - id: W1_locked_knee
+    text: >
+      The conservative management requirement does not apply if the knee is locked
+      due to a displaced bucket-handle tear of the meniscus.
+    waives: [C4_conservative_therapy]
+    logic: all_of
+    conditions:
+      - locked_knee
+      - displaced_bucket_handle_tear
+    evidence:
+      accepts: [clinician_narrative, mri_report]
+    failure_modes:
+      trap_partial_waiver: >
+        The note describes catching or a sensation of giving way but documents
+        neither true locking nor a bucket-handle tear. The waiver must NOT fire.
+        A verifier that fires the waiver on partial evidence will wrongly approve.
+
+# -----------------------------------------------------------------------------
+# EXCLUSIONS
+# -----------------------------------------------------------------------------
+exclusions:
+
+  - id: X1_diagnostic_only
+    text: >
+      Diagnostic knee arthroscopy performed without radiologically proven pathology
+      is not covered.
+
+  - id: X2_meniscal_root_tear
+    text: >
+      Arthroscopic treatment of meniscal root tears is not covered under this policy.
+
+# -----------------------------------------------------------------------------
+# CRITERIA LOGIC
+# -----------------------------------------------------------------------------
+# Framework-neutral. States when the policy's criteria are met, NOT what a payer
+# decides. Both the provider-side and payer-side outcome views project from this.
+# -----------------------------------------------------------------------------
+criteria_logic:
+  all_met_if: >
+    every criterion is SUPPORTED, after applying any firing waiver, and no exclusion
+    applies
+  fails_if: any criterion is CONTRADICTED, or any exclusion applies
+  indeterminate_if: any criterion is MISSING and none is CONTRADICTED
+
+  # How the two product views map from the above. See data/README.md section 4.
+  projections:
+    provider_side:
+      all_met: READY_FOR_SUBMISSION
+      indeterminate: NOT_READY          # remediable: obtain the missing documents
+      fails: REVIEW_NEEDED              # not remediable by documentation
+    payer_side:
+      all_met: APPROVE
+      indeterminate: PEND
+      fails: DENY
+  projection_note: >
+    The asymmetry is the point. Payer-side, indeterminate and fails are both "not
+    approved today". Provider-side they are opposite instructions: one is a work
+    queue item, the other means stop and rethink the request.

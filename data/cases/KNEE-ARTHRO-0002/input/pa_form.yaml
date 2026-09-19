@@ -1,0 +1,102 @@
+# =============================================================================
+# SUBMITTED PRIOR AUTHORISATION REQUEST: KNEE-ARTHRO-0002
+# =============================================================================
+# This file plus input/notes/ is the CASE-SPECIFIC input to the verifier.
+#
+# It is NOT the complete input. The verifier also requires the applicable POLICY,
+# resolved from member.plan_id + requested_service.service_key + submitted_date via
+# pa_requirements/ and then policies/. See data/README.md section 3.
+#
+# Everything under gold/ is hidden from the verifier.
+#
+# ATTESTATION AT4 IS AN OVER-CLAIM. Nothing in the enclosed record corroborates it.
+# Note also what is NOT in `enclosures`: no therapy documentation and no MRI report.
+# The gap between what the form claims and what the envelope contains is the point.
+#
+# Path convention: all paths are relative to the CASE ROOT.
+# =============================================================================
+
+form_type: prior_authorisation_request
+submitted_date: 2015-10-28
+
+member:
+  name: Gianna Kling
+  member_id: SYN-C2128123
+  dob: 1991-08-02
+  sex: F
+  plan: Aetna Commercial PPO
+  plan_id: AETNA-COMMERCIAL-01
+
+requesting_provider:
+  name: P. Lindqvist, MD
+  specialty: Orthopaedic Surgery
+  practice: Boston Sports Orthopaedics
+  npi: SYN-0000002
+
+requested_service:
+  description: Arthroscopic partial medial meniscectomy, right knee
+  service_key: knee_arthroscopy
+  laterality: right
+  setting: outpatient day case
+  proposed_date: 2015-11-18
+  urgency: routine
+
+diagnosis:
+  primary:
+    description: Tear of meniscus of knee, right
+    snomed: "239720000"
+  onset_date: 2015-09-16
+
+# -----------------------------------------------------------------------------
+# PROVIDER ATTESTATIONS
+# -----------------------------------------------------------------------------
+
+attestations:
+
+  - id: AT1
+    text: >
+      The patient has persistent right knee pain with recurrent mechanical catching
+      that has not improved since the index injury.
+
+  - id: AT2
+    text: >
+      Plain radiographs demonstrate a structurally normal knee with no degenerative
+      disease.
+
+  - id: AT3
+    text: >
+      Clinical examination is consistent with a medial meniscal tear, with a positive
+      McMurray's manoeuvre reproducible on serial examination.
+
+  - id: AT4
+    text: >
+      The patient completed a course of physical therapy for the right knee without
+      relief of her symptoms.
+
+  - id: AT5
+    text: >
+      Non-operative management has been exhausted and arthroscopic intervention is
+      now indicated.
+
+# -----------------------------------------------------------------------------
+# ENCLOSED DOCUMENTATION
+# -----------------------------------------------------------------------------
+# Note the absences. No therapy records. No advanced imaging.
+# -----------------------------------------------------------------------------
+
+enclosures:
+  - input/notes/2015-09-16-ed-visit.md
+  - input/notes/2015-10-02-ortho-consult.md
+  - input/notes/2015-10-28-ortho-followup.md
+
+enclosures_not_provided:
+  - physical therapy notes or discharge summary
+  - advanced imaging report of the right knee
+
+records_scope:
+  episode_start: 2015-09-16
+  episode_end: 2015-10-28
+  records_cover: right knee episode from index injury to date of request
+  is_complete_chart: false
+
+prior_authorisations_referenced: []

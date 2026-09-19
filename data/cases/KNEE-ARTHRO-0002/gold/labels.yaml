@@ -1,0 +1,322 @@
+# =============================================================================
+# GOLD LABELS: KNEE-ARTHRO-0002
+# =============================================================================
+# Derived from ledger.yaml `documentation_state`, NOT from `clinical_truth`.
+# This case is where those two diverge. See generation_plan.yaml and ledger.yaml.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0002
+policy_id: PA-KNEE-ARTHRO-001
+policy_version: 1.0.0
+labelled_by: hand-authored reference case
+labelled_date: 2026-08-30
+
+# -----------------------------------------------------------------------------
+# STEP 1 - POLICY RESOLUTION
+# -----------------------------------------------------------------------------
+policy_resolution:
+  resolved_from:
+    plan_id: AETNA-COMMERCIAL-01
+    service_key: knee_arthroscopy
+    request_date: 2015-10-28
+  requires_prior_auth: true
+  requires_coverage_review: null
+  requirement_effective_from: 2012-01-01
+  gate_result: AUTH_REQUIRED
+  governing_policy: PA-KNEE-ARTHRO-001
+
+# -----------------------------------------------------------------------------
+# STEP 2 - CRITERION LABELS
+# -----------------------------------------------------------------------------
+
+criteria:
+
+  - id: C1_symptoms
+    label: SUPPORTED
+    evidence:
+      ledger: [A002]
+      notes:
+        - file: input/notes/2015-10-02-ortho-consult.md
+          locator: "catching sensation ... the joint snagging on something as she moves"
+        - file: input/notes/2015-10-28-ortho-followup.md
+          locator: "The catching has not improved ... two or three times a week"
+    reasoning: >
+      Pain and a mechanical symptom are both documented, and the catching is
+      corroborated across two visits by the same author with consistent examination
+      findings. Catching is explicitly named as a qualifying mechanical symptom in the
+      policy alongside locking and giving way.
+
+  - id: C2_oa_severity
+    label: SUPPORTED
+    evidence:
+      ledger: [A004]
+      notes:
+        - file: input/notes/2015-09-16-ed-visit.md
+          locator: "Kellgren-Lawrence grade 0"
+    reasoning: Grade 0 is within the grade 0-2 allowance and is stated explicitly.
+
+  - id: C3_radiologic_confirmation
+    label: MISSING
+    evidence:
+      ledger: [A007, A004]
+      notes:
+        - file: input/notes/2015-09-16-ed-visit.md
+          locator: >
+            "the menisci and cruciate ligaments are not assessable on plain
+            radiography ... cross-sectional imaging would be required"
+    reasoning: >
+      The pathology being treated is a meniscal tear, for which the policy requires
+      MRI confirmation specifically. No MRI was performed, requested, or referenced
+      anywhere in the record.
+
+      The only imaging on file is a plain radiograph, and its own report states the
+      menisci cannot be assessed on that modality. So the record does not merely lack
+      the required study, it affirmatively says the study it does contain cannot
+      answer the question.
+
+      MISSING rather than CONTRADICTED: nothing in the record demonstrates that the
+      meniscus is intact. The required evidence is simply absent.
+    difficulty: medium
+    exercises: [trap_modality]
+    expected_error: >
+      Marking SUPPORTED because an imaging study exists and clinical suspicion is
+      strong. The presence of imaging is not the presence of the RIGHT imaging.
+
+  - id: C4_conservative_therapy
+    label: MISSING
+    evidence:
+      ledger: [E004, E005, A005]
+      notes:
+        - file: input/notes/2015-09-16-ed-visit.md
+          locator: "Physiotherapy referral placed today"
+          establishes: a referral was made, nothing more
+        - file: input/notes/2015-10-02-ortho-consult.md
+          locator: >
+            "doing exercises at home ... not entirely sure how the rest of the course
+            is meant to be arranged"
+          establishes: doubt about supervision and about whether a course was arranged
+        - file: input/notes/2015-10-28-ortho-followup.md
+          locator: "She has not brought any paperwork from the therapy department"
+          establishes: absence of therapy documentation, stated in the record itself
+    reasoning: >
+      The criterion requires at least 42 days of formal in-person physical therapy
+      within 12 months. The record establishes none of the four necessary components.
+
+      Duration. No note states a start-to-finish duration or a session count. A
+      referral date exists but no completion date appears anywhere, so no interval can
+      be computed. Contrast KNEE-ARTHRO-0001, where both endpoints were present in
+      different notes and the computation was possible.
+
+      Modality. Actively doubtful rather than merely absent. She is described as doing
+      exercises at home, and the orthopaedic surgeon twice advises her to arrange a
+      properly supervised course, which implies he does not believe one is underway.
+
+      Completion. The final note records that she brought no therapy paperwork.
+
+      MISSING rather than CONTRADICTED: no enclosed document states a duration that
+      falls short, or states that the programme was home-based rather than
+      supervised. The reviewer cannot establish the criterion either way, which is
+      precisely what MISSING means.
+    clinical_truth_divergence:
+      clinical_truth: NOT_MET
+      detail: >
+        The underlying careplan really ran 30 days and really was home-based, so
+        clinically the criterion fails outright. That is invisible to the verifier and
+        must NOT be labelled CONTRADICTED. A verifier answering CONTRADICTED here has
+        guessed correctly about the world while reasoning incorrectly about the
+        document, and should be scored wrong.
+    difficulty: high
+    exercises: [trap_modality, missing_documentation, provider_over_claim]
+
+# -----------------------------------------------------------------------------
+# STEP 3 - WAIVERS
+# -----------------------------------------------------------------------------
+
+waivers:
+  - id: W1_locked_knee
+    state: NOT_FIRED
+    evidence:
+      ledger: [A003, A007]
+      notes:
+        - file: input/notes/2015-10-02-ortho-consult.md
+          locator: >
+            "felt stuck for a moment ... freed itself after a second or two without
+            her having to do anything to it"
+        - file: input/notes/2015-10-02-ortho-consult.md
+          locator: >
+            "it was transient and self-resolving, and I would not characterise it as
+            true locking"
+    reasoning: >
+      The waiver requires BOTH true locking AND a displaced bucket-handle tear.
+
+      Neither holds. The single episode was transient and self-resolving, and the
+      treating surgeon states explicitly in the record that he would not characterise
+      it as true locking. Separately, there is no MRI at all, so tear morphology is
+      entirely unknown and a bucket-handle configuration cannot be established.
+    scoring_note: >
+      CRITICAL. Unlike KNEE-ARTHRO-0001, firing this waiver here CHANGES THE OUTCOME.
+      A wrongly fired waiver removes C4 from consideration and, combined with a
+      wrongly SUPPORTED C3, flips NOT_READY to READY_FOR_SUBMISSION. Score this
+      waiver explicitly.
+    difficulty: high
+    exercises: [trap_partial_waiver]
+
+# -----------------------------------------------------------------------------
+# STEP 4 - EXCLUSIONS
+# -----------------------------------------------------------------------------
+
+exclusions:
+  - id: X1_diagnostic_only
+    state: NOT_SCORED
+    reasoning: >
+      Arguably triggered, since pathology is not radiologically proven. Deliberately
+      not scored as an independent exclusion because the correct real-world action is
+      to pend for the missing MRI rather than deny outright, and that action is
+      already captured by the C3 MISSING verdict.
+      Recorded rather than silently dropped so the ambiguity is auditable.
+  - id: X2_meniscal_root_tear
+    state: NOT_TRIGGERED
+
+# -----------------------------------------------------------------------------
+# STEP 5 - ATTESTATION CHECK
+# -----------------------------------------------------------------------------
+
+attestation_check:
+
+  - id: AT1
+    verdict: SUPPORTED
+  - id: AT2
+    verdict: SUPPORTED
+  - id: AT3
+    verdict: SUPPORTED
+
+  - id: AT4
+    verdict: NOT_SUPPORTED
+    claim: >
+      "The patient completed a course of physical therapy for the right knee without
+      relief of her symptoms."
+    reasoning: >
+      THE MOST IMPORTANT SINGLE JUDGEMENT IN THIS CASE.
+
+      The word "completed" is unsupported by anything in the envelope. What the record
+      establishes is that a referral was placed, that the patient was doing exercises
+      at home, that her surgeon twice advised her to arrange a properly supervised
+      course, and that she brought no therapy paperwork to her final visit. The final
+      note contradicts the notion that documentation of a completed course exists.
+
+      This is not necessarily dishonesty on the provider's part. It is the ordinary
+      way real prior authorisation requests over-state the record, and it is the
+      reason attestations must be verified rather than trusted.
+    consequence: >
+      A verifier that accepts AT4 at face value will mark C4 SUPPORTED and approve.
+      This is the most consequential realistic failure mode in automated prior
+      authorisation, and it is the primary thing this case measures.
+
+  - id: AT5
+    verdict: NOT_SUPPORTED
+    claim: '"Non-operative management has been exhausted"'
+    reasoning: >
+      Depends entirely on AT4. Since no supervised course is documented as having been
+      delivered, non-operative management cannot be said to have been exhausted.
+      Scored separately from AT4 so that a verifier catching one but not the other
+      gets partial credit.
+
+# -----------------------------------------------------------------------------
+# OUTCOME
+# -----------------------------------------------------------------------------
+
+# PROVIDER-SIDE. Both views are derived projections of the criterion labels above.
+# provider_view is the product. payer_view is not scored.
+
+outcome:
+
+  provider_view:
+    documentation_status: NOT_READY
+    remediable: true
+    reasoning: >
+      Two criteria are MISSING and none is CONTRADICTED. Both gaps are documentation
+      gaps rather than substantive failures, which means they can be closed and the
+      packet resubmitted. Nothing in the record establishes that this patient fails
+      the policy; the evidence required to decide simply is not in the envelope.
+    remediation:
+      - criterion: C4_conservative_therapy
+        action: >
+          Obtain the physical therapy notes or discharge summary. It must document
+          dates of attendance, the number of supervised sessions, the setting, and
+          the response to treatment.
+        blocking: true
+        note: >
+          The policy requires at least six weeks of formal in-person therapy. Before
+          requesting these records, be aware that the referral was placed 2015-09-16
+          and the episode closed 2015-10-16, which is 30 days. If the records confirm
+          that interval, the criterion will not be met and obtaining them will convert
+          this from NOT_READY to CRITERIA_NOT_MET rather than to READY.
+      - criterion: C3_radiologic_confirmation
+        action: >
+          Obtain MRI of the right knee. The policy requires MRI specifically for
+          meniscal pathology; the existing plain radiograph does not satisfy it and
+          its own report states the menisci are not assessable on that modality.
+        blocking: true
+        note: >
+          The MRI itself requires authorisation under PA-KNEE-MRI-001 for this plan,
+          so this is a chained request rather than a simple records pull.
+      - criterion: null
+        action: >
+          Correct attestation AT4 on the form before resubmitting. As written it
+          claims the patient "completed a course of physical therapy", which the
+          enclosed records do not support.
+        blocking: false
+        note: >
+          Submitting an attestation the record does not corroborate is a common cause
+          of denial and of subsequent audit exposure. Flagging it before submission is
+          the single most useful thing this system does for a provider.
+
+    provider_message: >
+      Not ready to submit. Two required criteria cannot be verified from the enclosed
+      records, and one statement on the form is not supported by the documentation
+      behind it. See remediation.
+
+  payer_view:
+    decision: PEND
+    information_requested:
+      - Physical therapy notes or discharge summary, documenting dates of attendance,
+        number of supervised sessions, setting, and response to treatment.
+      - MRI report of the right knee confirming meniscal pathology.
+    note: >
+      Derived, not scored. Note that payer-side PEND and provider-side NOT_READY happen
+      to coincide here. They diverge in KNEE-ARTHRO-0003, where the payer denies and the
+      provider's correct action is not to submit at all.
+
+  criterion_label_counts:
+    SUPPORTED: 2
+    MISSING: 2
+    CONTRADICTED: 0
+
+# -----------------------------------------------------------------------------
+# EVALUATION NOTES
+# -----------------------------------------------------------------------------
+
+evaluation_notes:
+  role_in_corpus: >
+    Primary test of documentation-sufficiency reasoning and of resistance to provider
+    attestations. Paired with KNEE-ARTHRO-0001 on the waiver: there the waiver error
+    is harmless, here it is decisive.
+  expected_failure_modes:
+    - Accepting AT4 at face value and marking C4 SUPPORTED.
+    - Marking C3 SUPPORTED because an imaging study of some kind exists.
+    - >
+      Firing W1 on the transient stuck episode, despite the treating surgeon
+      explicitly rejecting that characterisation in the same paragraph.
+    - >
+      Marking C4 CONTRADICTED. Tempting, and it happens to match clinical reality, but
+      wrong as a verdict on this submission. Any verifier reaching CONTRADICTED here
+      is reasoning about the patient rather than about the record.
+    - Denying rather than pending, when both gaps are remediable.
+  variant_to_generate_later:
+    id: KNEE-ARTHRO-0002-B
+    change: >
+      Enclose a therapy discharge summary stating the true 30-day home-based course.
+      Identical clinical facts, but C4 becomes CONTRADICTED and the outcome becomes
+      REVIEW_NEEDED. The pair isolates documentation state as the only moving part, which makes
+      it the cleanest available probe of whether a verifier understands the
+      MISSING/CONTRADICTED boundary.

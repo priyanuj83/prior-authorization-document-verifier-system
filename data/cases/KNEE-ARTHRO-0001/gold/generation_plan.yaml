@@ -1,0 +1,125 @@
+# =============================================================================
+# GENERATION PLAN: KNEE-ARTHRO-0001
+# =============================================================================
+# READ THIS FIRST if you are writing the generator.
+#
+# The intended labels below are INPUTS to note generation, never outputs of it.
+# Nothing downstream infers a label from the notes. This is what keeps the corpus
+# free of label noise, and it is the single most important design rule here.
+#
+# Two hard rules for any generator consuming this file:
+#   1. The note-writing model MUST NOT see policies/PA-KNEE-ARTHRO-001.yaml.
+#      If it sees the policy it will write notes in the policy's own vocabulary
+#      and the verification task collapses into paraphrase matching.
+#   2. The note-writing model MUST NOT see this file's `intended_label` fields.
+#      It receives only the ledger plus the `realization` directives.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0001
+corpus_version: 0.1.0
+generator: hand-authored reference case
+seed: null
+
+patient:
+  synthea_patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  name: Ethan766 Goyette777
+  sex: M
+  birthdate: 1980-04-29
+  age_at_request: 33
+
+request:
+  requested_service: Arthroscopic partial meniscectomy, left knee
+  service_key: knee_arthroscopy
+  request_date: 2014-04-16
+  submitting_provider: Orthopaedic Associates of Middlesex (synthetic)
+
+plan_resolution:
+  synthea_payer_id: d47b3510-2895-3b70-9897-342d681c769d
+  payer_name: Humana
+  plan_id: HUMANA-COMMERCIAL-01
+  requires_prior_auth: true
+  requirement_effective_from: 2013-06-01
+  request_date_within_effect: true
+  governing_policy: PA-KNEE-ARTHRO-001
+
+# -----------------------------------------------------------------------------
+# INTENDED LABELS
+# -----------------------------------------------------------------------------
+intended_documentation_status: READY_FOR_SUBMISSION
+intended_payer_view: APPROVE          # derived, not scored
+
+criteria:
+
+  - id: C1_symptoms
+    intended_label: SUPPORTED
+    realization: narrative_plain
+    directive: >
+      Document knee pain and true mechanical locking in the orthopaedic
+      consultation note. Use ordinary clinical phrasing.
+    forbidden_vocabulary: [mechanical symptoms, criterion, policy]
+
+  - id: C2_oa_severity
+    intended_label: SUPPORTED
+    realization: radiology_report_grade
+    directive: >
+      The plain radiograph report states Kellgren-Lawrence grade 1. Consistent with
+      a 33-year-old with no osteoarthritis diagnosis in the structured record.
+
+  - id: C3_radiologic_confirmation
+    intended_label: SUPPORTED
+    realization: authored_mri_report
+    directive: >
+      Author an MRI report describing a medial meniscus tear. Required because the
+      structured record contains only a knee X-ray, which does not satisfy this
+      criterion for a meniscal tear.
+    note: >
+      The MRI itself needed authorisation under PA-KNEE-MRI-001. Modelled as an
+      already-approved prior request, which is realistic and lets the two policies
+      chain.
+
+  - id: C4_conservative_therapy
+    intended_label: SUPPORTED
+    realization: multi_hop_across_two_notes
+    directive: >
+      Do NOT state the duration anywhere. The start date appears only in the
+      emergency department note as a referral, and the end date appears only in the
+      physical therapy discharge summary. The verifier must locate both and compute
+      60 days.
+      Establish in-person modality indirectly, by describing attendance at an
+      outpatient clinic, never by using the word "in-person".
+    forbidden_vocabulary:
+      - conservative therapy
+      - conservative management
+      - six weeks
+      - 6 weeks
+      - failed therapy
+      - in-person
+
+waivers:
+  - id: W1_locked_knee
+    intended_state: NOT_FIRED
+    directive: >
+      The knee locks intermittently, but do NOT describe a displaced bucket-handle
+      tear. The waiver requires both conditions, so it must not fire. C4 is satisfied
+      on its own merits regardless, so a verifier that wrongly fires the waiver still
+      reaches READY_FOR_SUBMISSION here. That is intentional: this case does not punish
+      the error, it just records the state. KNEE-ARTHRO-0002 is where it bites.
+
+# -----------------------------------------------------------------------------
+# DIFFICULTY
+# -----------------------------------------------------------------------------
+difficulty:
+  overall: medium
+  drivers:
+    - C4 requires two-hop retrieval plus date arithmetic
+    - C4 modality is implied by setting rather than stated
+    - no note uses any policy vocabulary
+  not_exercised:
+    - contradiction detection
+    - waiver firing
+    - distractor rejection
+  purpose: >
+    This is the corpus's clean-approval reference. Its main job is to measure the
+    FALSE POSITIVE rate. A verifier that flags criteria as MISSING whenever the
+    phrasing is unfamiliar will fail here, and that failure mode is invisible in a
+    corpus made only of defective cases.

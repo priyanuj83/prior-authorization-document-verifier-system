@@ -1,0 +1,317 @@
+# =============================================================================
+# EVIDENCE LEDGER: KNEE-ARTHRO-0001
+# =============================================================================
+# The ledger is the CANONICAL TRUTH for this case. Everything that is true about
+# this patient in this episode is here, and nothing that is not here is true.
+#
+# Why it exists: once the note generator authors facts that Synthea does not
+# contain (symptom phenomenology, imaging grades, therapy modality), the Synthea
+# timeline is no longer the ground truth. The ledger is the union of Synthea events
+# and authored events.
+#
+#   ledger        = authoritative facts, each with a stable id
+#   notes/*.md    = a deliberately LOSSY, OBFUSCATED rendering of the ledger
+#   labels.yaml   = computed against the LEDGER, never against the notes
+#
+# The gap between the ledger and the notes IS the task difficulty.
+# The verifier sees only the notes and pa_form.yaml. Never this file.
+# =============================================================================
+
+case_id: KNEE-ARTHRO-0001
+ledger_version: 1.0.0
+
+patient:
+  synthea_patient_id: 34382e29-6854-4353-85be-802262bfea6e
+  name: Ethan766 Goyette777
+  sex: M
+  birthdate: 1980-04-29
+  city: Framingham
+  state: Massachusetts
+
+episode:
+  laterality: left
+  index_date: 2014-01-31
+  request_date: 2014-04-16
+
+# -----------------------------------------------------------------------------
+# PACKET SCOPE
+# -----------------------------------------------------------------------------
+# This case is an EVIDENCE PACKET for one prior authorisation episode. It is NOT
+# the patient's complete chart. Recording what was excluded, and why, is what makes
+# the packet auditable: a reviewer can tell the difference between a fact the
+# generator forgot and a fact the generator deliberately withheld.
+# -----------------------------------------------------------------------------
+
+scope:
+  episode_window:
+    start: 2014-01-31
+    end: 2014-04-16
+  therapy_lookback_window:
+    start: 2013-04-16
+    end: 2014-04-16
+    applies_to: [C4_conservative_therapy]
+    note: >
+      The 365-day lookback is a property of C4 specifically, not of the packet. Other
+      criteria have no lookback and may legitimately rely on older evidence.
+
+  patient_chart_totals:
+    conditions_lifetime: 4
+    encounters_lifetime: 8
+    observations_lifetime: 89
+    careplans_lifetime: 1
+    note: >
+      This patient is a genuinely light utiliser. His entire lifetime chart is the
+      knee episode plus three viral sinusitis visits, so episode scoping excludes
+      almost nothing here. Contrast KNEE-ARTHRO-0003, whose patient has 12 conditions
+      and 247 observations.
+
+  excluded_from_packet:
+    - date: 2013-10-06
+      description: Viral sinusitis (disorder)
+      in_therapy_lookback: true
+      reason: clinically unrelated to the knee episode
+    - date: 2012-06-20
+      description: Viral sinusitis (disorder)
+      in_therapy_lookback: false
+      reason: outside lookback and clinically unrelated
+    - date: 2019-07-19
+      description: Viral sinusitis (disorder)
+      in_therapy_lookback: false
+      reason: >
+        POST-DATES THE REQUEST. Must never appear in the packet. Leaking
+        post-request events is the most damaging possible scoping bug, because it
+        gives the verifier information the real reviewer could not have had.
+
+  distractor_content:
+    present: false
+    known_limitation: >
+      Every document in this packet is relevant to the request. Real charts are mostly
+      noise, and locating the therapy discharge summary among dozens of irrelevant
+      documents is a substantial part of the real task. As it stands this case measures
+      verification but barely measures retrieval.
+      This patient has almost no unrelated history to draw on, so adding realistic
+      distractors here would mean authoring them. KNEE-ARTHRO-0002 and -0003 have
+      genuine in-window unrelated history and are the better places to add distractor
+      documents first.
+
+# -----------------------------------------------------------------------------
+# EVENTS
+# -----------------------------------------------------------------------------
+# provenance: synthea  = copied verbatim from synthea_data/, truthful to the extract
+# provenance: authored = invented by the corpus author; Synthea cannot express it
+# -----------------------------------------------------------------------------
+
+events:
+
+  - id: E001
+    date: 2014-01-31
+    type: encounter
+    provenance: synthea
+    source:
+      file: synthea_data/encounters.csv
+      encounter_id: f874906b-5b9b-4d72-b3c2-f89b07149221
+    encounter_class: emergency
+    code: "50849002"
+    description: Emergency room admission (procedure)
+    payer_id: d47b3510-2895-3b70-9897-342d681c769d
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E002
+    date: 2014-01-31
+    type: condition_onset
+    provenance: synthea
+    source:
+      file: synthea_data/conditions.csv
+      line: 6487
+    code: "239720000"
+    description: Tear of meniscus of knee
+    stop: 2014-04-01
+    rendered_in: [input/notes/2014-01-31-ed-visit.md, input/notes/2014-02-12-ortho-consult.md]
+
+  - id: E003
+    date: 2014-01-31
+    type: procedure
+    provenance: synthea
+    source:
+      file: synthea_data/procedures.csv
+      line: 26331
+      raw_timestamp: 2014-02-01T01:18:15Z
+    code: "74016001"
+    description: Knee X-ray
+    note: >
+      Raw UTC timestamp falls on 2014-02-01 but local Massachusetts time is the
+      evening of 2014-01-31. Local date used throughout for consistency with the
+      conditions and careplans tables, which are date-only.
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E004
+    date: 2014-01-31
+    type: careplan_start
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 2656
+      careplan_id: 9a6c004e-4cf9-4856-bd66-641286170f31
+    code: "91251008"
+    description: Physical therapy procedure
+    reason_code: "239720000"
+    reason_description: Tear of meniscus of knee
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: E005
+    date: 2014-04-01
+    type: careplan_stop
+    provenance: synthea
+    source:
+      file: synthea_data/careplans.csv
+      line: 2656
+      careplan_id: 9a6c004e-4cf9-4856-bd66-641286170f31
+    description: Physical therapy procedure completed
+    derived:
+      duration_days: 60
+      computation: 2014-04-01 minus 2014-01-31
+      meets_42_day_threshold: true
+    rendered_in: [input/notes/2014-04-01-pt-discharge.md]
+
+  # ---------------------------------------------------------------------------
+  # AUTHORED EVENTS
+  # ---------------------------------------------------------------------------
+
+  - id: A001
+    date: 2014-01-31
+    type: symptom
+    provenance: authored
+    description: >
+      Twisting injury of the left knee sustained playing basketball, with immediate
+      pain and inability to continue.
+    rationale: Synthea records the diagnosis but no mechanism of injury.
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: A002
+    date: 2014-02-12
+    type: symptom
+    provenance: authored
+    description: >
+      True mechanical locking of the left knee, occurring several times weekly,
+      requiring the patient to manually extend the leg to unlock it.
+    satisfies_criterion: C1_symptoms
+    is_mechanical_symptom: true
+    rationale: Synthea has no representation of locking, catching or giving way.
+    rendered_in: [input/notes/2014-02-12-ortho-consult.md]
+
+  - id: A003
+    date: 2014-01-31
+    type: imaging_grading
+    provenance: authored
+    modality: xray
+    body_site: left knee
+    findings:
+      kellgren_lawrence_grade: 1
+      joint_space: preserved
+      acute_fracture: false
+    satisfies_criterion: C2_oa_severity
+    rationale: >
+      Synthea records that a knee X-ray occurred (E003) but carries no findings.
+      Grade 1 derived per grounding heuristic: age 33, no osteoarthritis diagnosis
+      anywhere in this patient's conditions.
+    rendered_in: [input/notes/2014-01-31-ed-visit.md]
+
+  - id: A004
+    date: 2014-04-09
+    type: imaging
+    provenance: authored
+    modality: mri
+    body_site: left knee
+    findings:
+      medial_meniscus: >
+        Oblique tear of the posterior horn of the medial meniscus extending to the
+        inferior articular surface.
+      displaced_bucket_handle_tear: false
+      lateral_meniscus: intact
+      cruciate_ligaments: intact
+      cartilage: Outerbridge grade 1 changes of the medial femoral condyle
+    satisfies_criterion: C3_radiologic_confirmation
+    prior_authorisation:
+      required: true
+      policy: PA-KNEE-MRI-001
+      qualifying_branch: B1_persistent_after_conservative
+      status: approved
+      approved_date: 2014-04-04
+    rationale: >
+      No knee MRI exists anywhere in synthea_data. Authored because the arthroscopy
+      policy requires MRI confirmation for a meniscal tear and an X-ray does not
+      satisfy it.
+    rendered_in: [input/notes/2014-04-09-mri-report.md]
+
+  - id: A005
+    date_range:
+      start: 2014-01-31
+      end: 2014-04-01
+    type: therapy_detail
+    provenance: authored
+    description: Attributes of the physical therapy course recorded in E004 and E005.
+    attributes:
+      modality: in_person
+      setting: outpatient clinic
+      frequency: twice weekly
+      sessions_attended: 16
+      body_region: left knee
+      response: no sustained improvement
+      adherence: good
+    satisfies_criterion: C4_conservative_therapy
+    rationale: >
+      Synthea careplans carry dates and a reason but no modality, attendance or
+      response. Modality is the highest-value authored attribute in the corpus
+      because the policy text turns on in-person versus home or virtual.
+    rendered_in: [input/notes/2014-04-01-pt-discharge.md]
+
+  - id: A006
+    date: 2014-04-16
+    type: clinical_assessment
+    provenance: authored
+    description: >
+      Surgical plan for left knee arthroscopy with partial medial meniscectomy.
+    rendered_in: [input/notes/2014-04-16-ortho-followup.md]
+
+# -----------------------------------------------------------------------------
+# CRITERION TRUTH TABLE
+# -----------------------------------------------------------------------------
+# What is TRUE per the ledger. labels.yaml derives from this, not from the notes.
+# -----------------------------------------------------------------------------
+
+criterion_truth:
+
+  C1_symptoms:
+    truth: MET
+    basis: [A002]
+    detail: Pain plus true locking, both documented.
+
+  C2_oa_severity:
+    truth: MET
+    basis: [A003]
+    detail: Kellgren-Lawrence grade 1, within the grade 0-2 allowance.
+
+  C3_radiologic_confirmation:
+    truth: MET
+    basis: [A004]
+    detail: MRI confirms a medial meniscus tear. Correct modality for this pathology.
+
+  C4_conservative_therapy:
+    truth: MET
+    basis: [E004, E005, A005]
+    detail: >
+      60 days of in-person outpatient physical therapy directed at the left knee,
+      completed 2014-04-01, which is 15 days before the request and well inside the
+      365-day lookback. Exceeds the 42-day threshold.
+
+  W1_locked_knee:
+    truth: NOT_APPLICABLE
+    basis: [A002, A004]
+    detail: >
+      Locking is present but A004 explicitly records no displaced bucket-handle tear.
+      The waiver requires both conditions, so it does not fire. C4 is independently
+      satisfied.
+
+  exclusions:
+    X1_diagnostic_only: NOT_TRIGGERED
+    X2_meniscal_root_tear: NOT_TRIGGERED

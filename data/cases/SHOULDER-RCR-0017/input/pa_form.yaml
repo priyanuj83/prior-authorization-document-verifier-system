@@ -1,0 +1,49 @@
+# SUBMITTED PRIOR AUTHORISATION REQUEST: SHOULDER-RCR-0017
+# Generated packet. This file plus input/notes/ is the CASE-SPECIFIC input.
+# The applicable policy is resolved from member.plan_id + requested_service.service_key + submitted_date.
+# gold/ is hidden from the verifier.
+
+form_type: prior_authorisation_request
+submitted_date: '2017-01-08'
+generator: template-v0.3
+member:
+  name: Aleisha Douglas
+  member_id: SYN-8E075015
+  dob: '1976-08-07'
+  sex: F
+  plan: Medicare fee-for-service
+  plan_id: MEDICARE-FFS-01
+requesting_provider:
+  name: R. Danvers, MD
+  specialty: Orthopaedic Surgery
+  practice: Orthopaedic Associates of Middlesex
+  npi: SYN-0000001
+requested_service:
+  description: Rotator cuff repair, left shoulder
+  service_key: rotator_cuff_repair
+  laterality: left
+  setting: outpatient
+  proposed_date: '2017-01-29'
+  urgency: routine
+diagnosis:
+  primary:
+    description: Injury of tendon of the rotator cuff of shoulder
+    snomed: '307731004'
+  onset_date: '2016-10-25'
+attestations:
+- id: AT1
+  text: The patient has persistent left shoulder pain with mechanical catching.
+- id: AT2
+  text: Cuff tear is suspected on clinical examination of the left shoulder.
+- id: AT3
+  text: The patient completed a supervised outpatient physiotherapy course for the left shoulder,
+    attending twice weekly, without resolution. The therapy discharge summary is enclosed.
+enclosures:
+- input/notes/2016-10-25-ed-visit.md
+- input/notes/2016-11-06-ortho-consult.md
+- input/notes/2016-12-24-pt-discharge.md
+- input/notes/2017-01-08-ortho-followup.md
+records_scope:
+  episode_start: '2016-10-25'
+  episode_end: '2017-01-08'
+  is_complete_chart: false
