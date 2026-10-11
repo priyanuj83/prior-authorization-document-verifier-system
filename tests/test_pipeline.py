@@ -95,6 +95,16 @@ def test_pipeline_placeholder_verifier_yields_documentation_incomplete() -> None
     assert result.overall_status is CaseStatus.DOCUMENTATION_INCOMPLETE
     assert result.criteria
     assert all(item.label.value == "MISSING" for item in result.criteria)
+    assert result.retrieval_traces
+    assert result.attestation_checks
+    assert all(item.verdict is None for item in result.attestation_checks)
+    hint_text = " ".join(trace.hints.concept for trace in result.retrieval_traces)
+    assert "discharge summary is enclosed" not in hint_text
+    assert all(
+        candidate.evidence_scope.value == "SUBMITTED_PACKET"
+        for trace in result.retrieval_traces
+        for candidate in trace.evidence.merged_candidates
+    )
 
 
 def test_pipeline_uses_persisted_decomposition_and_scripted_verifier() -> None:

@@ -7,11 +7,23 @@ from src.enums.labels import (
     PolicyResolverAction,
     PolicyResolverStatus,
 )
+from src.enums.retrieval import (
+    AttestationVerdict,
+    EvidenceScope,
+    EvidenceState,
+    RetrievalChannel,
+    RetrievalFailureCategory,
+)
 
 __all__ = [
     "AtomicLabel",
+    "AttestationVerdict",
     "CaseStatus",
     "CriterionLabel",
+    "EvidenceScope",
+    "EvidenceState",
     "PolicyResolverAction",
     "PolicyResolverStatus",
+    "RetrievalChannel",
+    "RetrievalFailureCategory",
 ]

@@ -14,6 +14,7 @@ from src.requirement_models.models import (
     DecomposedCriterion,
     DecomposedPolicy,
 )
+from src.requirement_models.semantics import semantics_from_criterion
 
 
 class PlaceholderPolicyDecomposer:
@@ -29,6 +30,7 @@ class PlaceholderPolicyDecomposer:
                         criterion_id=criterion.id,
                         sub_requirement_id=f"{criterion.id}.1",
                         text=criterion.text,
+                        semantics=semantics_from_criterion(criterion),
                     ),
                 ),
             )

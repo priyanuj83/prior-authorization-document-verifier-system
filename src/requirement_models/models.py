@@ -7,8 +7,10 @@ truth for verification, not a per-case cache.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Tuple
+
+from src.requirement_models.semantics import PolicySemantics
 
 
 @dataclass(frozen=True)
@@ -16,6 +18,7 @@ class AtomicSubRequirement:
     criterion_id: str
     sub_requirement_id: str
     text: str
+    semantics: PolicySemantics = field(default_factory=PolicySemantics)
 
 
 @dataclass(frozen=True)
